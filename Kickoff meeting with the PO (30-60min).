@@ -39,7 +39,7 @@ Características base:
 - Só aplicação web - o mais responsivo possível, sem muita atenção ao detalhe no inicio;
 
 
-Controlo:
+Controlo: 
 
 - Dois tipos de fundraising
  - Os valores são fixos (ao contrário do Kickstarter) ou então são sem limite, sem capacidade de extensão de prazo, para causas como angariar livros para biblio
@@ -53,6 +53,7 @@ Controlo:
         - "Estou a recolher no local X" seria uma opção
         - Poderia ser automatizado no futuro com QR code para fazer scan aos produtos que são doados
         - Por enquanto, preencher um formulario onde diz "A pessoa X entregou Y unidades"
+- Possivelmente no futuro promover atividades de pessoas no local (fundraiser de voluntarios) ------> a pensar - low priority
 - Não seria necessário validação
 - Entidades oficiais poderiam no futuro ser verificados (Como no Twitter)
 - Sistema de feedback utilizador-criador ??? (problemas de falso feedback - criar contas falsas / falsa simpatia)
@@ -60,9 +61,17 @@ Controlo:
     - Carta
     - Telemóvel
     - Algum tipo de dado de contacto que nos permite contactar a pessoa em causa de fraude;
+Pagina da angariação:
+    - Nome
+    - Objetivo
+    - Locaçização
+    - Descrição
+    - Estado Atual
+    - Não usar mensagens privadas, tirar dúvidas por comentários
+    - Aparecer autor da iniciativa junto ao projeto
+    
 
-
-Contacto
+Contacto com o cliente
 
 - Slack - adicionar a um channel
 
@@ -73,8 +82,28 @@ Recursos
 - Gitlab - adicionar o cliente para participar nos issues
 - Se for preciso servidor para development, falar com client
 
+Contas
+
+- Consultar nao precisa de conta, doar de forma não pessoal e criar angariaçoes sim
+    - Login com conta google, etc (?) - low priority
+- Conta de admin e utilizador, sem outros niveis para já
+- Estatisticas ---> Low priorities;
+
 Vistas
 
 - Ver os fundraisers com mais atividade (Nao em quantidade mas em numero de pessoas/interaçoes)
 - Mini painel de administração simples: exemplo conseguir extrair alguma informaçao da BD como apagar angariaçoes -> prioridade baixa
+- Conseguir de alguma forma visualmente chegar ao site, por o nome da minha rua ou algo indicativo da minha localizaçao e ir logo para a minha comunidade
+    A camara esta interessada em facilidades de uso que atraem os utilizadores por serem esteticamentea apelativos.
+    Exemplo: ponho "Camara do Porto" e vai logo para a zona e mostra os fundraiseres da comunidade.
+  - Mostrar no mapa (google maps, por exemplo) os fundraisers perto da localização que se pesquisa
+  - Mapa não deve ser a unica vista, deve haver uma "Lista"
+- Staff Pick de angariações
+    
+Questoes em aberto:
+ - Moderadores
+ - Validaçao / autenticação
+ - Mostrar angariaçoes num raio de X km (???) da localização
+ 
 
+    
