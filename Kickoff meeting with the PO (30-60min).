@@ -1,7 +1,6 @@
 Importante saber: 
 
 
-
 •r	Monetização
 •r	Limite do fundraising, é suposto ser possível definir um teto para a angariação de fundos assim como angariações sem limite?
 •r	No caso de ser doação de objetos será da responsabilidade do criador da angariação de fundos ir atualizando o número de livros recebidos por exemplo?
@@ -24,3 +23,58 @@ Interview script:
 •  Questões:
 Inquirir sobre a possibilidade de diferentes tipos de fundraisers (eg, sem limite, a atingir limite, tipo kickstarter, etcs...)
 Seria interessante haver validação de entidades "oficiais" para aumentar a credibilidade do fundraising. 
+
+NOTAS:
+
+Características base:
+
+- O site nao é para ser lucrativo. A manutenção pode ser feita por: 
+ - Parceiros instituicionais (servidor da camara / conjunto de empresas - porto tech-up / etc.)
+    - Projetos da camara de apoio social - (exemplo -> camara de lisboa com um gabinete de apoio para qualquer tipo de problema social)
+ - Tirar uma pequena verba dos projetos com valores monetarios ( so mesmo se não houver opçao)
+- Trabalho voluntário
+- Ir ao site -> encontrar a minha area de residencia (areas locais, pouco abrangentes (ao nivel de freguesias sobretudo))
+- Em portugues, para Portugal;
+- O grupo decide o aspeto criativo - design, cores, layout, nome, etc; 
+- Só aplicação web - o mais responsivo possível, sem muita atenção ao detalhe no inicio;
+
+
+Controlo:
+
+- Dois tipos de fundraising
+ - Os valores são fixos (ao contrário do Kickstarter) ou então são sem limite, sem capacidade de extensão de prazo, para causas como angariar livros para biblio
+  - Data de fim
+  - Extensão de prazo se cumprido alguns objetivos, por exemplo mais de 75%, poucos dias;
+  - Se atingir o valor antes do limite de dias pode aumentar o limite se acrescentar novas features;
+    - Monetário (pagamento no futuro -> quando o objetivo mostrar provas de sucesso) -> para já, so um campo com valor numerico (imaginar que as pessoas se conhecem)
+        - Limitado pelo valor que falta para atingir o valor que falta
+    - Material
+        - O Dono vai atualizando o estado do fundraising consoante o que for recebendo
+        - "Estou a recolher no local X" seria uma opção
+        - Poderia ser automatizado no futuro com QR code para fazer scan aos produtos que são doados
+        - Por enquanto, preencher um formulario onde diz "A pessoa X entregou Y unidades"
+- Não seria necessário validação
+- Entidades oficiais poderiam no futuro ser verificados (Como no Twitter)
+- Sistema de feedback utilizador-criador ??? (problemas de falso feedback - criar contas falsas / falsa simpatia)
+- Opçoes para aumentar a credibilidade do projeto
+    - Carta
+    - Telemóvel
+    - Algum tipo de dado de contacto que nos permite contactar a pessoa em causa de fraude;
+
+
+Contacto
+
+- Slack - adicionar a um channel
+
+
+Recursos
+
+- Liberdade total em termos de tecnologia desde que seja free
+- Gitlab - adicionar o cliente para participar nos issues
+- Se for preciso servidor para development, falar com client
+
+Vistas
+
+- Ver os fundraisers com mais atividade (Nao em quantidade mas em numero de pessoas/interaçoes)
+- Mini painel de administração simples: exemplo conseguir extrair alguma informaçao da BD como apagar angariaçoes -> prioridade baixa
+
