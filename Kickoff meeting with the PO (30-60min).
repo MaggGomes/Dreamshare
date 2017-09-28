@@ -1,33 +1,3 @@
-// ----------------------------------//
-
-Importante saber: 
-
-
-•r	Monetização
-•r	Limite do fundraising, é suposto ser possível definir um teto para a angariação de fundos assim como angariações sem limite?
-•r	No caso de ser doação de objetos será da responsabilidade do criador da angariação de fundos ir atualizando o número de livros recebidos por exemplo?
-•r	Métodos de pagamento de doações por dinheiro pensados (paypal, mb, transferência, etc...)
-•r	Seria interessante haver validação de entidades "oficiais" para aumentar a credibilidade do fundraising. Por exemplo a FEUP tinha uma conta e após o envio de determinados documentos seria feita uma validação manual e a entidade ficaria certificada de modo a evitar scams.
-•r	Possibilidade de ver projetos globais (mundo todo) além da comunidade local unicamente?
-•r	Tirar dúvidas com o criador da angariação  seria feita por mensagens privadas? Estilo comentários públicos (para permitir outras pessoas com as mesmas dúvidas verem)? ou os dois?
-•r	Como agir quando há a desistência de um dos projetos. É devolvido o dinheiro?
-•d	Existe algum servidor, dominio, etc...
-•d	Preferência de Esquema de Cores?
-•d	Scope e recursos; tecnologias que podemos usar
-•e	Canal de comunicação com o produto owner – Disponibilidade do owner (quinta feira à hora da aula?)
-
-Interview script:
-
-• Apresentar o grupo;
-• Deixar o owner apresentar o projeto;
-• Verificar -> características essenciais (incluindo o nome da plataforma, pt e/ou inglês);
-            -> Existe algum servidor, dominio, etc... (recursos necessários)
-•  Questões:
-Inquirir sobre a possibilidade de diferentes tipos de fundraisers (eg, sem limite, a atingir limite, tipo kickstarter, etcs...)
-Seria interessante haver validação de entidades "oficiais" para aumentar a credibilidade do fundraising. 
-
-// ----------------------------------//
-
 NOTAS:
 
 Características base:
