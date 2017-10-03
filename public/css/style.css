@@ -25,3 +25,15 @@ body {
 .find-btn{
   background-color: green;
 }
+
+.find-btn:hover {
+  background-color: darkgreen;
+}
+
+.more-btn{
+  background-color: lightgreen;
+}
+
+.more-btn:hover{
+  background-color: green;
+}
