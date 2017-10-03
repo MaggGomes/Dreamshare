@@ -1,17 +1,30 @@
 {
   "name": "ldso",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
+  "version": "1.0.0",
+  "description": "",
+  "main": "routes/index.js",
+  "directories": {
+    "test": "tests"
   },
   "dependencies": {
-    "body-parser": "~1.17.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.3",
-    "ejs": "~2.5.6",
-    "express": "~4.15.2",
-    "morgan": "~1.8.1",
-    "serve-favicon": "~2.4.2"
-  }
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
+    "express": "^4.16.1",
+    "morgan": "^1.9.0",
+    "serve-favicon": "^2.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/TiagoGrosso/LDSO.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/TiagoGrosso/LDSO/issues"
+  },
+  "homepage": "https://gitlab.com/TiagoGrosso/LDSO#README"
 }
