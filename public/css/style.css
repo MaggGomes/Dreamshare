@@ -37,3 +37,7 @@ body {
 .more-btn:hover{
   background-color: green;
 }
+
+.progress-bar {
+  background-color: lightgreen;
+}
