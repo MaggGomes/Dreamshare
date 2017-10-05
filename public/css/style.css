@@ -6,7 +6,7 @@
 
 :root {
   --main-color: #38c668;
-  --hover-color: #359d4f;
+  --hover-color: #358d47;
 }
 
 body {
@@ -30,7 +30,7 @@ body {
 
 .jumbotron h1 {
   color: var(--main-color);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .jumbotron p {
@@ -38,7 +38,6 @@ body {
 }
 
 .campaign-category h3 {
-  text-align: left;
   color: var(--main-color);
 }
 
@@ -55,22 +54,32 @@ body {
   color: #505050;
 }
 
-.find-btn{
+.btn-primary {
   background-color: var(--main-color);
+  border: 1px solid var(--main-color);
 }
 
-.find-btn:hover {
+.btn-primary:hover {
   background-color: var(--hover-color);
+  border: 1px solid var(--hover-color);
 }
 
-.more-btn{
+.btn-secondary {
+  color: var(--main-color);
+  background-color: white;
+  border: 1px solid var(--main-color);
+}
+
+.btn-secondary:hover {
   background-color: var(--main-color);
+  border: 1px solid var(--main-color);
 }
 
-.more-btn:hover{
-  background-color: var(--hover-color);
-}
 
 .progress-bar {
   background-color: var(--main-color);
+}
+
+footer {
+  margin-top: 70px;
 }
