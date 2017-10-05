@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var campaign = require('./routes/campaign');
 var campaigns = require('./routes/campaigns');
-//var edit_campaign = require('./routes/edit_campaign');
+var edit_campaign = require('./routes/edit_campaign');
 var map = require('./routes/map');
 
 var app = express();
@@ -37,7 +37,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/campaign', campaign);
 app.use('/campaigns', campaigns);
-//app.use('/edit_campaign', edit_campaign);
+app.use('/edit_campaign', edit_campaign);
 app.use('/map', map);
 
 // catch 404 and forward to error handler
