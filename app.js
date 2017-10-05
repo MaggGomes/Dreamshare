@@ -11,6 +11,7 @@ var campaign = require('./routes/campaign');
 var campaigns = require('./routes/campaigns');
 var edit_campaign = require('./routes/edit_campaign');
 var map = require('./routes/map');
+var add_campaign = require('./routes/add_campaign');
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.use('/campaign', campaign);
 app.use('/campaigns', campaigns);
 app.use('/edit_campaign', edit_campaign);
 app.use('/map', map);
+app.use('/add_campaign', add_campaign);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
