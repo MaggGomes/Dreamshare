@@ -5,8 +5,8 @@
  */
 
 :root {
-  --main-color: #06c;
-  --accent-color: #006;
+  --main-color: #38c668;
+  --hover-color: #359d4f;
 }
 
 body {
@@ -21,7 +21,7 @@ body {
 }
 
 .navbar a {
-  color: #38c668;
+  color: var(--main-color);
 }
 
 .jumbotron {
@@ -29,7 +29,7 @@ body {
 }
 
 .jumbotron h1 {
-  color: #38c668;
+  color: var(--main-color);
   font-weight: 700;
 }
 
@@ -39,7 +39,7 @@ body {
 
 .campaign-category h3 {
   text-align: left;
-  color: #38c668;
+  color: var(--main-color);
 }
 
 @media (min-width: 992px) {
@@ -56,21 +56,21 @@ body {
 }
 
 .find-btn{
-  background-color: #38c668;
+  background-color: var(--main-color);
 }
 
 .find-btn:hover {
-  background-color: #359d4f;
+  background-color: var(--hover-color);
 }
 
 .more-btn{
-  background-color: #38c668;
+  background-color: var(--main-color);
 }
 
 .more-btn:hover{
-  background-color: #359d4f;
+  background-color: var(--hover-color);
 }
 
 .progress-bar {
-  background-color: #38c668;
+  background-color: var(--main-color);
 }
