@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
 
 /* GET show campaign page */
 router.get('/:campaignId(\\d+)', function(req, res, next) {
+
     res.render('pages/campaigns/show', { title: 'Express' });
 });
 
