@@ -5,7 +5,12 @@ var express = require('express'),
 
 /* GET campaigns page */
 router.get('/', function(req, res, next) {
-    res.render('pages/campaigns/index', { title: 'Campaigns' });
+    mongoose.model('Campaign').find({}, function(err, campaigns) {
+        if (err) throw err;
+
+        console.log(campaigns);
+        res.render('pages/campaigns/index', { campaigns: campaigns });
+    });
 });
 
 /* GET show campaign page */

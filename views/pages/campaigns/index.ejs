@@ -11,6 +11,11 @@
     <!-- Page Content -->
     <div class="container">
 
+
+        <% campaigns.forEach(function(campaign) { %>
+      <li><%= campaign.title %> - </li>
+        <% }); %>
+
           <!-- Jumbotron Header -->
           <header class="jumbotron my-4 py-3">
             <h1 class="display-3">DreamShare</h1>
