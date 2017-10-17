@@ -4,10 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
+var session = require('express-session');
 
 var db = require('./models/db');
 var campaignModel = require('./models/campaigns');
 var userModel = require('./models/users');
+var donationModel = require('./models/donations');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -25,8 +28,18 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: 'dream',
+    saveUninitialized: false,
+    resave: false,
+    maxAge: 3600000
+}));
+
+// images folder
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //app.use('/api', api); // redirect API calls
 

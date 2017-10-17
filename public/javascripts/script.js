@@ -17,6 +17,7 @@ $(document).ready(function () {
 
     /* Sign in */
     $('#signin-submit').click(function () {
+        console.log('dadsda');
         var userEmail = $('#signin-email').val();
         var userPassword = $('#signin-password').val();
 
@@ -27,7 +28,10 @@ $(document).ready(function () {
 
             if (result === '200') {
                 location.reload();
-            } else {
+            } else if (result === '500'){
+                console.log(result);
+            }else {
+                console.log('400');
                 $('#modal-message-login').html('<div class="modal-message-content">E-mail e/ou palavra-passe incorretos.</div>');
             }
         });
@@ -67,7 +71,7 @@ $(document).ready(function () {
             }, function (result) {
                 if (result === '200')
                     location.reload();
-                else            
+                else
                     $('#modal-message-register').html('<div class="modal-message-content" style="text-align: left">E-mail já se encontra em uso.</div>');
             });
     });

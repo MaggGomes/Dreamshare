@@ -5,7 +5,29 @@ var bcrypt = require('bcrypt');
 
 /* Sign in user */
 router.post('/signin', function(req, res, next) {
-    mongoose.model('User').findOne({email: req.body.email}, function(err, user) {
+
+
+
+
+
+    mongoose.model('User').findOne({email: req.body.email}, function(err, user){
+
+
+        if (!user) {
+            res.send('500');
+        } else {
+            if(bcrypt.compareSync(req.body.password, user.password)) {
+                req.session.user = user.name;
+                res.send('200');
+            } else {
+                res.send('400');
+            }
+        }
+    });
+
+
+
+    /*mongoose.model('User').findOne({email: req.body.email}, function(err, user) {
         if (err) {
             res.send('400');
         } else {
@@ -15,11 +37,21 @@ router.post('/signin', function(req, res, next) {
                 res.send('400');
             }
         }
-    });
+    });*/
 });
 
 /* Creates a new user */
 router.post('/register', function(req, res, next) {
+
+   /* req.sanitize('name').escape();
+    req.sanitize('name').trim();
+
+    var errors = req.validationErrors();
+
+    if (errors) {
+
+    }*/
+
     var hash = bcrypt.hashSync(req.body.password, 10);
 
     mongoose.model('User').create({

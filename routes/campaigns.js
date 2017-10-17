@@ -3,7 +3,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     multer  = require('multer'),
     upload = multer({
-        dest: 'uploads/campaigns/',
+        dest: 'images/campaigns/',
         fileFilter: function (req, file, cb) {
             if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
                 return cb(new Error('Only image files are allowed!'));
@@ -30,6 +30,11 @@ router.get('/:campaignId(\\d+)', function(req, res, next) {
     res.render('pages/campaigns/show', { title: 'Express' });
 });
 
+// POST donate to campaign
+router.post('/donate', function (req, res, next) {
+    res.send(req.body);
+});
+
 /* GET create campaign page */
 router.get('/create', function(req, res, next) {
     res.render('pages/campaigns/create', { title: 'Express' });
@@ -43,11 +48,11 @@ router.post('/create', upload.single('imageFile'), function (req, res, next) {
         title : req.body.title,
         description : req.body.description,
         isFunds : req.body.isFunds,
-        goodsType : req.body.goodsType,
+        goodsType : req.body.goodsType.toLowerCase(),
         goal : req.body.goal,
         endDate : req.body.endDate,
-        lat : 1, //TODO
-        lng: 1, //TODO falta api
+        lat : req.body.lat,
+        lng: req.body.lng,
         image:  req.file.path
     }, function (err, campaign) {
         if (err) {
