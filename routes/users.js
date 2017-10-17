@@ -3,14 +3,23 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+/* Sign in user */
+router.post('/signin', function(req, res, next) {
+    mongoose.model('User').findOne({email: req.body.email}, function(err, user) {
+        if (err) {
+            res.send('400');
+        } else {
+            if(bcrypt.compareSync(req.body.password, user.password)) {
+                res.send('200');
+            } else {
+                res.send('400');
+            }
+        }
+    });
 });
 
 /* Creates a new user */
 router.post('/register', function(req, res, next) {
-
     var hash = bcrypt.hashSync(req.body.password, 10);
 
     mongoose.model('User').create({
@@ -19,21 +28,9 @@ router.post('/register', function(req, res, next) {
         password : hash
     }, function (err, user) {
         if (err) {
-            res.send("There was a problem adding the information to the database.\n" + err);
+            res.send('400');
         } else {
-            //Blob has been created
-            console.log('POST creating new user: ' + user);
-            res.format({
-                //HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
-                html: function(){
-                    // Forward to success page
-                    res.redirect("/");
-                },
-                //JSON response will show the newly created blob
-                json: function(){
-                    res.json(user);
-                }
-            });
+            res.send('200');
         }
     });
 });

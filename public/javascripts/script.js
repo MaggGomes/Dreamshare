@@ -1,11 +1,75 @@
 $(document).ready(function () {
 
+    /* Cleans modal inputs */
+    $('.modal').on('hidden.bs.modal', function () {
+        $('#signin-email').val('');
+        $('#signin-password').val('');
+        $('#modal-message-login').html('');
+    });
+
     $('.btn-signin').click(function () {
         $("#login").modal();
     });
 
     $('.btn-register').click(function () {
         $("#register").modal();
+    });
+
+    /* Sign in */
+    $('#signin-submit').click(function () {
+        var userEmail = $('#signin-email').val();
+        var userPassword = $('#signin-password').val();
+
+        $.post("/users/signin", {
+                email: userEmail,
+                password: userPassword
+            }, function (result) {
+
+            if (result === '200') {
+                location.reload();
+            } else {
+                $('#modal-message-login').html('<div class="modal-message-content">E-mail e/ou palavra-passe incorretos.</div>');
+            }
+        });
+    });
+
+    /* Register */
+    $('#register-submit').click(function () {
+        var userName = $('#register-name').val();
+        var userEmail = $('#register-email').val();
+        var userPassword = $('#register-password').val();
+        var userConfirmPassword = $('#register-confirmpassword').val();
+
+        if (!/^([A-Za-z0-9]*)$/.test($("#register-name").val()) && /^\S/.test($("#register-name").val())) {
+            $('#modal-message-register').html('<div class="modal-message-content">Nome inválido. Carateres especiais como # ; > < ! - = ? * não são permitidos.</div>');
+            return;
+        }
+
+        if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($("#register-email").val())) {
+            $('#modal-message-register').html('<div class="modal-message-content">Endereço de e-mail inválido.</div>');
+            return;
+        }
+
+        if (userPassword.length < 6) {
+            $('#modal-message-register').html('<div class="modal-message-content">Palavra-passe deve ter pelo menos 6 carateres.</div>');
+            return;
+        }
+
+        if (userPassword != userConfirmPassword) {
+            $('#modal-message-register').html('<div class="modal-message-content">Palavras-passe não coincidem.</div>');
+            return;
+        }
+
+        $.post("/users/register", {
+                name: userName,
+                email: userEmail,
+                password: userPassword
+            }, function (result) {
+                if (result === '200')
+                    location.reload();
+                else            
+                    $('#modal-message-register').html('<div class="modal-message-content" style="text-align: left">E-mail já se encontra em uso.</div>');
+            });
     });
 
     /* Functions to work with menu search */
