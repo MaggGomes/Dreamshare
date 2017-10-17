@@ -30,6 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'dream',
@@ -37,6 +38,9 @@ app.use(session({
     resave: false,
     maxAge: 3600000
 }));
+
+// images folder
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // images folder
 app.use('/images', express.static(path.join(__dirname, 'images')));
