@@ -83,11 +83,10 @@ body {
 }
 
 .btn-info:hover {
-  color: var(--main-color);
-  border: 1px solid var(--main-color);
+  color: #929292;
+  border: 1px solid #929292;
   background-color: white;
 }
-
 
 .progress-bar {
   background-color: var(--main-color);
@@ -186,25 +185,25 @@ footer {
 
 .facebook {
   background-color: #3b5999;
-  border:2px solid #3b5999;
+  border: 2px solid #3b5999;
   color:#fff;
 }
 
 .facebook:hover {
   background-color: #3c4889;
-  border:2px solid #3c4889;
+  border: 2px solid #3c4889;
   color:#fff;
 }
 
 .google {
   background-color: white;
-  border:1px solid #dbdbdb;
+  border: 1px solid #dbdbdb;
   color: #949494;
 }
 
 .google:hover {
   background-color: white;
-  border:1px solid #949494;
+  border: 1px solid #949494;
   color: #949494;
 }
 
@@ -218,7 +217,10 @@ footer {
 }
 
 .useemail {
+  color: #505050;
   text-align: center;
+  font-size: large;
+  margin-top: 8px;
 }
 
 /* Menu search bar */
@@ -457,12 +459,12 @@ input[type="search"] {
 /* Small devices (tablets, 768px and up) @screen-sm-min */
 @media (min-width: 768px) {
 
-  .expandsearch-content {
-    margin-top: 4.5em;
-  }
-
   .modal-dialog {
     width: 400px;
+  }
+
+  .expandsearch-content {
+    margin-top: 4.5em;
   }
 
   .expandsearch {
@@ -472,6 +474,7 @@ input[type="search"] {
 }
 
 @media screen and (max-width: 850px) {
+
   .expandsearch-input {
     padding: 0 25% 0 10px;
   }

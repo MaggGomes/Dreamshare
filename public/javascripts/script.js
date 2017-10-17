@@ -1,4 +1,13 @@
 $(document).ready(function () {
+
+    $('.btn-signin').click(function () {
+        $("#login").modal();
+    });
+
+    $('.btn-register').click(function () {
+        $("#register").modal();
+    });
+
     /* Functions to work with menu search */
     (function (window) {
         'use strict';
@@ -102,7 +111,6 @@ $(document).ready(function () {
                 toggleSearch(event);
             }
         });
-
     })();
 });
 

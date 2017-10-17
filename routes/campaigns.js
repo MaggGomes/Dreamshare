@@ -55,7 +55,7 @@ router.post('/create', function (req, res, next) {
             });
         }
     });
-})
+});
 
 /* GET edit campaign page */
 router.get('/:campaignId(\\d+)/edit', function(req, res, next) {
