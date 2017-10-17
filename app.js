@@ -4,10 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 
 var db = require('./models/db');
 var campaignModel = require('./models/campaigns');
 var userModel = require('./models/users');
+var donationModel = require('./models/donations');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -26,8 +28,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// images folder
+app.use('/images', express.static(path.join(__dirname, 'images')));
 //app.use('/api', api); // redirect API calls
 
 app.use('/', index);

@@ -3,7 +3,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     multer  = require('multer'),
     upload = multer({
-        dest: 'uploads/campaigns/',
+        dest: 'images/campaigns/',
         fileFilter: function (req, file, cb) {
             if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
                 return cb(new Error('Only image files are allowed!'));
@@ -43,11 +43,11 @@ router.post('/create', upload.single('imageFile'), function (req, res, next) {
         title : req.body.title,
         description : req.body.description,
         isFunds : req.body.isFunds,
-        goodsType : req.body.goodsType,
+        goodsType : req.body.goodsType.toLowerCase(),
         goal : req.body.goal,
         endDate : req.body.endDate,
-        lat : 1, //TODO
-        lng: 1, //TODO falta api
+        lat : req.body.lat, //TODO
+        lng: req.body.lng, //TODO falta api
         image:  req.file.path
     }, function (err, campaign) {
         if (err) {
