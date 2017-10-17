@@ -1,6 +1,17 @@
 var express = require('express'),
     router = express.Router(),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    multer  = require('multer'),
+    upload = multer({
+        dest: 'uploads/campaigns/',
+        fileFilter: function (req, file, cb) {
+            if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+                return cb(new Error('Only image files are allowed!'));
+            }
+            cb(null, true);
+        }
+    });
+
 
 
 /* GET campaigns page */
@@ -25,15 +36,19 @@ router.get('/create', function(req, res, next) {
 });
 
 // POST create campaign
-router.post('/create', function (req, res, next) {
+router.post('/create', upload.single('imageFile'), function (req, res, next) {
     console.log(req.body);
     mongoose.model('Campaign').create({
+        owner : "59e55e72e39ea50a78152426", //TODO buscar id do user da session
         title : req.body.title,
-        isFunds : req.body.type,
         description : req.body.description,
-        qtd : req.body.qtd,
+        isFunds : req.body.isFunds,
+        goodsType : req.body.goodsType,
+        goal : req.body.goal,
         endDate : req.body.endDate,
-        location : req.body.location
+        lat : 1, //TODO
+        lng: 1, //TODO falta api
+        image:  req.file.path
     }, function (err, campaign) {
         if (err) {
             res.send("There was a problem adding the information to the database.\n" + err);

@@ -10,7 +10,7 @@
 
 <!-- Page Content -->
 <div class="container">
-    <form action="create" method="post">
+    <form action="create" method="post" encType="multipart/form-data">
         <div class="form-group row my-4 required">
             <label for="title" class="col-sm-2 col-form-label">Título</label>
             <div class="col-sm-8">
@@ -18,22 +18,33 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="funds" class="col-sm-2 col-form-label">Tipo</label>
+            <label for="isFunds" class="col-sm-2 col-form-label">Tipo</label>
             <div class="form-check form-check-inline">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="type" id="funds" value="funds"> Fundos
+                    <input class="form-check-input" type="radio" name="isFunds" id="funds" value="true"> Fundos
                 </label>
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="type" id="goods" value="goods"> Bens
+                    <input class="form-check-input" type="radio" name="isFunds" id="goods" value="false"> Bens
                 </label>
             </div>
         </div>
         <div class="form-group row">
-            <label for="qtd" class="col-sm-2 col-form-label">Quantidade</label>
+            <label for="goal" class="col-sm-2 col-form-label">Objetivo</label>
             <div class="col-sm-3 col-md-2">
-                <input class="form-control" type="number" id="qtd" name="qtd">
+                <input class="form-control" type="number" id="goal" name="goal">
+            </div>
+            <div class="col-sm-3 col-md-2">
+                <select class="form-control" name="color" onchange='otherGoodsType(this.value);'>
+                    <option>Tipo de bem</option>
+                    <option value="livros">Livros</option>
+                    <option value="roupa">Roupa</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-md-2">
+                <input class="form-control" type="text" name="goodsType" id="goodsType" style='display:none;'/>
             </div>
         </div>
         <div class="form-group row">
@@ -143,6 +154,18 @@
 <!-- /.container -->
 
 <% include ../../partials/footer %>
+<script type="text/javascript">
+    function otherGoodsType(val) {
+        var element = document.getElementById('goodsType');
+        if (val == 'outro'){
+            element.value = '';
+        element.style.display = 'block';
+    } else {
+            element.style.display = 'none';
+            element.value = val;
+        }
+    }
+</script>
 
 </body>
 

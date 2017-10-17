@@ -7,7 +7,8 @@ var userSchema = Schema(
         email: {type: String, required: true, unique: true, max:100},
         password: {type: String, required: true},
         lat: {type: Number},
-        lng: {type: Number}
+        lng: {type: Number},
+        image: {type: String},
     }
 );
 mongoose.model('User', userSchema);

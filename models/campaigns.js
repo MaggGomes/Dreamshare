@@ -13,6 +13,7 @@ var campaignSchema = Schema(
         endDate: {type: Date, required: true,},
         lat: {type: Number, required: true},
         lng: {type: Number, required: true},
+        image: {type: String, required: true},
     }
 );
 mongoose.model('Campaign', campaignSchema);
