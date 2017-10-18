@@ -5,39 +5,31 @@ var bcrypt = require('bcrypt');
 
 /* Sign in user */
 router.post('/signin', function(req, res, next) {
-
-
-
-
-
     mongoose.model('User').findOne({email: req.body.email}, function(err, user){
-
-
-        if (!user) {
-            res.send('500');
+        if (err) {
+            next(err);
         } else {
-            if(bcrypt.compareSync(req.body.password, user.password)) {
-                req.session.user = user.name;
-                res.send('200');
+            if (!user) {
+                res.send('401');
             } else {
-                res.send('400');
+                if(bcrypt.compareSync(req.body.password, user.password)) {
+                    req.session.user = user.name;
+                    req.session.email = user.email;
+                    req.session.userID = user._id;
+                    res.send('200');
+                } else {
+                    res.send('400');
+                }
             }
         }
     });
+});
 
-
-
-    /*mongoose.model('User').findOne({email: req.body.email}, function(err, user) {
-        if (err) {
-            res.send('400');
-        } else {
-            if(bcrypt.compareSync(req.body.password, user.password)) {
-                res.send('200');
-            } else {
-                res.send('400');
-            }
-        }
-    });*/
+/* Sign in user */
+router.get('/logout', function(req, res, next) {
+    req.session.destroy(function(err) {
+        res.redirect('/');
+    });
 });
 
 /* Creates a new user */

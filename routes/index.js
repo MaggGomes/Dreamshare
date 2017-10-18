@@ -3,17 +3,35 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('pages/index', { title: 'Express' });
+    if (req.session.user) {
+        userLogged = true;
+    } else {
+        userLogged = false;
+    }
+
+    res.render('pages/index', { userLogged: userLogged });
 });
 
 /* GET admin home page. */
 router.get('/admin', function(req, res, next) {
-    res.render('admin/index', { title: 'Express' });
+    if (req.session.user) {
+        userLogged = true;
+    } else {
+        userLogged = false;
+    }
+
+    res.render('admin/index', { userLogged: userLogged });
 });
 
 /* GET admin home page. */
 router.get('/admin/users', function(req, res, next) {
-    res.render('admin/users', { title: 'Express' });
+    if (req.session.user) {
+        userLogged = true;
+    } else {
+        userLogged = false;
+    }
+
+    res.render('admin/users', { userLogged: userLogged });
 });
 
 module.exports = router;

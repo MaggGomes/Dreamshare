@@ -15,7 +15,6 @@ var donationModel = require('./models/donations');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var campaigns = require('./routes/campaigns');
-var map = require('./routes/map');
 
 var app = express();
 
@@ -49,7 +48,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/campaigns', campaigns);
-app.use('/map', map);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -11,12 +11,21 @@
           <li><a href="#" id="search"><span class="glyphicon glyphicon-search menu-top"></span></a></li>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="nav-menu navbar-nav ml-auto">
+                <% if(userLogged) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/campaigns/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/logout">Sair</a>
+              </li>
+                <% } else { %>
               <li class="nav-item">
                 <a class="nav-link" href="#signin" data-toggle="modal">Entrar</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#register" data-toggle="modal">Inscreva-se</a>
               </li>
+                <% } %>
               <li class="nav-item">
                 <a class="nav-link" href="#">Ajuda</a>
               </li>

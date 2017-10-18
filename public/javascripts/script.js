@@ -28,10 +28,7 @@ $(document).ready(function () {
 
             if (result === '200') {
                 location.reload();
-            } else if (result === '500'){
-                console.log(result);
-            }else {
-                console.log('400');
+            } else {
                 $('#modal-message-login').html('<div class="modal-message-content">E-mail e/ou palavra-passe incorretos.</div>');
             }
         });
