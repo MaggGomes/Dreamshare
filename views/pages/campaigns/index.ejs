@@ -34,11 +34,11 @@
       </div>
 
     <% campaigns.forEach(function(campaign) { %>
-        <div class="col-lg-4 col-md-4 mb-4">
+        <div class="col-lg-4 col-md-4 mb-4 campaign_div">
           <div class="card">
-            <img class="card-img-top campaign_img" src="<%= campaign.image %>" alt="">
+            <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
             <div class="card-body">
-              <h4 class="card-title"><a href="campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
+              <h4 class="card-title"><a href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
               <p class="card-text"><%= campaign.description %></p>
             </div>
             <div class="card-footer">
@@ -54,10 +54,8 @@
 
          </div>
       <!-- /.row -->
-
     </div>
     <!-- /.container -->
-
    <% include ../../partials/footer %>
 
   <script>
@@ -74,9 +72,23 @@
               existingCampaigns: existingCampaigns,
               nCampaigns : 6
           }, function (result) {
-              console.log(result);
-              if (result === '200')
-
+              $.each(result, function(i, campaign){
+                  $('#more_campaigns').parent().before(
+                      '<div class="col-lg-4 col-md-4 mb-4 campaign_div">' +
+                      '<div class="card">' +
+                      '<img class="card-img-top campaign_img" src="/' +campaign.image+'" alt=""' +
+                      '<div class="card-body">' +
+                      '<h4 class="card-title"><a href="campaigns/' + campaign._id  + '" > ' + campaign.title  + '</a></h4>' +
+                      '<p class="card-text">' + campaign.description + '</p>' +
+                      '</div>' +
+                      '<div class="card-footer">'+
+                      '<p class="card-text">Vai ter Localização aqui.</p>' +
+                  '</div>'+
+                  '</div>'+
+                  '<input type="hidden" class="id_campaign" value=" '+ campaign._id +'">' +
+                      '</div>'
+                  );
+              });
           });
       });
   </script>
