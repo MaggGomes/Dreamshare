@@ -11,11 +11,6 @@
     <!-- Page Content -->
     <div class="container">
 
-
-        <% campaigns.forEach(function(campaign) { %>
-      <li><%= campaign.title %> - </li>
-        <% }); %>
-
           <!-- Jumbotron Header -->
           <header class="jumbotron my-4 py-3">
             <h1 class="display-3">DreamShare</h1>
@@ -39,19 +34,23 @@
       </div>
 
     <% campaigns.forEach(function(campaign) { %>
-      <div class="col-lg-4 col-md-4 mb-4">
+        <div class="col-lg-4 col-md-4 mb-4">
           <div class="card">
             <img class="card-img-top campaign_img" src="<%= campaign.image %>" alt="">
             <div class="card-body">
-              <h4 class="card-title"><%= campaign.title %></h4>
+              <h4 class="card-title"><a href="campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
               <p class="card-text"><%= campaign.description %></p>
             </div>
             <div class="card-footer">
-              <a href="campaigns/<%= campaign._id %>" class="btn btn-primary find-btn">Ver Mais!</a>
-            </div>
+              <p class="card-text">Vai ter Localização aqui.</p>
           </div>
+          </div>
+          <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
       </div>
     <% }); %>
+        <div  class="col-sm-12 mb-4">
+          <button id="more_campaigns" class="btn btn-secondary float-right">Ver Mais</button>
+        </div>
 
          </div>
       <!-- /.row -->
@@ -61,6 +60,26 @@
 
    <% include ../../partials/footer %>
 
+  <script>
+      $('#more_campaigns').click(function () {
+
+          existingCampaigns = [];
+
+          $('.id_campaign').each(function () {
+              existingCampaigns.push($(this).val());
+              //console.log($(this).val());
+          });
+
+          $.post("/campaigns/more", {
+              existingCampaigns: existingCampaigns,
+              nCampaigns : 6
+          }, function (result) {
+              console.log(result);
+              if (result === '200')
+
+          });
+      });
+  </script>
   </body>
 
 </html>

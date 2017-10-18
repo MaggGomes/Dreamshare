@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 
         console.log(campaigns);
         res.render('pages/campaigns/index', { campaigns: campaigns, userLogged: userLogged });
-    });
+    }).limit(6);
 });
 
 /* GET map campaigns page */
@@ -99,6 +99,17 @@ router.post('/create', upload.single('imageFile'), function (req, res, next) {
         res.send('400');
     }
 });
+
+
+/* POST get more campaigns */
+router.post('/more', function(req, res, next) {
+    mongoose.model('Campaign').find({"_id" :{"$nin" : req.body.existingCampaigns}}, function(err, campaigns) {
+        if (err) throw err;
+        console.log(campaigns);
+        res.status(200).send(campaigns);
+    }).limit(parseInt(req.body.nCampaigns));
+});
+
 
 /* GET show campaign page */
 router.get('/:campaignId', function(req, res, next) {
