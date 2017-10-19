@@ -3,6 +3,7 @@
 
 <head>
     <% include ../../partials/head %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.css" />
 </head>
 
 <body>
@@ -82,6 +83,13 @@
                 <small id="fileHelp" class="form-text text-muted">Adicione uma imagem relevante para a campanha.</small>
             </div>
         </div>
+
+        <input type="file" name="image" id="image" onchange="readURL(this);"/>
+        <div class="image_container">
+            <img id="blah" src="#" alt="your image" />
+        </div>
+        <div id="cropped_result"></div>        // Cropped image to display (only if u want)
+        <button id="crop_button">Crop</button> // Will trigger crop event
 
         <button type="submit" class="btn btn-primary">Criar campanha</button>
     </form>
@@ -163,6 +171,7 @@
 <!-- /.container -->
 
 <% include ../../partials/footer %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.js"></script>
 <script type="text/javascript">
     function otherGoodsType(val) {
         var element = document.getElementById('goodsType');
@@ -194,6 +203,57 @@
         var place = autocomplete.getPlace();
         document.getElementById('lat').value = place.geometry.location.lat();
         document.getElementById('lng').value = place.geometry.location.lng();
+    }
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result)
+            };
+            reader.readAsDataURL(input.files[0]);
+            setTimeout(initCropper, 1000);
+        }
+    }
+    function initCropper(){
+        $('#blah').cropper({
+            aspectRatio: 3 / 2,
+            viewMode : 2,
+            crop: function(e) {
+                console.log(e.detail.x);
+                console.log(e.detail.y);
+            }
+        });
+
+        // On crop button clicked
+        document.getElementById('crop_button').addEventListener('click', function(){
+            var imgurl =  cropper.getCroppedCanvas().toDataURL();
+            var img = document.createElement("img");
+            img.src = imgurl;
+            document.getElementById("cropped_result").appendChild(img);
+
+            /* ---------------- SEND IMAGE TO THE SERVER-------------------------
+
+                cropper.getCroppedCanvas().toBlob(function (blob) {
+                      var formData = new FormData();
+                      formData.append('croppedImage', blob);
+                      // Use `jQuery.ajax` method
+                      $.ajax('/path/to/upload', {
+                        method: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function () {
+                          console.log('Upload success');
+                        },
+                        error: function () {
+                          console.log('Upload error');
+                        }
+                      });
+                });
+            ----------------------------------------------------*/
+        })
     }
 </script>
 

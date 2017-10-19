@@ -1,66 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <% include ../../partials/head %>
-  </head>
+</head>
 
-  <body>
-        <% include ../../partials/header %>
+<body>
+<% include ../../partials/header %>
 
-    <!-- Page Content -->
-    <div class="container">
+<!-- Page Content -->
+<div class="container">
 
-
-        <% campaigns.forEach(function(campaign) { %>
-      <li><%= campaign.title %> - </li>
-        <% }); %>
-
-          <!-- Jumbotron Header -->
-          <header class="jumbotron my-4 py-3">
-            <h1 class="display-3">DreamShare</h1>
-          </header>
-      <!-- Page Features -->
-      <div class="row text-center">
-      <div  class="col-sm-12">
-        <h3> Campanhas </h3>
-      </div>
-      <div class="text-right dropdown col-sm-12 mb-4">
-        <span>Ordenar por:</span>
-        <button class="btn btn-secondary dropdown-toggle more-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <!-- Jumbotron Header -->
+  <header class="jumbotron my-4 py-3">
+    <h1 class="display-3">DreamShare</h1>
+  </header>
+  <!-- Page Features -->
+  <div class="row text-center">
+    <div  class="col-sm-12">
+      <h3> Campanhas </h3>
+    </div>
+    <div class="text-right dropdown col-sm-12 mb-4">
+      <span>Ordenar por:</span>
+      <button class="btn btn-secondary dropdown-toggle more-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         Mais contribuidores
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Mais recentes</a>
-          <a class="dropdown-item" href="#">Mais contribuidores</a>
-          <a class="dropdown-item" href="#">Fundraising</a>
-          <a class="dropdown-item" href="#">Bens</a>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Mais recentes</a>
+        <a class="dropdown-item" href="#">Mais contribuidores</a>
+        <a class="dropdown-item" href="#">Fundraising</a>
+        <a class="dropdown-item" href="#">Bens</a>
+      </div>
+    </div>
+
+      <% campaigns.forEach(function(campaign) { %>
+    <div class="col-lg-4 col-md-4 mb-4 campaign_div">
+      <div class="card">
+        <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
+        <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
+               aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
+               style="width:<% if(campaign.progress<campaign.goal) { %>
+               <%= campaign.progress/campaign.goal*100 %>%
+               <% } else {%>
+                       100%
+               <% } %>
+                       ">
+          </div>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title"><a class="title_link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
+          <p class="card-text"><%= campaign.description %></p>
+        </div>
+        <div class="card-footer latlng_campaign">
+          <input type="hidden" value="<%= campaign.lat%>">
+          <input type="hidden" value="<%= campaign.lng%>">
         </div>
       </div>
-
-    <% campaigns.forEach(function(campaign) { %>
-      <div class="col-lg-4 col-md-4 mb-4">
-          <div class="card">
-            <img class="card-img-top campaign_img" src="<%= campaign.image %>" alt="">
-            <div class="card-body">
-              <h4 class="card-title"><%= campaign.title %></h4>
-              <p class="card-text"><%= campaign.description %></p>
-            </div>
-            <div class="card-footer">
-              <a href="campaigns/<%= campaign._id %>" class="btn btn-primary find-btn">Ver Mais!</a>
-            </div>
-          </div>
-      </div>
-    <% }); %>
-
-         </div>
-      <!-- /.row -->
-
+      <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
     </div>
-    <!-- /.container -->
+      <% }); %>
+    <div  class="col-sm-12 mb-4">
+      <button id="more_campaigns" class="btn btn-secondary float-right">Ver Mais</button>
+    </div>
 
-   <% include ../../partials/footer %>
-
-  </body>
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.container -->
+<% include ../../partials/footer %>
+<script src="/javascripts/campaigns/index.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
+</script>
+</body>
 
 </html>

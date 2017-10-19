@@ -12,8 +12,6 @@ var express = require('express'),
         }
     });
 
-
-
 /* GET campaigns page */
 router.get('/', function(req, res, next) {
     if (req.session.user) {
@@ -27,7 +25,23 @@ router.get('/', function(req, res, next) {
 
         console.log(campaigns);
         res.render('pages/campaigns/index', { campaigns: campaigns, userLogged: userLogged });
-    });
+    }).limit(6);
+});
+
+/* GET campaigns page with search options */
+router.get('/search/:isFunds*?/:searchType*?', function(req, res, next) {
+    if (req.session.user) {
+        userLogged = true;
+    } else {
+        userLogged = false;
+    }
+
+    mongoose.model('Campaign').find({isFunds : req.params.isFunds}, function(err, campaigns) {
+        if (err) throw err;
+
+        console.log(campaigns);
+        res.render('pages/campaigns/index', { campaigns: campaigns, userLogged: userLogged });
+    }).limit(6);
 });
 
 /* GET map campaigns page */
@@ -47,8 +61,29 @@ router.get('/map', function(req, res, next) {
 });
 
 // POST donate to campaign
-router.post('/donate', function (req, res, next) {
-    res.send(req.body);
+router.post('/:campaignId/donate', function (req, res, next) {
+    if (req.session.user) {
+        mongoose.model('Donation').create({
+            user: req.session.userID,
+            campaign: req.params.campaignId, // campaign id
+            value: req.body.amount
+        }, function(err, donation) {
+            if (err) {
+                res.send("Donation failed.\n" + err);
+            }
+            else {
+                // TODO: update page instead of reloading
+                res.format({
+                    html: function(){
+                        res.location("/campaigns/" + req.params.campaignId);
+                        res.redirect("/campaigns/" + req.params.campaignId);
+                    }
+                });
+            }
+        });
+    } else {
+        res.send('400');
+    }
 });
 
 /* GET create campaign page */
@@ -100,6 +135,17 @@ router.post('/create', upload.single('imageFile'), function (req, res, next) {
     }
 });
 
+
+/* POST get more campaigns */
+router.post('/more', function(req, res, next) {
+    mongoose.model('Campaign').find({"_id" :{"$nin" : req.body.existingCampaigns}}, function(err, campaigns) {
+        if (err) throw err;
+        console.log(campaigns);
+        res.status(200).send(campaigns);
+    }).limit(parseInt(req.body.nCampaigns));
+});
+
+
 /* GET show campaign page */
 router.get('/:campaignId', function(req, res, next) {
     if (req.session.user) {
@@ -108,7 +154,33 @@ router.get('/:campaignId', function(req, res, next) {
         userLogged = false;
     }
 
-    res.render('pages/campaigns/show', { userLogged: userLogged });
+    mongoose.model('Campaign').find({"_id" : req.params.campaignId}, function(err, campaigns) {
+        if (err) {
+            res.location("/campaigns");
+            res.redirect("/campaigns");
+            throw err;
+        }
+        var campaign = campaigns[0];
+        mongoose.model('Donation').find({"campaign": req.params.campaignId}, function(err, donations) {
+            if (err) {
+                res.location("/campaigns");
+                res.redirect("/campaigns");
+                throw err;
+            }
+
+            campaign.donated = 0;
+            campaign.donations = [];
+            var donators = [];
+            for (var i = 0; i < donations.length; i++) {
+                campaign.donated += donations[i].value;
+                campaign.donations.push({userId: donations[i].user, value: donations[i].value});
+                donators.push(donations[i].user);
+            }
+            campaign.n_donators = donators.map(function(e) {return e.toString();}).filter(function(item, pos, self) {return self.indexOf(item) == pos;}).length;
+
+            res.render('pages/campaigns/show', { userLogged: userLogged, campaign: campaign});
+        });
+    });
 });
 
 /* GET edit campaign page */

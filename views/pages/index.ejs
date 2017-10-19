@@ -22,46 +22,34 @@
         <div class="col-sm-12 mb-4 campaign-category">
           <h3>Fundraising</h3>
         </div>
-        <div class="col-lg-4 col-md-4 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="campaigns" class="btn btn-primary">Ver mais ></a>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-lg-4 col-md-4 mb-4">
+          <% fundsCampaigns.forEach(function(campaign) { %>
+        <div class="col-lg-4 col-md-4 mb-4 campaign_div">
           <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+           <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
+            <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
+            <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
+                                                 aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
+                                                                                                                        <%= campaign.progress/campaign.goal*100 %>%
+                                                                                                                     <% } else {%>
+                                                                                                                        100%
+                                                                                                                     <% } %>">
+                                            </div>
+                                        </div>
             <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+              <h4 class="card-title"><a class="title_link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
+              <p class="card-text"><%= campaign.description %></p>
             </div>
             <div class="card-footer">
-              <a href="campaigns" class="btn btn-primary">Ver mais ></a>
+              <p class="card-text">Vai ter Localização aqui.</p>
             </div>
           </div>
+          <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
         </div>
-
-        <div class="col-lg-4 col-md-4 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="campaigns" class="btn btn-primary">Ver mais ></a>
-            </div>
-          </div>
-        </div>
+          <% }); %>
       <div  class="col-sm-12 mb-4">
-            <a href="campaigns" class="btn btn-secondary float-right">Mais ></a>
+            <a href="/campaigns/search/true" class="btn btn-secondary float-right">Mais ></a>
       </div>
       </div>
       <!-- /.row -->
@@ -70,46 +58,34 @@
         <div class="col-sm-12 mb-4 campaign-category">
           <h3>Recolha de artigos</h3>
         </div>
-        <div class="col-lg-4 col-md-4 mb-4">
+          <% goodsCampaigns.forEach(function(campaign) { %>
+        <div class="col-lg-4 col-md-4 mb-4 campaign_div">
           <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+           <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
+            <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
+            <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
+                                                 aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
+                                                                                                                        <%= campaign.progress/campaign.goal*100 %>%
+                                                                                                                     <% } else {%>
+                                                                                                                        100%
+                                                                                                                     <% } %>">
+                                            </div>
+                                        </div>
             <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+              <h4 class="card-title"><a class="title_link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
+              <p class="card-text"><%= campaign.description %></p>
             </div>
             <div class="card-footer">
-              <a href="campaigns" class="btn btn-primary">Ver mais ></a>
+              <p class="card-text">Vai ter Localização aqui.</p>
             </div>
           </div>
+          <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
         </div>
+          <% }); %>
 
-        <div class="col-lg-4 col-md-4 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-            </div>
-            <div class="card-footer">
-              <a href="campaigns" class="btn btn-primary">Ver mais ></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-4 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="campaigns" class="btn btn-primary">Ver mais ></a>
-            </div>
-          </div>
-        </div>
         <div  class="col-sm-12 mb-4">
-          <a href="campaigns" class="btn btn-secondary float-right">Mais ></a>
+          <a href="/campaigns/search/false" class="btn btn-secondary float-right">Mais ></a>
         </div>
       </div>
 
