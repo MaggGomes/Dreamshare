@@ -4,6 +4,45 @@
 <head>
     <% include ../../partials/head %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.css" />
+    <style>.image-editor {
+            text-align: center;
+        }
+
+        .cropit-preview {
+            background-color: #f8f8f8;
+            background-size: cover;
+            border: 5px solid #ccc;
+            border-radius: 3px;
+            margin-top: 7px;
+            width: 250px;
+            height: 250px;
+            display: inline-block;
+        }
+
+        .cropit-preview-image-container {
+            cursor: move;
+        }
+
+        .cropit-preview-background {
+            opacity: .2;
+            cursor: auto;
+        }
+
+        .image-size-label {
+            margin-top: 10px;
+        }
+
+        input, .export {
+            /* Use relative position to prevent from being covered by image background */
+            position: relative;
+            z-index: 10;
+            display: block;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,31 +57,30 @@
                 <input class="form-control" type="text" id="title" name="title">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row my-4">
             <label for="isFunds" class="col-sm-2 col-form-label">Tipo</label>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="isFunds" id="funds" value="true" onchange="showGoodsTypeSelect(true);"> Fundos
+            <div class="col-sm-8 btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" name="isFunds" id="funds" value="true" onchange="showGoodsTypeSelect(true);" checked> Fundos
                 </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="isFunds" id="goods" value="false" onchange="showGoodsTypeSelect(false);"> Bens
+                <label class="btn btn-primary">
+                    <input type="radio" name="isFunds" id="goods" value="false" onchange="showGoodsTypeSelect(false);"> Bens
                 </label>
             </div>
         </div>
         <div class="form-group row">
             <label for="goal" class="col-sm-2 col-form-label">Objetivo</label>
-            <div class="col-sm-3 col-md-2">
-                <input class="form-control" type="number" id="goal" name="goal">
-            </div>
-            <div class="col-sm-3 col-md-2">
-                <select class="form-control" id="goodsTypeSelect" onchange='otherGoodsType(this.value);'>
-                    <option>Tipo de bem</option>
-                    <option value="livros">Livros</option>
-                    <option value="roupa">Roupa</option>
-                    <option value="outro">Outro</option>
-                </select>
+            <div class="col-sm-4 col-md-3">
+                <div class="input-group">
+                    <input class="form-control border-right-0" type="number" id="goal" name="goal">
+                    <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
+                    <select class="input-group-addon bg-white border-left-0" id="goodsTypeSelect" onchange='otherGoodsType(this.value);' style='display:none;'>
+                        <option value="" disabled selected>Tipo de bem</option>
+                        <option value="livros">Livros</option>
+                        <option value="roupa">Roupa</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
             </div>
             <div class="col-sm-3 col-md-2">
                 <input class="form-control" type="text" name="goodsType" id="goodsType" style='display:none;'/>
@@ -63,12 +101,6 @@
                 <input id="lng" type="hidden" name="lng">
             </div>
         </div>
-        <!-- <div class="form-group row">
-            <label for="location" class="col-sm-2 col-form-label">Localização</label>
-            <div class="col-sm-8">
-                <input class="form-control" type="text" id="location" name="location">
-            </div>
-        </div> -->
 
         <div class="form-group row">
             <label for="endDate" class="col-sm-2 col-form-label">Data final</label>
@@ -78,18 +110,20 @@
         </div>
 
         <div class="form-group row">
-            <div class="col-sm-8 mx-auto">
-                <input type="file" class="form-control-file" id="imageFile" aria-describedby="fileHelp" name="imageFile">
+            <div class="col-sm-2">
+                <input type="file" class="form-control-file" id="imageFile" name="imageFile" onchange="readURL(this);">
                 <small id="fileHelp" class="form-text text-muted">Adicione uma imagem relevante para a campanha.</small>
             </div>
         </div>
 
-        <input type="file" name="image" id="image" onchange="readURL(this);"/>
-        <div class="image_container">
-            <img id="blah" src="#" alt="your image" />
+        <div id="image-cropper">
+            <div class="cropit-preview"></div>
+
+            <input type="range" class="cropit-image-zoom-input" />
+
+            <input type="file" class="cropit-image-input" />
+            <div class="select-image-btn">Select new image</div>
         </div>
-        <div id="cropped_result"></div>        // Cropped image to display (only if u want)
-        <button id="crop_button">Crop</button> // Will trigger crop event
 
         <button type="submit" class="btn btn-primary">Criar campanha</button>
     </form>
@@ -172,12 +206,16 @@
 
 <% include ../../partials/footer %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.js"></script>
-<script type="text/javascript">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropit/0.5.1/jquery.cropit.min.js"></script>
+<script>
     function showGoodsTypeSelect(isFunds){
-        alert(isFunds);
         if(isFunds){
+            $('#euroIcon').show();
             $('#goodsTypeSelect').hide();
+            $('#goodsType').hide();
+            $('#goodsTypeSelect').val('');
         } else {
+            $('#euroIcon').hide();
             $('#goodsTypeSelect').show();
         }
     }
@@ -185,11 +223,11 @@
     function otherGoodsType(val) {
         var element = $('#goodsType');
         if (val == 'outro'){
-            element.val = '';
+            element.val('');
             element.show();
         } else {
             element.hide();
-            element.val = val;
+            element.val(val);
         }
     }
 
@@ -213,57 +251,12 @@
         document.getElementById('lat').value = place.geometry.location.lat();
         document.getElementById('lng').value = place.geometry.location.lng();
     }
-
-
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#blah').attr('src', e.target.result)
-            };
-            reader.readAsDataURL(input.files[0]);
-            setTimeout(initCropper, 1000);
-        }
-    }
-    function initCropper(){
-        $('#blah').cropper({
-            aspectRatio: 3 / 2,
-            viewMode : 3,
-            crop: function(e) {
-                console.log(e.detail.x);
-                console.log(e.detail.y);
-            }
-        });
-
-        // On crop button clicked
-        document.getElementById('crop_button').addEventListener('click', function(){
-            var imgurl =  cropper.getCroppedCanvas().toDataURL();
-            var img = document.createElement("img");
-            img.src = imgurl;
-            document.getElementById("cropped_result").appendChild(img);
-
-            /* ---------------- SEND IMAGE TO THE SERVER-------------------------
-
-                cropper.getCroppedCanvas().toBlob(function (blob) {
-                      var formData = new FormData();
-                      formData.append('croppedImage', blob);
-                      // Use `jQuery.ajax` method
-                      $.ajax('/path/to/upload', {
-                        method: "POST",
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function () {
-                          console.log('Upload success');
-                        },
-                        error: function () {
-                          console.log('Upload error');
-                        }
-                      });
-                });
-            ----------------------------------------------------*/
-        })
-    }
+    $('#image-cropper').cropit({
+        imageBackground: true,
+        allowDragNDrop: false,
+        width: "300px",
+        height: "300px"
+    });
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4&libraries=places&callback=initAutocomplete"

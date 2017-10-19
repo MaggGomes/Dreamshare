@@ -41,9 +41,10 @@
               <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
               <p class="card-text"><%= campaign.description %></p>
             </div>
-            <div class="card-footer">
-              <p class="card-text">Vai ter Localização aqui.</p>
-            </div>
+              <div class="card-footer latlng_campaign">
+                  <input type="hidden" value="<%= campaign.lat%>">
+                  <input type="hidden" value="<%= campaign.lng%>">
+              </div>
           </div>
           <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
         </div>
@@ -76,9 +77,10 @@
               <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
               <p class="card-text"><%= campaign.description %></p>
             </div>
-            <div class="card-footer">
-              <p class="card-text">Vai ter Localização aqui.</p>
-            </div>
+              <div class="card-footer latlng_campaign">
+                  <input type="hidden" value="<%= campaign.lat%>">
+                  <input type="hidden" value="<%= campaign.lng%>">
+              </div>
           </div>
           <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
         </div>
@@ -93,6 +95,11 @@
     <!-- /.container -->
 
    <% include ../partials/footer %>
+
+        <script src="/javascripts/campaigns/index.js"></script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
+        </script>
 
   </body>
 

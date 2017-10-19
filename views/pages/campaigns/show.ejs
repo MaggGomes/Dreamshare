@@ -33,21 +33,28 @@
             <div class="my-4 text-left">
                 <p class="lead"><%= campaign.donated %>€</p>
                 <p>Objectivo: <%= campaign.goal %>€</p>
+                <p id="time-left-counter"></p>
                 <p class="lead"><%= campaign.n_donators %></p>
                 <p>Contribuidores</p>
-                <p class="lead">48 horas</p>
-                <p>Até acabar</p>
+                <% if (!campaign.closed) { %>
+                    <p class="lead"><%= campaign.remaining %></p>
+                    <p>Até acabar</p>
+                <% } else { %>
+                    <p class="lead">Concluído</p>
+                <% } %>
             </div>
-            <% if(userLogged) { %>
-            <form action="<%= campaign._id %>/donate" method="post">
-                <div class="input-group">
-                    <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
-                    <span class="input-group-addon">€</span>
-                </div>
-                <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
-            </form>
-            <% } else { %>
-            <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
+            <% if (!campaign.closed) { %>
+                <% if(userLogged) { %>
+                <form action="<%= campaign._id %>/donate" method="post">
+                    <div class="input-group">
+                        <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
+                        <span class="input-group-addon">€</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
+                </form>
+                <% } else { %>
+                <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
+                <% } %>
             <% } %>
         </div>
     </div>

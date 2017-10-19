@@ -1,7 +1,9 @@
 var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
+    fs = require('fs'),
     multer  = require('multer'),
+    gm  = require('gm').subClass({imageMagick:true}),
     upload = multer({
         dest: 'images/campaigns/',
         fileFilter: function (req, file, cb) {
@@ -98,8 +100,14 @@ router.get('/create', function(req, res, next) {
 // POST create campaign
 router.post('/create', upload.single('imageFile'), function (req, res, next) {
     if (req.session.user) {
+        gm(req.file.path)
+            .resize(300,200)
+            .noProfile()
+            .write('/images/campaigns/testeresize', function (err) {
+                if (!err) console.log('done');
+            });
         mongoose.model('Campaign').create({
-            owner : req.session.userID, //TODO buscar id do user da session
+            owner : req.session.userID,
             title : req.body.title,
             description : req.body.description,
             isFunds : req.body.isFunds,
@@ -161,22 +169,62 @@ router.get('/:campaignId', function(req, res, next) {
             throw err;
         }
         var campaign = campaigns[0];
-        mongoose.model('Donation').find({"campaign": req.params.campaignId}, function(err, donations) {
+        mongoose.model('Donation').find({"campaign": req.params.campaignId}).populate('user', 'name').exec(function(err, donations) {
             if (err) {
                 res.location("/campaigns");
                 res.redirect("/campaigns");
                 throw err;
             }
 
+            // Get donations
             campaign.donated = 0;
             campaign.donations = [];
             var donators = [];
             for (var i = 0; i < donations.length; i++) {
                 campaign.donated += donations[i].value;
-                campaign.donations.push({userId: donations[i].user, value: donations[i].value});
+                campaign.donations.push({userId: donations[i].user.name, value: donations[i].value});
                 donators.push(donations[i].user);
             }
             campaign.n_donators = donators.map(function(e) {return e.toString();}).filter(function(item, pos, self) {return self.indexOf(item) == pos;}).length;
+
+            // Get time remaining
+            var curr_t = new Date();
+            var end_t = new Date(campaign.endDate);
+            var year_dif = end_t.getFullYear() - curr_t.getFullYear();
+            var month_dif = end_t.getMonth() - curr_t.getMonth();
+            var day_dif = end_t.getDate() - curr_t.getDate();
+            var hour_dif = end_t.getHours() - curr_t.getHours();
+            var minute_dif = end_t.getMinutes() - curr_t.getMinutes();
+
+            if (end_t.getTime() < curr_t.getTime()) {
+                campaign.closed = true;
+            }
+            else if (year_dif > 0) {
+                campaign.remaining = year_dif;
+                year_dif === 1 ? campaign.remaining += " ano" : campaign.remaining += " anos";
+            }
+            else if (month_dif > 0) {
+                campaign.remaining = month_dif;
+                month_dif === 1 ? campaign.remaining += " mês" : campaign.remaining += " meses";
+            }
+            else if (day_dif > 0) {
+                campaign.remaining = day_dif;
+                day_dif === 1 ? campaign.remaining += " dia" : campaign.remaining += " dias";
+            }
+            else if (hour_dif > 0) {
+                campaign.remaining = hour_dif;
+                hour_dif === 1 ? campaign.remaining += " hora" : campaign.remaining += " horas";
+            }
+            else if (minute_dif > 0) {
+                campaign.remaining = minute_dif;
+                minute_dif === 1 ? campaign.remaining += " minuto" : campaign.remaining += " minutos";
+            }
+            else {
+                campaign.remaining = "< 1 minuto";
+            }
+
+            // Get comments
+
             res.render('pages/campaigns/show', { userLogged: userLogged, campaign: campaign});
         });
     });
