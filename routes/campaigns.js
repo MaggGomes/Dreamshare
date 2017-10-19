@@ -177,7 +177,6 @@ router.get('/:campaignId', function(req, res, next) {
                 donators.push(donations[i].user);
             }
             campaign.n_donators = donators.map(function(e) {return e.toString();}).filter(function(item, pos, self) {return self.indexOf(item) == pos;}).length;
-
             res.render('pages/campaigns/show', { userLogged: userLogged, campaign: campaign});
         });
     });
