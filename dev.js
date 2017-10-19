@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
+var Cropper = require('cropperjs');
 
 var db = require('./models/devdb');
 var campaignModel = require('./models/campaigns');
