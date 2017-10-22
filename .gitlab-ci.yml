@@ -18,4 +18,5 @@ install_dependencies:
 
 login_tests:
   stage: test
-#  script: npm test
+  script:
+#    - npm test
