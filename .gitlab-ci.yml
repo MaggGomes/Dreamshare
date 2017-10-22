@@ -16,6 +16,6 @@ install_dependencies:
     paths:
       - node_modules/
 
-test_with_lab:
+login_tests:
   stage: test
-  script: npm test
+#  script: npm test
