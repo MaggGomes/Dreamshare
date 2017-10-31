@@ -7,7 +7,6 @@ var User = require('../models/users');
 //Require the dev-dependencies
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-//var server = require('../dev');
 var bcrypt = require('bcrypt');
 var should = chai.should();
 
