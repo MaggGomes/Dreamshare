@@ -7,7 +7,7 @@ var User = require('../models/users');
 //Require the dev-dependencies
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var server = require('../dev');
+//var server = require('../dev');
 var bcrypt = require('bcrypt');
 var should = chai.should();
 
@@ -35,7 +35,7 @@ describe('/POST user', () => {
         .end((err, res) => {
         res.should.have.status(400);
         done();
-});
-});
+    });
+    });
 });
 });
