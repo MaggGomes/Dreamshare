@@ -14,6 +14,10 @@ var express = require('express'),
         }
     });
 
+
+const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitize } = require('express-validator/filter');
+
 /* GET campaigns page */
 router.get('/', function(req, res, next) {
     if (req.session.user) {
@@ -93,55 +97,80 @@ router.get('/create', function(req, res, next) {
     if (req.session.user) {
         res.render('pages/campaigns/create', { userLogged: true });
     } else {
-        res.send('400');
+        res.status('403');
     }
 });
 
 // POST create campaign
-router.post('/create', upload.single('imageFile'), function (req, res, next) {
-    if (req.session.user) {
-        gm(req.file.path)
-            .resize(300,200)
-            .noProfile()
-            .write('/images/campaigns/testeresize', function (err) {
-                if (!err) console.log('done');
-            });
-        mongoose.model('Campaign').create({
-            owner : req.session.userID,
-            title : req.body.title,
-            description : req.body.description,
-            isFunds : req.body.isFunds,
-            goodsType : req.body.goodsType.toLowerCase(),
-            goal : req.body.goal,
-            endDate : req.body.endDate,
-            lat : req.body.lat,
-            lng: req.body.lng,
-            image:  req.file.path
-        }, function (err, campaign) {
-            if (err) {
-                res.send("There was a problem adding the information to the database.\n" + err);
-            } else {
-                //Blob has been created
-                console.log('POST creating new campaign: ' + campaign);
-                res.format({
-                    //HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
-                    html: function(){
-                        // If it worked, set the header so the address bar doesn't still say /adduser
-                        res.location("campaigns");
-                        // And forward to success page
-                        res.redirect("/campaigns");
-                    },
-                    //JSON response will show the newly created blob
-                    json: function(){
-                        res.json(campaign);
-                    }
-                });
+router.post('/create',
+    upload.single('imageFile'), function (req, res, next) {
+        if (req.session.user) {
+
+            req.checkBody('title', 'Title is required').notEmpty();
+            req.checkBody('title', 'Title is too Short').isLength({min: 5});
+            req.checkBody('title', 'Title is too Long').isLength({max: 100});
+            req.checkBody('description', 'Description is required').notEmpty().isLength({min: 25});
+            req.checkBody('description', 'Description is too Short').isLength({min: 25});
+            req.checkBody('description', 'Description is too Long').isLength({max: 250});
+            req.checkBody('isFunds', 'Type of Funds is required').notEmpty();
+            req.checkBody('goal', 'Campaign must have a goal higher than 0').notEmpty().isInt({min: 0});
+            req.checkBody('endDate', 'endDate must not be empty').isDataURI().notEmpty();
+            req.checkBody('lat', 'latitude must not be empty').notEmpty();
+            req.checkBody('lng', 'longitude must not be empty').notEmpty();
+
+            var latlong = req.body.lat + "," + req.body.lng;
+
+            check(latlong, 'Combination of latitude and longitude is not valid').isLatLong();
+
+            //const errors = validationResult(req);
+            var errors = req.validationErrors();
+            if (errors) {
+                res.send(errors);
+                return;
+                //return res.status(422).json({ errors: errors.mapped() });
             }
-        });
-    } else {
-        res.send('400');
-    }
-});
+            gm(req.file.path)
+                .resize(300,200)
+                .noProfile()
+                .write('images/campaigns/testeresize', function (err) {
+                    if (!err) console.log('done');
+                });
+            mongoose.model('Campaign').create({
+                owner : req.session.userID,
+                title : req.body.title,
+                description : req.body.description,
+                isFunds : req.body.isFunds,
+                goodsType : req.body.goodsType.toLowerCase(),
+                goal : req.body.goal,
+                endDate : req.body.endDate,
+                lat : req.body.lat,
+                lng: req.body.lng,
+                image:  req.file.path
+            }, function (err, campaign) {
+                if (err) {
+                    res.send("There was a problem adding the information to the database.\n" + err);
+                } else {
+                    //Blob has been created
+                    console.log('POST creating new campaign: ' + campaign);
+                    res.format({
+                        //HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
+                        html: function(){
+                            // If it worked, set the header so the address bar doesn't still say /adduser
+                            res.location("campaigns");
+                            // And forward to success page
+                            res.redirect("/campaigns");
+                        },
+                        //JSON response will show the newly created blob
+                        json: function(){
+                            res.json(campaign);
+                        }
+                    });
+                }
+            });
+        } else {
+            res.status('403');
+        }
+    });
 
 
 /* POST get more campaigns */

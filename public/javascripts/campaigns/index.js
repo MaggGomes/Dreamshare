@@ -36,7 +36,7 @@ $(document).ready(function () {
                     '<input type="hidden" value="' + campaign.lng + '">' +
                     '</div>' +
                     '</div>' +
-                    '<input type="hidden" class="id_campaign" value=" '+ campaign._id +'">' +
+                    '<input type="hidden" class="id_campaign" value="'+ campaign._id +'">' +
                     '</div>'
                 );
             });

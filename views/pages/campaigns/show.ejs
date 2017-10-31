@@ -22,39 +22,41 @@
         </div>
         <div  class="col-sm-12 col-lg-4 col-md-4 mb-4">
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.donated %>"
-                     aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.donated<campaign.goal) { %>
-                <%= campaign.donated/campaign.goal*100 %>%
-                <% } else {%>
-                        100%
-                <% } %>">
+                <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
+                     aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
+                     style="width:<% if(campaign.progress<campaign.goal) { %>
+                     <%= campaign.progress/campaign.goal*100 %>%
+                     <% } else {%>
+                             100%
+                     <% } %>">
                 </div>
             </div>
             <div class="my-4 text-left">
-                <p class="lead"><%= campaign.donated %>€</p>
+                <p class="lead"><%= campaign.progress %>€</p>
                 <p>Objectivo: <%= campaign.goal %>€</p>
+                <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
                 <p id="time-left-counter"></p>
                 <p class="lead"><%= campaign.n_donators %></p>
                 <p>Contribuidores</p>
                 <% if (!campaign.closed) { %>
-                    <p class="lead"><%= campaign.remaining %></p>
-                    <p>Até acabar</p>
+                <p class="lead"><%= campaign.remaining %></p>
+                <p>Até acabar</p>
                 <% } else { %>
-                    <p class="lead">Concluído</p>
+                <p class="lead">Concluído</p>
                 <% } %>
             </div>
             <% if (!campaign.closed) { %>
-                <% if(userLogged) { %>
-                <form action="<%= campaign._id %>/donate" method="post">
-                    <div class="input-group">
-                        <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
-                        <span class="input-group-addon">€</span>
-                    </div>
-                    <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
-                </form>
-                <% } else { %>
-                <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
-                <% } %>
+            <% if(userLogged) { %>
+            <form action="<%= campaign._id %>/donate" method="post">
+                <div class="input-group">
+                    <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
+                    <span class="input-group-addon">€</span>
+                </div>
+                <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
+            </form>
+            <% } else { %>
+            <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
+            <% } %>
             <% } %>
         </div>
     </div>
@@ -100,13 +102,13 @@
         <div class="col-sm-4">
             <ul class="list-unstyled">
                 <% for (var i = 0; i < campaign.donations.length; i++) { %>
-                    <li class="media mb-4">
-                        <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1"><%= campaign.donations[i].userId %></h5>
-                            Contribui com <%= campaign.donations[i].value %>€
-                        </div>
-                    </li>
+                <li class="media mb-4">
+                    <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1"><%= campaign.donations[i].userId %></h5>
+                        Contribui com <%= campaign.donations[i].value %>€
+                    </div>
+                </li>
                 <% } %>
             </ul>
         </div>
@@ -117,6 +119,7 @@
 <!-- /.container -->
 
 <% include ../../partials/footer %>
+<script src="/javascripts/campaigns/show.js"></script>
 </body>
 
 </html>

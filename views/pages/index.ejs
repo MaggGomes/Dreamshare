@@ -1,106 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <% include ../partials/head %>
-  </head>
+</head>
 
-  <body>
-        <% include ../partials/header %>
+<body>
+<% include ../partials/header %>
+<!-- Page Content -->
+<div class="container">
 
-    <!-- Page Content -->
-    <div class="container">
-
-      <!-- Jumbotron -->
-      <div class="jumbotron">
+    <!-- Jumbotron -->
+    <div class="jumbotron">
         <h1 class="text-center">dream<span class="brand-share">Share</span></h1>
         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-      </div>
+    </div>
 
-      <!-- Page Features -->
-      <div class="row">
+    <!-- Page Features -->
+    <div class="row">
         <div class="col-sm-12 mb-4 campaign-category">
-          <h3>Fundraising</h3>
+            <h3>Fundraising</h3>
         </div>
 
-          <% fundsCampaigns.forEach(function(campaign) { %>
+        <% fundsCampaigns.forEach(function(campaign) { %>
         <div class="col-lg-4 col-md-4 mb-4 campaign_div">
-          <div class="card">
-           <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
-            <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
-            <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
-                                                 aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
-                                                                                                                        <%= campaign.progress/campaign.goal*100 %>%
-                                                                                                                     <% } else {%>
-                                                                                                                        100%
-                                                                                                                     <% } %>">
-                                            </div>
-                                        </div>
-            <div class="card-body">
-              <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
-              <p class="card-text"><%= campaign.description %></p>
+            <div class="card">
+                <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
+                <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
+                         aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
+                    <%= campaign.progress/campaign.goal*100 %>%
+                    <% } else {%>
+                            100%
+                    <% } %>">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
+                    <p class="card-text"><%= campaign.description %></p>
+                </div>
+                <div class="card-footer latlng_campaign">
+                    <input type="hidden" value="<%= campaign.lat%>">
+                    <input type="hidden" value="<%= campaign.lng%>">
+                </div>
             </div>
-              <div class="card-footer latlng_campaign">
-                  <input type="hidden" value="<%= campaign.lat%>">
-                  <input type="hidden" value="<%= campaign.lng%>">
-              </div>
-          </div>
-          <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
+            <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
         </div>
-          <% }); %>
-      <div  class="col-sm-12 mb-4">
+        <% }); %>
+        <div  class="col-sm-12 mb-4">
             <a href="/campaigns/search/true" class="btn btn-primary float-right">Mais ></a>
-      </div>
-      </div>
-      <!-- /.row -->
+        </div>
+    </div>
+    <!-- /.row -->
 
-      <div class="row">
+    <div class="row">
         <div class="col-sm-12 mb-4 campaign-category">
-          <h3>Recolha de artigos</h3>
+            <h3>Recolha de artigos</h3>
         </div>
-          <% goodsCampaigns.forEach(function(campaign) { %>
+        <% goodsCampaigns.forEach(function(campaign) { %>
         <div class="col-lg-4 col-md-4 mb-4 campaign_div">
-          <div class="card">
-           <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
-            <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
-            <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
-                                                 aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
-                                                                                                                        <%= campaign.progress/campaign.goal*100 %>%
-                                                                                                                     <% } else {%>
-                                                                                                                        100%
-                                                                                                                     <% } %>">
-                                            </div>
-                                        </div>
-            <div class="card-body">
-              <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
-              <p class="card-text"><%= campaign.description %></p>
+            <div class="card">
+                <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
+                <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
+                         aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
+                    <%= campaign.progress/campaign.goal*100 %>%
+                    <% } else {%>
+                            100%
+                    <% } %>">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
+                    <p class="card-text"><%= campaign.description %></p>
+                </div>
+                <div class="card-footer latlng_campaign">
+                    <input type="hidden" value="<%= campaign.lat%>">
+                    <input type="hidden" value="<%= campaign.lng%>">
+                </div>
             </div>
-              <div class="card-footer latlng_campaign">
-                  <input type="hidden" value="<%= campaign.lat%>">
-                  <input type="hidden" value="<%= campaign.lng%>">
-              </div>
-          </div>
-          <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
+            <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
         </div>
-          <% }); %>
+        <% }); %>
 
         <div  class="col-sm-12 mb-4">
-          <a href="/campaigns/search/false" class="btn btn-primary float-right">Mais ></a>
+            <a href="/campaigns/search/false" class="btn btn-primary float-right">Mais ></a>
         </div>
-      </div>
-
     </div>
-    <!-- /.container -->
 
-   <% include ../partials/footer %>
+</div>
+<!-- /.container -->
 
-        <script src="/javascripts/campaigns/index.js"></script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
-        </script>
+<% include ../partials/footer %>
 
-  </body>
+<script src="/javascripts/campaigns/index.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
+</script>
+
+</body>
 
 </html>
