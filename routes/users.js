@@ -43,7 +43,6 @@ router.post('/register', function(req, res, next) {
     if (errors) {
 
     }*/
-
     var hash = bcrypt.hashSync(req.body.password, 10);
 
     mongoose.model('User').create({
@@ -52,9 +51,9 @@ router.post('/register', function(req, res, next) {
         password : hash
     }, function (err, user) {
         if (err) {
-            res.send('400');
+            res.status('400').send('400');
         } else {
-            res.send('200');
+            res.status('200').send('200');
         }
     });
 });
