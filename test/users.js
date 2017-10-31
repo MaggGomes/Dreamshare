@@ -23,6 +23,20 @@ describe('Users', () => {
   * Test the /GET route
   */
 describe('/POST user', () => {
+    it('it should POST a user successfully', (done) => {
+    let user = {
+        name : "teste",
+        email : "teste@teste.teste",
+        password : "kkkk"
+    }
+    chai.request(app.server)
+    .post('/users/register')
+    .send(user)
+    .end((err, res) => {
+    res.should.have.status(200);
+    done();
+});
+});
     it('it should not POST a user successfully', (done) => {
     let user = {
         name : "teste",
@@ -38,4 +52,5 @@ describe('/POST user', () => {
     });
     });
 });
+
 });

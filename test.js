@@ -93,9 +93,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-//server.listen(port);
-//server.on('error', onError);
-//server.on('listening', onListening);
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -121,7 +121,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-/*function onError(error) {
+function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
     }
@@ -143,18 +143,18 @@ function normalizePort(val) {
         default:
             throw error;
     }
-}*/
+}
 
 /**
  * Event listener for HTTP server "listening" event.
  */
 
-/*function onListening() {
+function onListening() {
     var addr = server.address();
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
-}*/
+}
 
 module.exports.server = server;
