@@ -4,7 +4,7 @@ services:
   - mongo:latest
 
 variables:
-  MONGO_DB: devLDSO
+  MONGO_DB: devdreamshare
 
 stages:
   - build
