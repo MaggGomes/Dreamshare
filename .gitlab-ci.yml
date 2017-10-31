@@ -1,6 +1,7 @@
 image: node:latest
 
-services: mongo:latest
+services:
+  - mongo:latest
 
 variables:
   MONGO_DB: devLDSO
