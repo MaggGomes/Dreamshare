@@ -57,8 +57,7 @@
                 <input class="form-control" type="text" id="title" name="title">
                    <h3><%= errors[0].param %></h3>
                 <% for(var i = 0; i < errors.length; i++) { %>
-                <h3><%= errors[i].param %></h3>
-                        <% if(errors.param == 'title') {%>
+                        <% if(errors[i].param === 'title') {%>
                             <input class="form-control" type="text" id="title" name="title">
                         <% } %>
                  <% } %>
