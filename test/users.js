@@ -18,7 +18,7 @@ describe('Users', () => {
     mongoose.model('User').create({
         name : "teste2",
         email : "teste2@teste.teste",
-        password : "123456"
+        password: bcrypt.hashSync("123456", 10)
     }, (err) => {
         done();
 });
