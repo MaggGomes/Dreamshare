@@ -14,7 +14,7 @@ var should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe('Users', () => {
-    before((done) => { Before tests
+    before((done) => { //Before tests
     mongoose.model('User').create({
         name : "teste2",
         email : "teste2@teste.teste",
