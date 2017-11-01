@@ -18,6 +18,7 @@ $(document).ready(function () {
                 var progress_ratio = 100;
                 if (campaign.progress<campaign.goal){ progress_ratio = campaign.progress/campaign.goal*100 };
                 $('#more_campaigns').parent().before(
+                <% include ../../partials/campaign_card %>
                     '<div class="col-lg-4 col-md-4 mb-4 campaign_div">' +
                     '<div class="card">' +
                     '<a class="card-link" href="/campaigns/' + campaign._id + '"></a>' +

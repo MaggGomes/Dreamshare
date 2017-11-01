@@ -125,7 +125,7 @@ router.post('/create',
             //const errors = validationResult(req);
             var errors = req.validationErrors();
             if (errors) {
-                res.send(errors);
+                res.render('pages/campaigns/create', { flash: { type: 'alert-danger', messages: errors }});
                 return;
                 //return res.status(422).json({ errors: errors.mapped() });
             }
