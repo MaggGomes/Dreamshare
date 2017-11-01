@@ -10,15 +10,15 @@ router.post('/signin', function(req, res, next) {
             next(err);
         } else {
             if (!user) {
-                res.send('401');
+                res.status('401').send('401');
             } else {
                 if(bcrypt.compareSync(req.body.password, user.password)) {
                     req.session.user = user.name;
                     req.session.email = user.email;
                     req.session.userID = user._id;
-                    res.send('200');
+                    res.status('200').send('200');
                 } else {
-                    res.send('400');
+                    res.status('400').send('400');
                 }
             }
         }

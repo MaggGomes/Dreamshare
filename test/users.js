@@ -14,43 +14,97 @@ var should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe('Users', () => {
-    /*beforeEach((done) => { Before each test we empty the database
-    User.remove({}, (err) => {
+    before((done) => { Before tests
+    mongoose.model('User').create({
+        name : "teste2",
+        email : "teste2@teste.teste",
+        password : "123456"
+    }({}, (err) => {
         done();
-    });
-});*/
+});
+});
+
 /*
   * Test the /GET route
   */
-describe('/POST user', () => {
+describe('/POST register user', () => {
     it('it should POST a user successfully', (done) => {
     let user = {
-        name : "teste",
-        email : "teste@teste.teste",
-        password : "kkkk"
-    }
-    chai.request(app.server)
-    .post('/users/register')
-    .send(user)
-    .end((err, res) => {
-    res.should.have.status(200);
-    done();
-});
-});
-    it('it should not POST a user successfully', (done) => {
-    let user = {
-        name : "teste",
-        email : "teste@teste.teste",
-        password : "kkkk"
+        name : "teste1",
+        email : "teste1@teste.teste",
+        password : "123456"
     }
     chai.request(app.server)
         .post('/users/register')
         .send(user)
         .end((err, res) => {
-        res.should.have.status(400);
-        done();
-    });
-    });
+        res.should.have.status(200);
+    done();
+});
+});
+it('it should not POST a user successfully', (done) => {
+    let user = {
+        name : "teste2",
+        email : "teste2@teste.teste",
+        password : "123456"
+    }
+    chai.request(app.server)
+    .post('/users/register')
+    .send(user)
+    .end((err, res) => {
+    res.should.have.status(400);
+done();
+});
+});
+});
+
+});
+
+/*
+* Test the /GET route
+*/
+describe('/POST signin user', () => {
+    it('it should POST signin a user successfully', (done) => {
+    let user = {
+        email : "teste2@teste.teste",
+        password : "123456"
+    }
+    chai.request(app.server)
+        .post('/users/signin')
+        .send(user)
+        .end((err, res) => {
+        res.should.have.status(200);
+    done();
+});
+});
+
+it('it should not POST signin a user with wrong data', (done) => {
+    let user = {
+        email : "teste2@teste.teste",
+        password : "1234"
+    }
+    chai.request(app.server)
+    .post('/users/signin')
+    .send(user)
+    .end((err, res) => {
+    res.should.have.status(400);
+done();
+});
+});
+
+it('it should not POST signin a user that doesnt exist', (done) => {
+    let user = {
+        email : "teste3@teste.teste",
+        password : "123456"
+    }
+    chai.request(app.server)
+    .post('/users/signin')
+    .send(user)
+    .end((err, res) => {
+    res.should.have.status(401);
+done();
+});
+});
 });
 
 });
