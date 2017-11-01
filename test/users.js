@@ -19,7 +19,7 @@ describe('Users', () => {
         name : "teste2",
         email : "teste2@teste.teste",
         password : "123456"
-    }({}, (err) => {
+    })({}, (err) => {
         done();
 });
 });
