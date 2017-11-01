@@ -58,8 +58,6 @@ done();
 });
 });
 
-});
-
 /*
 * Test the /GET route
 */
