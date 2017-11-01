@@ -8,6 +8,7 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   padding-right: 0 !important;
+  color: #505050;
 }
 
 .modal-open, .modal-open .navbar-fixed-top {
@@ -74,12 +75,34 @@ body {
   font-size: small;
 }
 
+.card-footer span {
+  font-weight: bold;
+}
+
+.card-progress {
+  margin-bottom: 10px;
+}
+
+.campaign-location, .latlng_campaign {
+  display: inline-block;
+}
+
 .campaign_img {
   height: 200px;
 }
 
 .title-link{
   color: var(--main-color)
+}
+
+.progress-bar {
+  background-color: var(--main-color);
+  height: 0.5rem;
+  line-height: 0.5rem;
+}
+
+footer {
+  margin-top: 70px;
 }
 
 .btn-primary {
@@ -114,20 +137,6 @@ body {
   color: #929292;
   border: 1px solid #929292;
   background-color: white;
-}
-
-.progress-bar {
-  background-color: var(--main-color);
-  height: 0.6rem;
-  line-height: 0.6rem;
-}
-
-.progress-value {
-  font-weight: bold;
-}
-
-footer {
-  margin-top: 70px;
 }
 
 .login-or {
