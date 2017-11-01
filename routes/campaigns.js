@@ -114,7 +114,7 @@ router.post('/create',
             req.checkBody('description', 'Description is too Long').isLength({max: 250});
             req.checkBody('isFunds', 'Type of Funds is required').notEmpty();
             req.checkBody('goal', 'Campaign must have a goal higher than 0').notEmpty().isInt({min: 0});
-            req.checkBody('endDate', 'endDate must not be empty').isDataURI().notEmpty();
+            req.checkBody('endDate', 'endDate must not be empty').notEmpty();
             req.checkBody('lat', 'latitude must not be empty').notEmpty();
             req.checkBody('lng', 'longitude must not be empty').notEmpty();
 

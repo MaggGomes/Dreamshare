@@ -62,11 +62,16 @@ body {
   color: #505050;
 }
 
-
 .card-link{
   position: absolute;
   top: 0; left: 0;
   height: 100%; width: 100%;
+}
+
+.card-footer {
+  background-color: white;
+  color: #a9a9a9;
+  font-size: small;
 }
 
 .campaign_img {
@@ -113,6 +118,12 @@ body {
 
 .progress-bar {
   background-color: var(--main-color);
+  height: 0.6rem;
+  line-height: 0.6rem;
+}
+
+.progress-value {
+  font-weight: bold;
 }
 
 footer {

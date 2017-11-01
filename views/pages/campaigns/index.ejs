@@ -34,33 +34,7 @@
         </div>
 
         <% campaigns.forEach(function(campaign) { %>
-        <div class="col-lg-4 col-md-4 mb-4 campaign_div">
-            <div class="card">
-                <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
-                <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
-                         aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
-                         style="width:<% if(campaign.progress<campaign.goal) { %>
-                         <%= campaign.progress/campaign.goal*100 %>%
-                         <% } else {%>
-                                 100%
-                         <% } %>
-                                 ">
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title"><a class="title_link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
-                    <p class="card-text"><%= campaign.description %></p>
-                </div>
-                <div class="card-footer latlng_campaign">
-                    <input type="hidden" value="<%= campaign.lat%>">
-                    <input type="hidden" value="<%= campaign.lng%>">
-                    <input type="hidden" value="<%= campaign.lng%>">
-                </div>
-            </div>
-            <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
-        </div>
+            <% include ../../partials/campaign_card %>
         <% }); %>
         <div  class="col-sm-12 mb-4">
             <button id="more_campaigns" class="btn btn-secondary float-right">Ver Mais</button>
