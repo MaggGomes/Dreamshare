@@ -79,6 +79,21 @@ router.post('/:campaignId/donate', function (req, res, next) {
             }
             else {
                 // TODO: update page instead of reloading
+
+                /**
+                 * Update progress value
+                 */
+                mongoose.model('Donation').find({campaign: req.params.campaignId}, function(err, donations) {
+                    var progress = 0;
+                    if (err) throw err;
+                    for (var i = 0; i < donations.length; i++) {
+                        progress += donations[i].value;
+                    }
+                    mongoose.model('Campaign').update({_id: req.params.campaignId}, {$set: {progress: progress}}, function(err, campaign) {
+                        if (err) throw err;
+                    });
+                });
+
                 res.format({
                     html: function(){
                         res.location("/campaigns/" + req.params.campaignId);
@@ -88,16 +103,17 @@ router.post('/:campaignId/donate', function (req, res, next) {
             }
         });
     } else {
-        res.send('400');
+        res.status(400).send('400');
     }
 });
 
 /* GET create campaign page */
 router.get('/create', function(req, res, next) {
+    var errors;
     if (req.session.user) {
-        res.render('pages/campaigns/create', { userLogged: true });
+        res.render('pages/campaigns/create', { userLogged: true , errors: errors});
     } else {
-        res.status('403');
+        res.status(403);
     }
 });
 
@@ -125,7 +141,8 @@ router.post('/create',
             //const errors = validationResult(req);
             var errors = req.validationErrors();
             if (errors) {
-                res.render('pages/campaigns/create', { flash: { type: 'alert-danger', messages: errors }});
+                //res.send(errors);
+                res.render('pages/campaigns/create', {errors:errors});
                 return;
                 //return res.status(422).json({ errors: errors.mapped() });
             }
@@ -168,7 +185,7 @@ router.post('/create',
                 }
             });
         } else {
-            res.status('403');
+            res.status(403);
         }
     });
 

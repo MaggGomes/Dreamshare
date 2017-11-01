@@ -7,19 +7,27 @@
 
 <body>
 <% include ../partials/header %>
+
+<!-- Jumbotron -->
+<div class="jumbotron">
+    <div class="container">
+        <br>
+        <h1 class="text-center">Ajude a concretizar sonhos</h1>
+        <br>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat</p>
+        <div class="text-center">
+            <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
+        </div>
+
+    </div>
+</div>
+
 <!-- Page Content -->
 <div class="container">
-
-    <!-- Jumbotron -->
-    <div class="jumbotron">
-        <h1 class="text-center">dream<span class="brand-share">Share</span></h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-    </div>
-
     <!-- Page Features -->
     <div class="row">
         <div class="col-sm-12 mb-4 campaign-category">
-            <h3>Fundraising</h3>
+            <h3>Angariação de fundos</h3>
         </div>
 
         <% fundsCampaigns.forEach(function(campaign) { %>
@@ -49,10 +57,10 @@
 
 <% include ../partials/footer %>
 
-<script src="/javascripts/campaigns/index.js"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
 </script>
+<script src="/javascripts/campaigns/index.js"></script>
 
 </body>
 

@@ -21,17 +21,9 @@ $(document).ready(function () {
         var userEmail = $('#signin-email').val();
         var userPassword = $('#signin-password').val();
 
-        $.post("/users/signin", {
-                email: userEmail,
-                password: userPassword
-            }, function (result) {
-
-            if (result === '200') {
-                location.reload();
-            } else {
-                $('#modal-message-login').html('<div class="modal-message-content">E-mail e/ou palavra-passe incorretos.</div>');
-            }
-        });
+        $.post("/users/signin", {email: userEmail, password: userPassword})
+            .done(function () { location.reload(); })
+            .fail(function() { $('#modal-message-login').html('<div class="modal-message-content">E-mail e/ou palavra-passe incorretos.</div>'); });
     });
 
     /* Register */
@@ -61,16 +53,9 @@ $(document).ready(function () {
             return;
         }
 
-        $.post("/users/register", {
-                name: userName,
-                email: userEmail,
-                password: userPassword
-            }, function (result) {
-                if (result === '200')
-                    location.reload();
-                else
-                    $('#modal-message-register').html('<div class="modal-message-content" style="text-align: left">E-mail já se encontra em uso.</div>');
-            });
+        $.post("/users/register", { name: userName, email: userEmail, password: userPassword })
+            .done(function () { location.reload(); })
+            .fail(function () { $('#modal-message-register').html('<div class="modal-message-content" style="text-align: left">E-mail já se encontra em uso.</div>'); });
     });
 
     /* Functions to work with menu search */
@@ -135,6 +120,8 @@ $(document).ready(function () {
 
     })(window);
 
+    /* Expand search */
+    /*
     (function () {
         var expandSearch = document.getElementById('expandsearch'),
             input = expandSearch.querySelector('input.expandsearch-input'),
@@ -177,6 +164,7 @@ $(document).ready(function () {
             }
         });
     })();
+    */
 });
 
 

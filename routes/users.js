@@ -16,7 +16,7 @@ router.post('/signin', function(req, res, next) {
                     req.session.user = user.name;
                     req.session.email = user.email;
                     req.session.userID = user._id;
-                    res.status('200').send('200');
+                    res.cookie('user', user.email).status('200').send('200');
                 } else {
                     res.status('400').send('400');
                 }
@@ -28,7 +28,7 @@ router.post('/signin', function(req, res, next) {
 /* Sign in user */
 router.get('/logout', function(req, res, next) {
     req.session.destroy(function(err) {
-        res.redirect('/');
+        res.clearCookie('user').redirect('/');
     });
 });
 

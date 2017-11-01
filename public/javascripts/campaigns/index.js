@@ -18,7 +18,6 @@ $(document).ready(function () {
                 var progress_ratio = 100;
                 if (campaign.progress<campaign.goal){ progress_ratio = campaign.progress/campaign.goal*100 };
                 $('#more_campaigns').parent().before(
-                <% include ../../partials/campaign_card %>
                     '<div class="col-lg-4 col-md-4 mb-4 campaign_div">' +
                     '<div class="card">' +
                     '<a class="card-link" href="/campaigns/' + campaign._id + '"></a>' +
@@ -49,7 +48,9 @@ $(document).ready(function () {
 function getLocations(){
     var geocoder = new google.maps.Geocoder;
 
-    /* Percorre cada div com inputs hidden das coordenadas e que ainda não tenham localizacao */
+    console.log("dakndad");
+
+    // Percorre cada div com inputs hidden das coordenadas e que ainda não tenham localizacao
     $('.latlng_campaign:not(:has(p))').each(function () {
         var latlng = {lat: parseFloat($(this).children()[0].value), lng: parseFloat($(this).children()[1].value)};
         var footer = $(this);
@@ -60,9 +61,9 @@ function getLocations(){
                     var locality, administrative_area_level_1;
                     for (var i = 0; i < results[1].address_components.length; i++) {
                         var addressType = results[1].address_components[i].types[0];
-                        if (addressType == "locality") { /* Localidade */
+                        if (addressType == "locality") { // Localidade
                             locality = results[1].address_components[i].long_name;
-                        } else if (addressType == "administrative_area_level_1"){ /* Distrito */
+                        } else if (addressType == "administrative_area_level_1"){ // Distrito
                             administrative_area_level_1 = results[1].address_components[i].short_name;
                         } else if (locality && administrative_area_level_1){ // já foi recolhida a localidade e o distrito
                             break;
@@ -81,6 +82,4 @@ function getLocations(){
         });
     });
 }
-
-
 

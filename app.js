@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
+var Cropper = require('cropperjs');
 
 var db = require('./models/db');
 var campaignModel = require('./models/campaigns');
@@ -43,6 +44,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // images folder
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
 //app.use('/api', api); // redirect API calls
 
 app.use('/', index);
@@ -51,20 +53,20 @@ app.use('/campaigns', campaigns);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 /**
