@@ -69,6 +69,10 @@ body {
   height: 100%; width: 100%;
 }
 
+.campaign_img {
+  height: 200px;
+}
+
 .title-link{
   color: var(--main-color)
 }
