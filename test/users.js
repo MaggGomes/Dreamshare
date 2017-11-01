@@ -3,6 +3,7 @@ process.env.NODE_ENV = 'test';
 
 var mongoose = require("mongoose");
 var User = require('../models/users');
+var app = require('../test');
 
 //Require the dev-dependencies
 var chai = require('chai');
@@ -22,13 +23,27 @@ describe('Users', () => {
   * Test the /GET route
   */
 describe('/POST user', () => {
+    it('it should POST a user successfully', (done) => {
+    let user = {
+        name : "teste",
+        email : "teste@teste.teste",
+        password : "kkkk"
+    }
+    chai.request(app.server)
+    .post('/users/register')
+    .send(user)
+    .end((err, res) => {
+    res.should.have.status(200);
+    done();
+});
+});
     it('it should not POST a user successfully', (done) => {
     let user = {
         name : "teste",
         email : "teste@teste.teste",
         password : "kkkk"
     }
-    chai.request('http://95.85.7.126:3001')
+    chai.request(app.server)
         .post('/users/register')
         .send(user)
         .end((err, res) => {
@@ -37,4 +52,5 @@ describe('/POST user', () => {
     });
     });
 });
+
 });

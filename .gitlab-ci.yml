@@ -1,5 +1,11 @@
 image: node:latest
 
+services:
+  - mongo:latest
+
+variables:
+  MONGO_DB: testdreamshare
+
 stages:
   - build
   - test
