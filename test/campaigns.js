@@ -12,7 +12,7 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 //Our parent block
-
+/*
 describe('Campaigns', () => {
 
     before((done) => { //Before tests
@@ -47,7 +47,30 @@ describe('Campaigns', () => {
 
                 });
         });
+
+        it('it should POST a campaign with correct data', (done) => {
+            let badcampaign = {
+                owner: "I dont exist",
+                title: "Campaign for Testing",
+                description: "123456",
+                isFunds: true,
+                goal: 300,
+                endDate: 2018-01-01,
+                lat: 12345,
+                lng: 1234,
+                image: "test.png",
+            }
+            chai.request(app.server)
+                .post('/campaigns/create')
+                .send(badcampaign)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+
+                });
+        });
         });
 
 
 });
+*/
