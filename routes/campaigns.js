@@ -78,22 +78,20 @@ router.post('/:campaignId/donate', function (req, res, next) {
                 res.send("Donation failed.\n" + err);
             }
             else {
-                var progress = 0;
                 // TODO: update page instead of reloading
-                mongoose.model('Donation').find({"campaign": req.params.campaignId}).exec(function(err, donations) {
-                    if (err) {
-                        throw err;
-                    }
+
+                /**
+                 * Update progress value
+                 */
+                mongoose.model('Donation').find({campaign: req.params.campaignId}, function(err, donations) {
+                    var progress = 0;
+                    if (err) throw err;
                     for (var i = 0; i < donations.length; i++) {
                         progress += donations[i].value;
                     }
-
-                });
-
-                mongoose.model('Campaign').update({_id: req.params.campaignId}, {$set: {progress: progress}}, function(err, campaign) {
-                    if (err) {
-                        throw err;
-                    }
+                    mongoose.model('Campaign').update({_id: req.params.campaignId}, {$set: {progress: progress}}, function(err, campaign) {
+                        if (err) throw err;
+                    });
                 });
 
                 res.format({
@@ -105,16 +103,17 @@ router.post('/:campaignId/donate', function (req, res, next) {
             }
         });
     } else {
-        res.send('400');
+        res.status(400).send('400');
     }
 });
 
 /* GET create campaign page */
 router.get('/create', function(req, res, next) {
+    var errors;
     if (req.session.user) {
-        res.render('pages/campaigns/create', { userLogged: true});
+        res.render('pages/campaigns/create', { userLogged: true , errors: errors});
     } else {
-        res.status('403');
+        res.status(403);
     }
 });
 
@@ -123,19 +122,21 @@ router.post('/create',
     upload.single('imageFile'), function (req, res, next) {
         if (req.session.user) {
 
+            req.checkBody('title', 'Title is required').notEmpty();
             req.checkBody('title', 'Title is too Short').isLength({min: 5});
             req.checkBody('title', 'Title is too Long').isLength({max: 100});
+            req.checkBody('description', 'Description is required').notEmpty().isLength({min: 25});
             req.checkBody('description', 'Description is too Short').isLength({min: 25});
             req.checkBody('description', 'Description is too Long').isLength({max: 250});
             req.checkBody('isFunds', 'Type of Funds is required').notEmpty();
-            req.checkBody('goal', 'Campaign must have a goal higher than 0').notEmpty();
+            req.checkBody('goal', 'Campaign must have a goal higher than 0').notEmpty().isInt({min: 0});
             req.checkBody('endDate', 'endDate must not be empty').notEmpty();
             req.checkBody('lat', 'latitude must not be empty').notEmpty();
             req.checkBody('lng', 'longitude must not be empty').notEmpty();
 
             var latlong = req.body.lat + "," + req.body.lng;
 
-            req.check('latlong', 'Combination of latitude and longitude is not valid').isLatLong();
+            check(latlong, 'Combination of latitude and longitude is not valid').isLatLong();
 
             //const errors = validationResult(req);
             var errors = req.validationErrors();
@@ -184,7 +185,7 @@ router.post('/create',
                 }
             });
         } else {
-            res.status('403');
+            res.status(403);
         }
     });
 
