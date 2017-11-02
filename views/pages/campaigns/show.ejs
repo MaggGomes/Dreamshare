@@ -34,16 +34,16 @@
             <div class="my-4 text-left">
                 <div>
                     <p class="lead"><%= campaign.progress %>€</p>
-                    <p style="font-size:0.8em; margin-top: -1em;">doados de  <%= campaign.goal %>€ pretendidos</p>
+                    <p class="camp-det-aux">doados de  <%= campaign.goal %>€ pretendidos</p>
                 </div>
                 <div>
                     <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
                     <p class="lead" id="time-left-counter"></p>
-                    <p style="font-size:0.8em; margin-top: -1em;">restantes</p>
+                    <p class="camp-det-aux"">restantes</p>
                 </div>
                 <div>
                     <p class="lead"><%= campaign.n_donators %></p>
-                    <p style="font-size:0.8em; margin-top: -1em;">contribuidores</p>
+                    <p class="camp-det-aux">contribuidores</p>
                 </div>
             </div>
             <% if (!campaign.closed) { %>

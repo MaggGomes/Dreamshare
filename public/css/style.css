@@ -40,16 +40,16 @@ body {
 }
 
 .jumbotron {
-  background-color: white;
+  color: white;
+  background: url('../images/jumbotron/jumbotron1.jpeg');
+  background-size: cover;
 }
 
 .jumbotron h1 {
-  color: var(--main-color);
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .jumbotron p {
-  color: var(--text-color);
 }
 
 .campaign-category h3 {
@@ -349,6 +349,11 @@ footer {
 
 .lead {
   font-weight: bold;
+}
+
+.camp-det-aux{
+  font-size:0.8em;
+  margin-top: -1em;
 }
 
 /* placeholder */
