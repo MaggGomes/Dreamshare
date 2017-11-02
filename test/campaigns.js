@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 var mongoose = require("mongoose");
-var User = require('../models/campaigns');
+var User = require('../models/users');
 var app = require('../test');
 
 //Require the dev-dependencies
@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 //Our parent block
 
 describe('Campaigns', () => {
-    /*
+
     before((done) => { //Before tests
         mongoose.model('User').create({
             name : "teste2",
@@ -24,16 +24,15 @@ describe('Campaigns', () => {
             done();
         });
     });
-*/
+
     describe('/POST create campaign', () => {
         it('it should POST a campaign with correct data', (done) => {
             let campaign = {
-                owner: "teste2",
+                owner: User,
                 title: "Campaign for Testing",
                 description: "123456",
                 isFunds: true,
                 goal: 300,
-                progress: 0,
                 endDate: 2018-01-01,
                 lat: 12345,
                 lng: 1234,
