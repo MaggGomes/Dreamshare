@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="my-4 text-left">
-                <p class="lead"><%= campaign.progress %>€</p>
+                <p id="progress-value" class="lead"><%= campaign.progress %>€</p>
                 <p>Objectivo: <%= campaign.goal %>€</p>
                 <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
                 <p id="time-left-counter"></p>
