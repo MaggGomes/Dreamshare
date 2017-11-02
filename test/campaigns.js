@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 var mongoose = require("mongoose");
-var User = require('../models/users');
+var User = require('../models/campaigns');
 var app = require('../test');
 
 //Require the dev-dependencies
@@ -26,7 +26,7 @@ describe('Campaigns', () => {
     });
 */
     describe('/POST create campaign', () => {
-        it('it should POST a campaign with correct wrong data', (done) => {
+        it('it should POST a campaign with correct data', (done) => {
             let campaign = {
                 owner: "teste2",
                 title: "Campaign for Testing",
