@@ -24,7 +24,7 @@
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
                      aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
-                     style="margin-top: 1em; width:<% if(campaign.progress<campaign.goal) { %>
+                     style="padding-top: 1em; width:<% if(campaign.progress<campaign.goal) { %>
                      <%= campaign.progress/campaign.goal*100 %>%
                      <% } else {%>
                              100%

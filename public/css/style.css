@@ -1,20 +1,15 @@
 :root {
   --main-color: #38bd63;
-  --hover-color: #389141;
+  --hover-color: #367e3f;
   --text-color: #595959;
 }
 
 body {
-  margin: 0 auto;
   padding-top: 57px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding-right: 0 !important;
   color: var(--text-color);
-}
-
-.main-container {
-  margin-top: 32px;
 }
 
 .modal-open, .modal-open .navbar-fixed-top {
@@ -45,19 +40,16 @@ body {
 }
 
 .jumbotron {
-  background: url('../images/jumbotron/jumbotron1.jpeg');
-  background-size: cover;
-  border-radius: 0;
+  background-color: white;
 }
 
 .jumbotron h1 {
-  color: white;
-  font-size: 50px;
+  color: var(--main-color);
+  font-weight: 600;
 }
 
 .jumbotron p {
-  color: white;
-  font-size: 25px;
+  color: var(--text-color);
 }
 
 .campaign-category h3 {
@@ -75,8 +67,7 @@ body {
 .card-link{
   position: absolute;
   top: 0; left: 0;
-  height: 100%;
-  width: 100%;
+  height: 100%; width: 100%;
 }
 
 .card-footer {
@@ -90,6 +81,10 @@ body {
 }
 
 .card-progress {
+  margin-bottom: 10px;
+}
+
+.card-img-top {
   margin-bottom: 10px;
 }
 
@@ -350,6 +345,10 @@ footer {
 
 .expandsearch.open .expandsearch-input {
   font-size: 7em;
+}
+
+.lead {
+  font-weight: bold;
 }
 
 /* placeholder */
