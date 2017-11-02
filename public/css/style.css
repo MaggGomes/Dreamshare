@@ -1,13 +1,20 @@
 :root {
   --main-color: #38bd63;
-  --hover-color: #367e3f;
+  --hover-color: #389141;
+  --text-color: #595959;
 }
 
 body {
+  margin: 0 auto;
   padding-top: 57px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding-right: 0 !important;
+  color: var(--text-color);
+}
+
+.main-container {
+  margin-top: 32px;
 }
 
 .modal-open, .modal-open .navbar-fixed-top {
@@ -38,20 +45,23 @@ body {
 }
 
 .jumbotron {
-  background-color: white;
+  background: url('../images/jumbotron/jumbotron1.jpeg');
+  background-size: cover;
+  border-radius: 0;
 }
 
 .jumbotron h1 {
-  color: var(--main-color);
-  font-weight: 600;
+  color: white;
+  font-size: 50px;
 }
 
 .jumbotron p {
-  color: #505050;
+  color: white;
+  font-size: 25px;
 }
 
 .campaign-category h3 {
-  color: #505050;
+  color: var(--text-color);
 }
 
 .card {
@@ -59,18 +69,50 @@ body {
 }
 
 .card-title {
-  color: #505050;
+  color: var(--text-color);
 }
-
 
 .card-link{
   position: absolute;
   top: 0; left: 0;
-  height: 100%; width: 100%;
+  height: 100%;
+  width: 100%;
+}
+
+.card-footer {
+  background-color: white;
+  color: #a9a9a9;
+  font-size: small;
+}
+
+.card-footer span {
+  font-weight: bold;
+}
+
+.card-progress {
+  margin-bottom: 10px;
+}
+
+.campaign-location, .latlng_campaign {
+  display: inline-block;
+}
+
+.campaign_img {
+  height: 200px;
 }
 
 .title-link{
   color: var(--main-color)
+}
+
+.progress-bar {
+  background-color: var(--main-color);
+  height: 0.5rem;
+  line-height: 0.5rem;
+}
+
+footer {
+  margin-top: 70px;
 }
 
 .btn-primary {
@@ -105,14 +147,6 @@ body {
   color: #929292;
   border: 1px solid #929292;
   background-color: white;
-}
-
-.progress-bar {
-  background-color: var(--main-color);
-}
-
-footer {
-  margin-top: 70px;
 }
 
 .login-or {
@@ -236,7 +270,7 @@ footer {
 }
 
 .useemail {
-  color: #505050;
+  color: var(--text-color);
   text-align: center;
   font-size: large;
   margin-top: 8px;

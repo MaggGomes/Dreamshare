@@ -9,17 +9,11 @@
 <% include ../../partials/header %>
 
 <!-- Page Content -->
-<div class="container">
+<div class="container main-container">
+    <h1>Campanhas</h1>
 
-    <!-- Jumbotron Header -->
-    <header class="jumbotron my-4 py-3">
-        <h1 class="display-3">DreamShare</h1>
-    </header>
     <!-- Page Features -->
-    <div class="row text-center">
-        <div  class="col-sm-12">
-            <h3> Campanhas </h3>
-        </div>
+    <div class="row">
         <div class="text-right dropdown col-sm-12 mb-4">
             <span>Ordenar por:</span>
             <button class="btn btn-secondary dropdown-toggle more-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -28,38 +22,13 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#">Mais recentes</a>
                 <a class="dropdown-item" href="#">Mais contribuidores</a>
-                <a class="dropdown-item" href="#">Fundraising</a>
-                <a class="dropdown-item" href="#">Bens</a>
+                <a class="dropdown-item" href="#">Angariação de fundos</a>
+                <a class="dropdown-item" href="#">Recolha de artigos</a>
             </div>
         </div>
 
         <% campaigns.forEach(function(campaign) { %>
-        <div class="col-lg-4 col-md-4 mb-4 campaign_div">
-            <div class="card">
-                <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
-                <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
-                         aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
-                         style="width:<% if(campaign.progress<campaign.goal) { %>
-                         <%= campaign.progress/campaign.goal*100 %>%
-                         <% } else {%>
-                                 100%
-                         <% } %>
-                                 ">
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title"><a class="title_link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
-                    <p class="card-text"><%= campaign.description %></p>
-                </div>
-                <div class="card-footer latlng_campaign">
-                    <input type="hidden" value="<%= campaign.lat%>">
-                    <input type="hidden" value="<%= campaign.lng%>">
-                </div>
-            </div>
-            <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
-        </div>
+            <% include ../../partials/campaign_card %>
         <% }); %>
         <div  class="col-sm-12 mb-4">
             <button id="more_campaigns" class="btn btn-secondary float-right">Ver Mais</button>

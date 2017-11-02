@@ -10,15 +10,15 @@ router.post('/signin', function(req, res, next) {
             next(err);
         } else {
             if (!user) {
-                res.send('401');
+                res.status('401').send('401');
             } else {
                 if(bcrypt.compareSync(req.body.password, user.password)) {
                     req.session.user = user.name;
                     req.session.email = user.email;
                     req.session.userID = user._id;
-                    res.send('200');
+                    res.cookie('user', user.email).status('200').send('200');
                 } else {
-                    res.send('400');
+                    res.status('400').send('400');
                 }
             }
         }
@@ -28,7 +28,7 @@ router.post('/signin', function(req, res, next) {
 /* Sign in user */
 router.get('/logout', function(req, res, next) {
     req.session.destroy(function(err) {
-        res.redirect('/');
+        res.clearCookie('user').redirect('/');
     });
 });
 
@@ -43,7 +43,6 @@ router.post('/register', function(req, res, next) {
     if (errors) {
 
     }*/
-
     var hash = bcrypt.hashSync(req.body.password, 10);
 
     mongoose.model('User').create({
@@ -52,9 +51,9 @@ router.post('/register', function(req, res, next) {
         password : hash
     }, function (err, user) {
         if (err) {
-            res.send('400');
+            res.status('400').send('400');
         } else {
-            res.send('200');
+            res.status('200').send('200');
         }
     });
 });

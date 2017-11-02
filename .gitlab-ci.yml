@@ -1,0 +1,29 @@
+image: node:6.11.4
+
+services:
+  - mongo:latest
+
+variables:
+  MONGO_DB: testdreamshare
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies:
+  stage: build
+  script:
+    - rm -rf node_modules
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+login_tests:
+  stage: test
+  script:
+    - npm test

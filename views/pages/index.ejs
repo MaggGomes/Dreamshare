@@ -1,106 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <% include ../partials/head %>
-  </head>
+</head>
 
-  <body>
-        <% include ../partials/header %>
+<body>
+<% include ../partials/header %>
 
-    <!-- Page Content -->
+<!-- Jumbotron -->
+<div class="jumbotron">
     <div class="container">
-
-      <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h1 class="text-center">dream<span class="brand-share">Share</span></h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-      </div>
-
-      <!-- Page Features -->
-      <div class="row">
-        <div class="col-sm-12 mb-4 campaign-category">
-          <h3>Fundraising</h3>
+        <br>
+        <h1 class="text-center">Ajude a concretizar sonhos</h1>
+        <br>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat</p>
+        <div class="text-center">
+            <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
         </div>
-
-          <% fundsCampaigns.forEach(function(campaign) { %>
-        <div class="col-lg-4 col-md-4 mb-4 campaign_div">
-          <div class="card">
-           <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
-            <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
-            <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
-                                                 aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
-                                                                                                                        <%= campaign.progress/campaign.goal*100 %>%
-                                                                                                                     <% } else {%>
-                                                                                                                        100%
-                                                                                                                     <% } %>">
-                                            </div>
-                                        </div>
-            <div class="card-body">
-              <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
-              <p class="card-text"><%= campaign.description %></p>
-            </div>
-              <div class="card-footer latlng_campaign">
-                  <input type="hidden" value="<%= campaign.lat%>">
-                  <input type="hidden" value="<%= campaign.lng%>">
-              </div>
-          </div>
-          <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
-        </div>
-          <% }); %>
-      <div  class="col-sm-12 mb-4">
-            <a href="/campaigns/search/true" class="btn btn-primary float-right">Mais ></a>
-      </div>
-      </div>
-      <!-- /.row -->
-
-      <div class="row">
-        <div class="col-sm-12 mb-4 campaign-category">
-          <h3>Recolha de artigos</h3>
-        </div>
-          <% goodsCampaigns.forEach(function(campaign) { %>
-        <div class="col-lg-4 col-md-4 mb-4 campaign_div">
-          <div class="card">
-           <a class="card-link" href="/campaigns/<%= campaign._id %>"></a>
-            <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
-            <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
-                                                 aria-valuemin="0" aria-valuemax="<%= campaign.goal %>" style="width:<% if(campaign.progress<campaign.goal) { %>
-                                                                                                                        <%= campaign.progress/campaign.goal*100 %>%
-                                                                                                                     <% } else {%>
-                                                                                                                        100%
-                                                                                                                     <% } %>">
-                                            </div>
-                                        </div>
-            <div class="card-body">
-              <h4 class="card-title"><a class="title-link" href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></h4>
-              <p class="card-text"><%= campaign.description %></p>
-            </div>
-              <div class="card-footer latlng_campaign">
-                  <input type="hidden" value="<%= campaign.lat%>">
-                  <input type="hidden" value="<%= campaign.lng%>">
-              </div>
-          </div>
-          <input type="hidden" class="id_campaign" value="<%= campaign._id%>">
-        </div>
-          <% }); %>
-
-        <div  class="col-sm-12 mb-4">
-          <a href="/campaigns/search/false" class="btn btn-primary float-right">Mais ></a>
-        </div>
-      </div>
 
     </div>
-    <!-- /.container -->
+</div>
 
-   <% include ../partials/footer %>
+<!-- Page Content -->
+<div class="container">
+    <!-- Page Features -->
+    <div class="row">
+        <div class="col-sm-12 mb-4 campaign-category">
+            <h3>Angariação de fundos</h3>
+        </div>
 
-        <script src="/javascripts/campaigns/index.js"></script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
-        </script>
+        <% fundsCampaigns.forEach(function(campaign) { %>
+            <% include ../partials/campaign_card %>
+        <% }); %>
+        <div  class="col-sm-12 mb-4">
+            <a href="/campaigns/search/true" class="btn btn-primary float-right">Mais ></a>
+        </div>
+    </div>
+    <!-- /.row -->
 
-  </body>
+    <div class="row">
+        <div class="col-sm-12 mb-4 campaign-category">
+            <h3>Recolha de artigos</h3>
+        </div>
+        <% goodsCampaigns.forEach(function(campaign) { %>
+            <% include ../partials/campaign_card %>
+        <% }); %>
+
+        <div  class="col-sm-12 mb-4">
+            <a href="/campaigns/search/false" class="btn btn-primary float-right">Mais ></a>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<% include ../partials/footer %>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
+</script>
+<script src="/javascripts/campaigns/index.js"></script>
+
+</body>
 
 </html>

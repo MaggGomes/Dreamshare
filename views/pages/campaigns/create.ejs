@@ -51,12 +51,21 @@
 <!-- Page Content -->
 <div class="container">
     <form action="create" method="post" encType="multipart/form-data">
-        <div class="form-group row my-4 required">
-            <label for="title" class="col-sm-2 col-form-label">Título</label>
-            <div class="col-sm-8">
-                <input class="form-control" type="text" id="title" name="title">
-            </div>
-        </div>
+            <% if(typeof errors == "object" && errors) { %>
+             <% for(var i = 0; i < errors.length; i++) { %>
+                <% if(errors[i].param === 'title') {%>
+                        <div class="form-group  has-danger row my-4">
+                            <label for="title" class="col-sm-2 col-form-label">Título</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control form-control-danger" id="title" name="title" >
+                                <div class="form-control-feedback"><%= errors[i].msg %></div>
+                            </div>
+                        </div>
+
+                <% } %>
+             <% } %>
+             <% } %>
+
         <div class="form-group row my-4">
             <label for="isFunds" class="col-sm-2 col-form-label">Tipo</label>
             <div class="col-sm-8 btn-group" data-toggle="buttons">
@@ -70,6 +79,13 @@
         </div>
         <div class="form-group row">
             <label for="goal" class="col-sm-2 col-form-label">Objetivo</label>
+            <% if(typeof errors == "object" && errors) { %>
+                         <% for(var i = 0; i < errors.length; i++) { %>
+                            <% if(errors[i].param === 'goal') {%>
+                                <li> <%= errors[i].msg %></li>
+                            <% } %>
+                         <% } %>
+                         <% } %>
             <div class="col-sm-4 col-md-3">
                 <div class="input-group">
                     <input class="form-control border-right-0" type="number" id="goal" name="goal">
@@ -88,6 +104,13 @@
         </div>
         <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Descrição</label>
+            <% if(typeof errors == "object" && errors) { %>
+                         <% for(var i = 0; i < errors.length; i++) { %>
+                            <% if(errors[i].param === 'description') {%>
+                                <li> <%= errors[i].msg %></li>
+                            <% } %>
+                         <% } %>
+                         <% } %>
             <div class="col-sm-8">
                 <textarea class="form-control" id="description" rows="4" name="description"></textarea>
             </div>
@@ -95,6 +118,13 @@
 
         <div class="form-group row">
             <label for="location" class="col-sm-2 col-form-label">Localização</label>
+            <% if(typeof errors == "object" && errors) { %>
+                                     <% for(var i = 0; i < errors.length; i++) { %>
+                                        <% if(errors[i].param === 'latlong') {%>
+                                            <li> <%= errors[i].msg %></li>
+                                        <% } %>
+                                     <% } %>
+                                     <% } %>
             <div class="col-sm-8">
                 <input class="form-control" id="location" type="text" name="location">
                 <input id="lat" type="hidden" name="lat">
@@ -104,6 +134,13 @@
 
         <div class="form-group row">
             <label for="endDate" class="col-sm-2 col-form-label">Data final</label>
+            <% if(typeof errors == "object" && errors) { %>
+                         <% for(var i = 0; i < errors.length; i++) { %>
+                            <% if(errors[i].param === 'endDate') {%>
+                                <li> <%= errors[i].msg %></li>
+                            <% } %>
+                         <% } %>
+                         <% } %>
             <div class="col-sm-8">
                 <input class="form-control" type="date" id="endDate" name="endDate">
             </div>
