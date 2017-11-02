@@ -19,24 +19,17 @@ var x = setInterval(function() {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    if (days < 1 && hours < 4)
-        document.getElementById("time-left-counter").innerHTML = (hours * 60) + minutes + " minutos e " + seconds + " segundos";
-    else if (days < 3)
-        document.getElementById("time-left-counter").innerHTML = (24 * days + hours) + " horas e " + minutes + " minutos";
-    else if (days >= 7)
-        document.getElementById("time-left-counter").innerHTML = days + " dias e " + hours + " horas";
-
     // Display the result in the element with id="time-left-counter"
-    /*if (days > 7){
+    if (days > 7){
         document.getElementById("time-left-counter").innerHTML = "Faltam " + days + "d.";
     } else if (days <= 3){
         document.getElementById("time-left-counter").innerHTML = "Faltam " + (24 * days + hours) + "h "
-            + minutes + "min " + seconds + "seg.";
+            + minutes + "m " + seconds + "s.";
     } else {
-        document.getElementById("time-left-counter").innerHTML = "Faltam " + days + "dias " + hours + "horas "
-            + minutes + "min " + seconds + "s.";
+        document.getElementById("time-left-counter").innerHTML = "Faltam " + days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s.";
     }
-    */
+
     // If the count down is finished, write some text
     if (distance < 0) {
         clearInterval(x);
