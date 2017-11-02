@@ -30,7 +30,8 @@
     "bcrypt": "^1.0.3"
   },
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "cypress": "$(npm bin)/cypress run"
   },
   "repository": {
     "type": "git",

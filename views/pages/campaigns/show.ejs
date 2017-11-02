@@ -8,9 +8,9 @@
 <% include ../../partials/header %>
 
 <!-- Page Content -->
-<div class="container main-container">
+<div class="container">
 
-    <!-- Jumbotron Header -->
+    <!-- Header -->
     <header class="header">
         <h1 class="display-4"><%= campaign.title %></h1>
         <p class="lead"><%= campaign.description %></p>
@@ -24,7 +24,7 @@
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
                      aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
-                     style="width:<% if(campaign.progress<campaign.goal) { %>
+                     style="margin-top: 1em; width:<% if(campaign.progress<campaign.goal) { %>
                      <%= campaign.progress/campaign.goal*100 %>%
                      <% } else {%>
                              100%
@@ -32,18 +32,19 @@
                 </div>
             </div>
             <div class="my-4 text-left">
-                <p id="progress-value" class="lead"><%= campaign.progress %>€</p>
-                <p>Objectivo: <%= campaign.goal %>€</p>
-                <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
-                <p id="time-left-counter"></p>
-                <p class="lead"><%= campaign.n_donators %></p>
-                <p>Contribuidores</p>
-                <% if (!campaign.closed) { %>
-                <p class="lead"><%= campaign.remaining %></p>
-                <p>Até acabar</p>
-                <% } else { %>
-                <p class="lead">Concluído</p>
-                <% } %>
+                <div>
+                    <p class="lead"><%= campaign.progress %>€</p>
+                    <p style="font-size:0.8em; margin-top: -1em;">doados de  <%= campaign.goal %>€ pretendidos</p>
+                </div>
+                <div>
+                    <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
+                    <p class="lead" id="time-left-counter"></p>
+                    <p style="font-size:0.8em; margin-top: -1em;">restantes</p>
+                </div>
+                <div>
+                    <p class="lead"><%= campaign.n_donators %></p>
+                    <p style="font-size:0.8em; margin-top: -1em;">contribuidores</p>
+                </div>
             </div>
             <% if (!campaign.closed) { %>
             <% if(userLogged) { %>
@@ -58,6 +59,7 @@
             <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
             <% } %>
             <% } %>
+            <img class="col-sm-12 col-lg-12 col-md-12 mb-12" src="http://via.placeholder.com/350x200" style="margin-top: 2em;">
         </div>
     </div>
 
