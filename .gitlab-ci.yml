@@ -23,7 +23,13 @@ install_dependencies:
     paths:
       - node_modules/
 
-login_tests:
+backend_tests:
   stage: test
   script:
     - npm test
+
+frontend_tests:
+  image: cypress/base
+  stage: test
+  script:
+    - npm run cypress
