@@ -1,6 +1,6 @@
 :root {
   --main-color: #38bd63;
-  --hover-color: #367e3f;
+  --hover-color: #389141;
   --text-color: #595959;
 }
 
@@ -10,6 +10,10 @@ body {
   overflow-y: scroll;
   padding-right: 0 !important;
   color: var(--text-color);
+}
+
+.main-container {
+  margin-top: 35px;
 }
 
 .modal-open, .modal-open .navbar-fixed-top {
@@ -46,10 +50,11 @@ body {
 }
 
 .jumbotron h1 {
-  font-weight: 800;
+  font-size: 50px;
 }
 
 .jumbotron p {
+  font-size: 20px;
 }
 
 .campaign-category h3 {
@@ -351,9 +356,13 @@ footer {
   font-weight: bold;
 }
 
+.camp-det{
+  display: inline-block;
+}
+
 .camp-det-aux{
   font-size:0.8em;
-  margin-top: -1em;
+  margin-top: -1.5em;
 }
 
 /* placeholder */
