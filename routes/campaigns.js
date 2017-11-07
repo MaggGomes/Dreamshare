@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
+    campaigns = require('../models/campaigns'),
     fs = require('fs'),
     multer  = require('multer'),
     gm  = require('gm').subClass({imageMagick:true}),
@@ -128,12 +129,12 @@ router.post('/create',
             req.checkBody('isFunds', 'Type of Funds is required').notEmpty();
             req.checkBody('goal', 'Campaign must have a goal higher than 0').notEmpty();
             req.checkBody('endDate', 'endDate must not be empty').notEmpty();
-            req.checkBody('lat', 'latitude must not be empty').notEmpty();
-            req.checkBody('lng', 'longitude must not be empty').notEmpty();
+            req.checkBody('lat', 'Location not valid').notEmpty();
+            req.checkBody('lng', 'Location not valid').notEmpty();
 
-            var latlong = req.body.lat + "," + req.body.lng;
+            //var latlong = req.body.lat + "," + req.body.lng;
 
-            req.check('latlong', 'Location is not valid').isLatLong();
+            //req.check(latlong, 'Location is not valid').isLatLong();
 
             //const errors = validationResult(req);
             var errors = req.validationErrors();
@@ -194,6 +195,23 @@ router.post('/more', function(req, res, next) {
         console.log(campaigns);
         res.status(200).send(campaigns);
     }).limit(parseInt(req.body.nCampaigns));
+});
+
+/* POST get more campaigns */
+router.post('/insideCoords', function(req, res, next) {
+    campaigns.getInsideCoords(
+        req.body.lat_left,
+        req.body.lat_right,
+        req.body.lng_up,
+        req.body.lng_down,
+        function(err, campaigns){
+            if (err){
+                res.status(400).send('erro');
+            }
+            else{
+                res.status(200).send(campaigns);
+            }
+        });
 });
 
 
