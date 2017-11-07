@@ -1,7 +1,8 @@
 process.env.NODE_ENV = 'test';
 
 var mongoose = require("mongoose");
-var User = require('../models/users');
+var User = require('../models/users')
+var Donation = require('../models/donations');
 var app = require('../test');
 
 //Require the dev-dependencies
@@ -37,7 +38,7 @@ describe('Campaigns', () => {
                 lat: 12345,
                 lng: 1234,
                 image: "test.png",
-            }
+            };
             chai.request(app.server)
                 .post('/campaigns/create')
                 .send(campaign)
@@ -59,7 +60,7 @@ describe('Campaigns', () => {
                 lat: 12345,
                 lng: 1234,
                 image: "test.png",
-            }
+            };
             chai.request(app.server)
                 .post('/campaigns/create')
                 .send(badcampaign)
@@ -70,6 +71,37 @@ describe('Campaigns', () => {
                 });
         });
         });
+
+    describe('/POST donate to campaign', () => {
+
+        before((done) => { //Before tests
+            mongoose.model('Donation').create({
+                name : "teste2",
+                campaign : "teste_campaign",
+                value: 10
+            }, (err) => {
+                done();
+            });
+        });
+        it('it should POST a donation to campaign', (done) => {
+            let url = {
+                //insert campaignID+/donate
+            };
+            let donation ={
+                //donation
+            };
+            chai.request(app.server)
+                .post(url)
+                .send(donation)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+
+                });
+        });
+
+    });
+
 
 
 });
