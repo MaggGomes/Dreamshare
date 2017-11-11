@@ -18,10 +18,10 @@ module.exports = {
 			"tab",
 			{ "SwitchCase": 1 }
 		],
-		"linebreak-style": [
+		/*"linebreak-style": [
 			"error",
 			"windows"
-		],
+		],*/
 		"quotes": [
 			"error",
 			"single"
