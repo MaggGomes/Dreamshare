@@ -14,7 +14,8 @@
         <br>
         <h1 class="text-center">Ajude a concretizar sonhos</h1>
         <br>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat</p>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt
+            possimus non incidunt odit vero aliquid similique quaerat</p>
         <div class="text-center">
             <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
         </div>
@@ -30,10 +31,10 @@
             <h3>Angariação de fundos</h3>
         </div>
 
-        <% fundsCampaigns.forEach(function(campaign) { %>
-            <% include ../partials/campaign_card %>
+        <% fundsCampaigns.forEach(function() { %>
+        <% include ../partials/campaign_card %>
         <% }); %>
-        <div  class="col-sm-12 mb-4">
+        <div class="col-sm-12 mb-4">
             <a href="/campaigns/search/true" class="btn btn-primary float-right">Mais ></a>
         </div>
     </div>
@@ -43,11 +44,11 @@
         <div class="col-sm-12 mb-4 campaign-category">
             <h3>Recolha de artigos</h3>
         </div>
-        <% goodsCampaigns.forEach(function(campaign) { %>
-            <% include ../partials/campaign_card %>
+        <% goodsCampaigns.forEach(function() { %>
+        <% include ../partials/campaign_card %>
         <% }); %>
 
-        <div  class="col-sm-12 mb-4">
+        <div class="col-sm-12 mb-4">
             <a href="/campaigns/search/false" class="btn btn-primary float-right">Mais ></a>
         </div>
     </div>

@@ -28,11 +28,14 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
-    "bcrypt": "^1.0.3"
+    "bcrypt": "^1.0.3",
+    "eslint": "^4.11.0"
   },
   "scripts": {
     "test": "mocha --exit",
-    "cypress": "$(npm bin)/cypress run"
+    "cypress": "$(npm bin)/cypress run",
+    "start": "node app.js production",
+    "dev": "node app.js development"
   },
   "repository": {
     "type": "git",

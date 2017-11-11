@@ -1,2 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/dreamshare', {useMongoClient: true});
+var Config = require('../config'),
+	config = new Config();
+
+mongoose.connect('mongodb://' + config.db_address + '/dreamshare', {useMongoClient: true});

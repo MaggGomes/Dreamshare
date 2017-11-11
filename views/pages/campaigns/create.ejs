@@ -3,7 +3,7 @@
 
 <head>
     <% include ../../partials/head %>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.css"/>
     <style>.image-editor {
             text-align: center;
         }
@@ -51,34 +51,38 @@
 <!-- Page Content -->
 <div class="container main-container">
     <form action="create" method="post" encType="multipart/form-data">
-            <div class="form-group row my-4">
-                <label for="title" class="col-sm-2 col-form-label">Título</label>
-                <div class="col-sm-8">
-            <% if( typeof errors == "object" && errors ) { %>
-            <% var found = false; %>
-            <% for(var i = 0; i < errors.length; i++) { %>
-               <% if(errors[i].param === 'title') {%>
-                 <% found = true %>
-                 <input type="text" class="form-control is-invalid" id="title" name="title" >
-                 <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
-               <% } %>
-            <% } %>
-            <% if( !found ) { %>
-                <input type="text" class="form-control" id="title" name="title" value="<%=inputs.title %>">
-            <% } } else { %>
-                 <input type="text" class="form-control" id="title" name="title">
-            <% } %>
+        <div class="form-group row my-4">
+            <label for="title" class="col-sm-2 col-form-label">Título</label>
+            <div class="col-sm-8">
+                <% if( typeof errors == "object" && errors ) { %>
+                <% var found = false; %>
+                <% for(var i = 0; i < errors.length; i++) { %>
+                <% if(errors[i].param === 'title') { %>
+                <% found = true %>
+                <input type="text" class="form-control is-invalid" id="title" name="title">
+                <div class="form-control-feedback">
+                    <small><%= errors[i].msg %></small>
                 </div>
-             </div>
+                <% } %>
+                <% } %>
+                <% if( !found ) { %>
+                <input type="text" class="form-control" id="title" name="title" value="<%= inputs.title %>">
+                <% } } else { %>
+                <input type="text" class="form-control" id="title" name="title">
+                <% } %>
+            </div>
+        </div>
 
         <div class="form-group row my-4">
             <label for="isFunds" class="col-sm-2 col-form-label">Tipo</label>
             <div class="col-sm-8 btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active">
-                    <input type="radio" name="isFunds" id="funds" value="true" onchange="showGoodsTypeSelect(true);" checked> Fundos
+                    <input type="radio" name="isFunds" id="funds" value="true" onchange="showGoodsTypeSelect(true);"
+                           checked> Fundos
                 </label>
                 <label class="btn btn-primary">
-                    <input type="radio" name="isFunds" id="goods" value="false" onchange="showGoodsTypeSelect(false);"> Bens
+                    <input type="radio" name="isFunds" id="goods" value="false" onchange="showGoodsTypeSelect(false);">
+                    Bens
                 </label>
             </div>
         </div>
@@ -86,27 +90,33 @@
             <label for="goal" class="col-sm-2 col-form-label">Objetivo</label>
             <div class="col-sm-6 col-md-5">
                 <div class="input-group">
-                     <% if( typeof errors == "object" && errors ) { %>
-                         <% var found = false; %>
-                                <% for(var i = 0; i < errors.length; i++) { %>
-                                   <% if(errors[i].param === 'goal') {%>
-                                   <% found = true %>
-                                     <input class="form-control is-invalid border-right-0" type="number" id="goal" name="goal">
-                                       <span class="input-group-addon bg-white border-left-0 is-invalid" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
-                                     <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
-                                   <% } %>
-                                <% } %>
-                                <% if( !found ) { %>
-                                               <input class="form-control border-right-0" type="number" id="goal" name="goal" value="<%=inputs.goal%>">
-                                                                   <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
-                                            <% } %>
-                                <% } else { %>
-                                        <input class="form-control border-right-0" type="number" id="goal" name="goal">
-                    <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
-                                 <% } %>
+                    <% if( typeof errors == "object" && errors ) { %>
+                    <% var found = false; %>
+                    <% for(var i = 0; i < errors.length; i++) { %>
+                    <% if(errors[i].param === 'goal') { %>
+                    <% found = true %>
+                    <input class="form-control is-invalid border-right-0" type="number" id="goal" name="goal">
+                    <span class="input-group-addon bg-white border-left-0 is-invalid" id="euroIcon"><i class="fa fa-eur"
+                                                                                                       aria-hidden="true"></i></span>
+                    <div class="form-control-feedback">
+                        <small><%= errors[i].msg %></small>
+                    </div>
+                    <% } %>
+                    <% } %>
+                    <% if( !found ) { %>
+                    <input class="form-control border-right-0" type="number" id="goal" name="goal"
+                           value="<%= inputs.goal %>">
+                    <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur"
+                                                                                            aria-hidden="true"></i></span>
+                    <% } %>
+                    <% } else { %>
+                    <input class="form-control border-right-0" type="number" id="goal" name="goal">
+                    <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur"
+                                                                                            aria-hidden="true"></i></span>
+                    <% } %>
 
-
-                    <select class="input-group-addon bg-white border-left-0" id="goodsTypeSelect" onchange='otherGoodsType(this.value);' style='display:none;'>
+                    <select class="input-group-addon bg-white border-left-0" id="goodsTypeSelect"
+                            onchange='otherGoodsType(this.value);' style='display:none;'>
                         <option value="" disabled selected>Tipo de bem</option>
                         <option value="livros">Livros</option>
                         <option value="roupa">Roupa</option>
@@ -121,48 +131,53 @@
         <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-8">
-            <% if( typeof errors == "object" && errors ) { %>
+                <% if( typeof errors == "object" && errors ) { %>
                 <% var found = false; %>
-                        <% for(var i = 0; i < errors.length; i++) { %>
-                           <% if(errors[i].param === 'description') {%>
-                           <% found = true %>
-                            <textarea class="form-control is-invalid" id="description" rows="4" name="description"></textarea>
-                             <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
-                           <% } %>
-                        <% } %>
-                        <% if( !found ) { %>
-                             <textarea class="form-control" id="description" rows="4" name="description"> <%=inputs.description %> </textarea>
-                         <% } %>
-                        <% } else { %>
-                                <textarea class="form-control" id="description" rows="4" name="description"></textarea>
-                         <% } %>
+                <% for(var i = 0; i < errors.length; i++) { %>
+                <% if(errors[i].param === 'description') { %>
+                <% found = true %>
+                <textarea class="form-control is-invalid" id="description" rows="4" name="description"></textarea>
+                <div class="form-control-feedback">
+                    <small><%= errors[i].msg %></small>
+                </div>
+                <% } %>
+                <% } %>
+                <% if( !found ) { %>
+                <textarea class="form-control" id="description" rows="4"
+                          name="description"> <%= inputs.description %> </textarea>
+                <% } %>
+                <% } else { %>
+                <textarea class="form-control" id="description" rows="4" name="description"></textarea>
+                <% } %>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="location" class="col-sm-2 col-form-label">Localização</label>
             <div class="col-sm-8">
-            <% if( typeof errors == "object" && errors ) { %>
-            <% var found = false; %>
-                 <% for(var i = 0; i < errors.length; i++) { %>
-                    <% if(errors[i].param === 'lat') {%>
-                        <% found = true %>
-                        <input class="form-control is-invalid" id="location" type="text" name="location">
-                        <input id="lat" type="hidden" name="lat">
-                        <input id="lng" type="hidden" name="lng">
-                        <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
-                    <% } %>
-                 <% } %>
-                    <% if( !found ) { %>
-                       <input class="form-control" id="location" type="text" name="location">
-                       <input id="lat" type="hidden" name="lat">
-                       <input id="lng" type="hidden" name="lng">
-                    <% } %>
-                    <% } else { %>
-                       <input class="form-control" id="location" type="text" name="location">
-                       <input id="lat" type="hidden" name="lat">
-                       <input id="lng" type="hidden" name="lng">
-                    <% } %>
+                <% if( typeof errors == "object" && errors ) { %>
+                <% var found = false; %>
+                <% for(var i = 0; i < errors.length; i++) { %>
+                <% if(errors[i].param === 'lat') { %>
+                <% found = true %>
+                <input class="form-control is-invalid" id="location" type="text" name="location">
+                <input id="lat" type="hidden" name="lat">
+                <input id="lng" type="hidden" name="lng">
+                <div class="form-control-feedback">
+                    <small><%= errors[i].msg %></small>
+                </div>
+                <% } %>
+                <% } %>
+                <% if( !found ) { %>
+                <input class="form-control" id="location" type="text" name="location">
+                <input id="lat" type="hidden" name="lat">
+                <input id="lng" type="hidden" name="lng">
+                <% } %>
+                <% } else { %>
+                <input class="form-control" id="location" type="text" name="location">
+                <input id="lat" type="hidden" name="lat">
+                <input id="lng" type="hidden" name="lng">
+                <% } %>
 
             </div>
         </div>
@@ -170,38 +185,42 @@
         <div class="form-group row">
             <label for="endDate" class="col-sm-2 col-form-label">Data final</label>
             <div class="col-sm-8">
-            <% if( typeof errors == "object" && errors ) { %>
-            <% var found = false; %>
-                                    <% for(var i = 0; i < errors.length; i++) { %>
-                                       <% if(errors[i].param === 'endDate') {%>
-                                       <% found = true %>
+                <% if( typeof errors == "object" && errors ) { %>
+                <% var found = false; %>
+                <% for(var i = 0; i < errors.length; i++) { %>
+                <% if(errors[i].param === 'endDate') { %>
+                <% found = true %>
 
-                                        <input class="form-control is-invalid" type="date" id="endDate" name="endDate">
-                                         <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
-                                       <% } %>
-                                    <% } %>
-                                    <% if( !found ) { %>
-                                                           <input class="form-control" type="date" id="endDate" name="endDate" value="<%=inputs.endDate %>">
-                                                        <% } %>
-                                    <% } else { %>
-                                            <input class="form-control" type="date" id="endDate" name="endDate">
-                                     <% } %>
+                <input class="form-control is-invalid" type="date" id="endDate" name="endDate">
+                <div class="form-control-feedback">
+                    <small><%= errors[i].msg %></small>
+                </div>
+                <% } %>
+                <% } %>
+                <% if( !found ) { %>
+                <input class="form-control" type="date" id="endDate" name="endDate" value="<%= inputs.endDate %>">
+                <% } %>
+                <% } else { %>
+                <input class="form-control" type="date" id="endDate" name="endDate">
+                <% } %>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-sm-2">
-                <input type="file" class="form-control-file is-invalid" id="imageFile" name="imageFile" onchange="readURL(this);">
-                <small id="fileHelp" class="form-text text-muted">Adicione uma imagem adequada para a sua campanha</small>
+                <input type="file" class="form-control-file is-invalid" id="imageFile" name="imageFile"
+                       onchange="readURL(this);">
+                <small id="fileHelp" class="form-text text-muted">Adicione uma imagem adequada para a sua campanha
+                </small>
             </div>
         </div>
 
         <div id="image-cropper">
             <div class="cropit-preview"></div>
 
-            <input type="range" class="cropit-image-zoom-input" />
+            <input type="range" class="cropit-image-zoom-input"/>
 
-            <input type="file" class="cropit-image-input" />
+            <input type="file" class="cropit-image-input"/>
             <div class="select-image-btn">Select new image</div>
         </div>
 
@@ -288,55 +307,44 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropit/0.5.1/jquery.cropit.min.js"></script>
 <script>
-    function showGoodsTypeSelect(isFunds){
-        if(isFunds){
-            $('#euroIcon').show();
-            $('#goodsTypeSelect').hide();
-            $('#goodsType').hide();
-            $('#goodsTypeSelect').val('');
-        } else {
-            $('#euroIcon').hide();
-            $('#goodsTypeSelect').show();
-        }
-    }
+	function showGoodsTypeSelect(isFunds) {
+		if (isFunds) {
+			$('#euroIcon').show();
+			$('#goodsTypeSelect').hide();
+			$('#goodsType').hide();
+			$('#goodsTypeSelect').val('');
+		} else {
+			$('#euroIcon').hide();
+			$('#goodsTypeSelect').show();
+		}
+	}
 
-    function otherGoodsType(val) {
-        var element = $('#goodsType');
-        if (val == 'outro'){
-            element.val('');
-            element.show();
-        } else {
-            element.hide();
-            element.val(val);
-        }
-    }
+	function otherGoodsType(val) {
+		var element = $('#goodsType');
+		if (val == 'outro') {
+			element.val('');
+			element.show();
+		} else {
+			element.hide();
+			element.val(val);
+		}
+	}
 
-    var autocomplete;
-    function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
-        autocomplete = new google.maps.places.Autocomplete(
-            (document.getElementById('location')),
-            {types: ['geocode']});
+	var autocomplete;
 
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
-        autocomplete.addListener('place_changed', fillInAddress);
+	function fillInAddress() {
+		// Get the place details from the autocomplete object.
+		var place = autocomplete.getPlace();
+		document.getElementById('lat').value = place.geometry.location.lat();
+		document.getElementById('lng').value = place.geometry.location.lng();
+	}
 
-
-    }
-    function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-        document.getElementById('lat').value = place.geometry.location.lat();
-        document.getElementById('lng').value = place.geometry.location.lng();
-    }
-    $('#image-cropper').cropit({
-        imageBackground: true,
-        allowDragNDrop: false,
-        width: "300px",
-        height: "300px"
-    });
+	$('#image-cropper').cropit({
+		imageBackground: true,
+		allowDragNDrop: false,
+		width: "300px",
+		height: "300px"
+	});
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4&libraries=places&callback=initAutocomplete"

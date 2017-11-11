@@ -17,16 +17,16 @@
     </header>
 
     <div class="row text-center mb-4">
-        <div  class="col-sm-12 col-lg-8 col-md-8 mb-8">
+        <div class="col-sm-12 col-lg-8 col-md-8 mb-8">
             <img class="card-img-top" src="/<%= campaign.image %>" alt="">
         </div>
-        <div  class="col-sm-12 col-lg-4 col-md-4 mb-4">
+        <div class="col-sm-12 col-lg-4 col-md-4 mb-4">
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
                      aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
-                     style="padding-top: 1em; width:<% if(campaign.progress<campaign.goal) { %>
-                     <%= campaign.progress/campaign.goal*100 %>%
-                     <% } else {%>
+                     style="padding-top: 1em; width:<% if(campaign.progress < campaign.goal) { %>
+                     <%= campaign.progress / campaign.goal * 100 %>%
+                     <% } else { %>
                              100%
                      <% } %>">
                 </div>
@@ -34,7 +34,7 @@
             <div class="my-4 text-left">
                 <div>
                     <p class="lead camp-det"><%= campaign.progress %>€</p>
-                    <p class="camp-det-aux camp-det">doados de  <%= campaign.goal %>€ pretendidos</p>
+                    <p class="camp-det-aux camp-det">doados de <%= campaign.goal %>€ pretendidos</p>
                 </div>
                 <div>
                     <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
@@ -51,7 +51,8 @@
             <form action="<%= campaign._id %>/donate" method="post">
                 <div class="row">
                     <div class="input-group col-md-8 center-block">
-                        <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
+                        <input type="number" min="0" step="0.01" class="form-control contribute-value"
+                               aria-label="Amount" name="amount">
                         <span class="input-group-addon">€</span>
                     </div>
                     <div class="col-md-4 center-block">
@@ -74,7 +75,9 @@
                 <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                 <div class="media-body">
                     <h5 class="mt-0">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+                    purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                    vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                     <div class="media mt-3">
                         <a class="d-flex pr-3" href="#">
@@ -82,7 +85,9 @@
                         </a>
                         <div class="media-body">
                             <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+                            ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         </div>
                     </div>
                 </div>
@@ -91,7 +96,9 @@
                 <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                 <div class="media-body">
                     <h5 class="mt-0">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+                    purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                    vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                     <div class="media mt-3">
                         <a class="d-flex pr-3" href="#">
@@ -99,7 +106,9 @@
                         </a>
                         <div class="media-body">
                             <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+                            ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         </div>
                     </div>
                 </div>
