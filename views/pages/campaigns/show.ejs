@@ -49,17 +49,21 @@
             <% if (!campaign.closed) { %>
             <% if(userLogged) { %>
             <form action="<%= campaign._id %>/donate" method="post">
-                <div class="input-group">
-                    <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
-                    <span class="input-group-addon">€</span>
+                <div class="row">
+                    <div class="input-group col-md-8 center-block">
+                        <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
+                        <span class="input-group-addon">€</span>
+                    </div>
+                    <div class="col-md-4 center-block">
+                        <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
             </form>
             <% } else { %>
             <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
             <% } %>
             <% } %>
-            <img class="col-sm-12 col-lg-12 col-md-12 mb-12" src="http://via.placeholder.com/350x200" style="margin-top: 2em;">
+            <img src="http://via.placeholder.com/350x200" style="margin-top: 2em; width: 100%;">
         </div>
     </div>
 

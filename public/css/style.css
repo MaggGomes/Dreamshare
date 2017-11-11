@@ -47,6 +47,7 @@ body {
   color: white;
   background: url('../images/jumbotron/jumbotron1.jpeg');
   background-size: cover;
+  border-radius: 0;
 }
 
 .jumbotron h1 {
@@ -91,6 +92,7 @@ body {
 
 .card-img-top {
   margin-bottom: 10px;
+  max-height: 600px;
 }
 
 .campaign-location, .latlng_campaign {
@@ -365,6 +367,7 @@ footer {
   margin-top: -1.5em;
 }
 
+
 /* placeholder */
 .expandsearch-input::-webkit-input-placeholder {
   color: #c2c2c2;
@@ -412,6 +415,10 @@ input[type="search"] {
   opacity: 0;
   -webkit-transform: translate3d(-30px,-50%,0) scale3d(0,0,1);
   transform: translate3d(-30px,-50%,0) scale3d(0,0,1);
+}
+
+.donate-btn{
+  margin: 0.5em;
 }
 
 .expandsearch.open .expandsearch-submit {
@@ -566,4 +573,9 @@ input[type="search"] {
   .navbar-brand {
     padding-left: 20px;
   }
+}
+
+.modal-dialog.modal-campaigns{
+  width: 60vw;
+  max-width: 60vw;
 }

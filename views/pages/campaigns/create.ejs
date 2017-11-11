@@ -55,15 +55,19 @@
                 <label for="title" class="col-sm-2 col-form-label">Título</label>
                 <div class="col-sm-8">
             <% if( typeof errors == "object" && errors ) { %>
+            <% var found = false; %>
             <% for(var i = 0; i < errors.length; i++) { %>
                <% if(errors[i].param === 'title') {%>
+                 <% found = true %>
                  <input type="text" class="form-control is-invalid" id="title" name="title" >
                  <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
                <% } %>
             <% } %>
-            <% } else { %>
-                <input type="text" class="form-control" id="title" name="title" >
-             <% } %>
+            <% if( !found ) { %>
+                <input type="text" class="form-control" id="title" name="title" value="<%=inputs.title %>">
+            <% } } else { %>
+                 <input type="text" class="form-control" id="title" name="title">
+            <% } %>
                 </div>
              </div>
 
@@ -83,13 +87,19 @@
             <div class="col-sm-6 col-md-5">
                 <div class="input-group">
                      <% if( typeof errors == "object" && errors ) { %>
+                         <% var found = false; %>
                                 <% for(var i = 0; i < errors.length; i++) { %>
                                    <% if(errors[i].param === 'goal') {%>
+                                   <% found = true %>
                                      <input class="form-control is-invalid border-right-0" type="number" id="goal" name="goal">
-                    <span class="input-group-addon bg-white border-left-0 is-invalid" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
+                                       <span class="input-group-addon bg-white border-left-0 is-invalid" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
                                      <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
                                    <% } %>
                                 <% } %>
+                                <% if( !found ) { %>
+                                               <input class="form-control border-right-0" type="number" id="goal" name="goal" value="<%=inputs.goal%>">
+                                                                   <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
+                                            <% } %>
                                 <% } else { %>
                                         <input class="form-control border-right-0" type="number" id="goal" name="goal">
                     <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur" aria-hidden="true"></i></span>
@@ -112,12 +122,17 @@
             <label for="description" class="col-sm-2 col-form-label">Descrição</label>
             <div class="col-sm-8">
             <% if( typeof errors == "object" && errors ) { %>
+                <% var found = false; %>
                         <% for(var i = 0; i < errors.length; i++) { %>
                            <% if(errors[i].param === 'description') {%>
+                           <% found = true %>
                             <textarea class="form-control is-invalid" id="description" rows="4" name="description"></textarea>
                              <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
                            <% } %>
                         <% } %>
+                        <% if( !found ) { %>
+                             <textarea class="form-control" id="description" rows="4" name="description"> <%=inputs.description %> </textarea>
+                         <% } %>
                         <% } else { %>
                                 <textarea class="form-control" id="description" rows="4" name="description"></textarea>
                          <% } %>
@@ -128,19 +143,26 @@
             <label for="location" class="col-sm-2 col-form-label">Localização</label>
             <div class="col-sm-8">
             <% if( typeof errors == "object" && errors ) { %>
-                        <% for(var i = 0; i < errors.length; i++) { %>
-                           <% if(errors[i].param === 'latlong') {%>
-                            <input class="form-control is-invalid" id="location" type="text" name="location">
-                            <input id="lat" type="hidden" name="lat">
-                            <input id="lng" type="hidden" name="lng">
-                            <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
-                           <% } %>
-                        <% } %>
-                        <% } else { %>
-                            <input class="form-control" id="location" type="text" name="location">
-                            <input id="lat" type="hidden" name="lat">
-                            <input id="lng" type="hidden" name="lng">
-                         <% } %>
+            <% var found = false; %>
+                 <% for(var i = 0; i < errors.length; i++) { %>
+                    <% if(errors[i].param === 'lat') {%>
+                        <% found = true %>
+                        <input class="form-control is-invalid" id="location" type="text" name="location">
+                        <input id="lat" type="hidden" name="lat">
+                        <input id="lng" type="hidden" name="lng">
+                        <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
+                    <% } %>
+                 <% } %>
+                    <% if( !found ) { %>
+                       <input class="form-control" id="location" type="text" name="location">
+                       <input id="lat" type="hidden" name="lat">
+                       <input id="lng" type="hidden" name="lng">
+                    <% } %>
+                    <% } else { %>
+                       <input class="form-control" id="location" type="text" name="location">
+                       <input id="lat" type="hidden" name="lat">
+                       <input id="lng" type="hidden" name="lng">
+                    <% } %>
 
             </div>
         </div>
@@ -149,12 +171,18 @@
             <label for="endDate" class="col-sm-2 col-form-label">Data final</label>
             <div class="col-sm-8">
             <% if( typeof errors == "object" && errors ) { %>
+            <% var found = false; %>
                                     <% for(var i = 0; i < errors.length; i++) { %>
                                        <% if(errors[i].param === 'endDate') {%>
+                                       <% found = true %>
+
                                         <input class="form-control is-invalid" type="date" id="endDate" name="endDate">
                                          <div class="form-control-feedback"><small><%= errors[i].msg %></small></div>
                                        <% } %>
                                     <% } %>
+                                    <% if( !found ) { %>
+                                                           <input class="form-control" type="date" id="endDate" name="endDate" value="<%=inputs.endDate %>">
+                                                        <% } %>
                                     <% } else { %>
                                             <input class="form-control" type="date" id="endDate" name="endDate">
                                      <% } %>
@@ -163,8 +191,8 @@
 
         <div class="form-group row">
             <div class="col-sm-2">
-                <input type="file" class="form-control-file" id="imageFile" name="imageFile" onchange="readURL(this);">
-                <small id="fileHelp" class="form-text text-muted">Adicione uma imagem relevante para a campanha.</small>
+                <input type="file" class="form-control-file is-invalid" id="imageFile" name="imageFile" onchange="readURL(this);">
+                <small id="fileHelp" class="form-text text-muted">Adicione uma imagem adequada para a sua campanha</small>
             </div>
         </div>
 

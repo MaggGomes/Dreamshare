@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
+    campaigns = require('../models/campaigns'),
     fs = require('fs'),
     multer  = require('multer'),
     gm  = require('gm').subClass({imageMagick:true}),
@@ -121,24 +122,25 @@ router.post('/create',
     upload.single('imageFile'), function (req, res, next) {
         if (req.session.user) {
 
-            req.checkBody('title', 'Title is too Short').isLength({min: 5});
-            req.checkBody('title', 'Title is too Long').isLength({max: 100});
-            req.checkBody('description', 'Description is too Short').isLength({min: 25});
-            req.checkBody('description', 'Description is too Long').isLength({max: 250});
-            req.checkBody('isFunds', 'Type of Funds is required').notEmpty();
-            req.checkBody('goal', 'Campaign must have a goal higher than 0').notEmpty();
-            req.checkBody('endDate', 'endDate must not be empty').notEmpty();
-            req.checkBody('lat', 'latitude must not be empty').notEmpty();
-            req.checkBody('lng', 'longitude must not be empty').notEmpty();
+            req.checkBody('title', 'O título precisa de ter pelo menos 5 caracteres').isLength({min: 5});
+            req.checkBody('title', 'O título não pode ter mais que 100 caracteres').isLength({max: 100});
+            req.checkBody('description', 'A descrição precisa de ter pelo menos 25 caracteres').isLength({min: 25});
+            req.checkBody('description', 'A descrição não pode ter mais que 250 caracteres').isLength({max: 250});
+            req.checkBody('isFunds', 'Tipo de funds é obrigatório').notEmpty();
+            req.checkBody('goal', 'O objetivo da campanha tem que ser maior que 0').notEmpty();
+            req.checkBody('endDate', 'Campanha tem que ter uma data final').notEmpty();
+            req.checkBody('lat', 'Localização não é valida').notEmpty();
+            req.checkBody('lng', 'Localização não é valida').notEmpty();
 
-            var latlong = req.body.lat + "," + req.body.lng;
+            //var latlong = req.body.lat + "," + req.body.lng;
 
-            req.check('latlong', 'Location is not valid').isLatLong();
+            //req.check(latlong, 'Location is not valid').isLatLong();
 
             //const errors = validationResult(req);
             var errors = req.validationErrors();
             if (errors) {
                 //res.send(errors);
+                //res.send(req.file.path);
                 res.render('pages/campaigns/create', {errors:errors, inputs: req.body});
                 return;
                 //return res.status(422).json({ errors: errors.mapped() });
@@ -194,6 +196,23 @@ router.post('/more', function(req, res, next) {
         console.log(campaigns);
         res.status(200).send(campaigns);
     }).limit(parseInt(req.body.nCampaigns));
+});
+
+/* POST get more campaigns */
+router.post('/insideCoords', function(req, res, next) {
+    campaigns.getInsideCoords(
+        req.body.lat_left,
+        req.body.lat_right,
+        req.body.lng_up,
+        req.body.lng_down,
+        function(err, campaigns){
+            if (err){
+                res.status(400).send('erro');
+            }
+            else{
+                res.status(200).send(campaigns);
+            }
+        });
 });
 
 
