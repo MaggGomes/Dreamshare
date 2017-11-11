@@ -21,11 +21,11 @@ mongoose.model('Campaign', campaignSchema);
 
 exports.getInsideCoords = function(lat_left, lat_right, lng_up, lng_down, done) {
     mongoose.model('Campaign').find({
-        "lat":{"$lte": lat_left, "$gte": lat_right},
-        "lng":{"$lte": lng_up, "$gte": lng_down}
+            "lat":{"$lte": lat_left, "$gte": lat_right},
+            "lng":{"$lte": lng_up, "$gte": lng_down}
         },
         function(err, campaigns) {
-        if(err) return done(err)
-        done(null, campaigns)
-    });
+            if(err) return done(err)
+            done(null, campaigns)
+        });
 }
