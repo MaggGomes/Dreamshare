@@ -26,8 +26,8 @@ install_dependencies:
 
 eslint:
   stage: lint
-    script:
-      - ./node_modules/.bin/eslint .
+  script:
+    - ./node_modules/.bin/eslint .
 
 
 backend_tests:
