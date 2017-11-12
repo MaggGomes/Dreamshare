@@ -6,6 +6,7 @@ var app = require('../app');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var bcrypt = require('bcrypt');
+var should = chai.should();
 
 
 var User = require('../models/users');
