@@ -51,7 +51,7 @@
             <form action="<%= campaign._id %>/donate" method="post">
                 <div class="row">
                     <div class="input-group col-md-8 center-block">
-                        <input type="number" min="0" step="0.01" class="form-control contribute-value"
+                        <input type="number" min="0" step="0.01" max="<%= campaign.goal - campaign.progress %>" placeholder="Faltam <%= campaign.goal - campaign.progress %>€!" class="form-control contribute-value"
                                aria-label="Amount" name="amount">
                         <span class="input-group-addon">€</span>
                     </div>
@@ -61,7 +61,7 @@
                 </div>
             </form>
             <% } else { %>
-            <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
+            <a class="btn btn-primary find-btn col-md-12" href="#signin" data-toggle="modal">Contribuir</a>
             <% } %>
             <% } %>
             <img src="http://via.placeholder.com/350x200" style="margin-top: 2em; width: 100%;">
@@ -116,7 +116,18 @@
         </div>
         <div class="col-sm-4">
             <ul class="list-unstyled">
-                <% for (var i = 0; i < campaign.donations.length; i++) { %>
+                <% if(campaign.donations.length > 10) { %>
+                    <% for (var i = campaign.donations.length - 1; i >= campaign.donations.length - 10; i--) { %>
+                    <li class="media mb-4">
+                        <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1"><%= campaign.donations[i].userId %></h5>
+                            Contribui com <%= campaign.donations[i].value %>€
+                        </div>
+                    </li>
+                    <% } %>
+                <% } else { %>
+                <% for (var i = campaign.donations.length - 1; i >= 0; i--) { %>
                 <li class="media mb-4">
                     <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                     <div class="media-body">
@@ -124,6 +135,7 @@
                         Contribui com <%= campaign.donations[i].value %>€
                     </div>
                 </li>
+                <% } %>
                 <% } %>
             </ul>
         </div>

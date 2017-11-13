@@ -16,7 +16,7 @@ var express = require('express'),
 
 
 /* GET campaigns page */
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
 	if (req.session.user) {
 		userLogged = true;
 	} else {
@@ -32,7 +32,7 @@ router.get('/', function (req, res) {
 });
 
 /* GET campaigns page with search options */
-router.get('/search/:isFunds*?/:searchType*?', function (req, res) {
+router.get('/search/:isFunds*?/:searchType*?', function (req, res, next) {
 	if (req.session.user) {
 		userLogged = true;
 	} else {
@@ -48,7 +48,7 @@ router.get('/search/:isFunds*?/:searchType*?', function (req, res) {
 });
 
 /* GET map campaigns page */
-router.get('/map', function (req, res) {
+router.get('/map', function (req, res, next) {
 	if (req.session.user) {
 		userLogged = true;
 	} else {
@@ -64,7 +64,7 @@ router.get('/map', function (req, res) {
 });
 
 // POST donate to campaign
-router.post('/:campaignId/donate', function (req, res) {
+router.post('/:campaignId/donate', function (req, res, next) {
 	if (req.session.user) {
 		mongoose.model('Donation').create({
 			user: req.session.userID,
@@ -105,7 +105,7 @@ router.post('/:campaignId/donate', function (req, res) {
 });
 
 /* GET create campaign page */
-router.get('/create', function (req, res) {
+router.get('/create', function (req, res, next) {
 	if (req.session.user) {
 		res.render('pages/campaigns/create', {userLogged: true});
 	} else {
@@ -115,7 +115,7 @@ router.get('/create', function (req, res) {
 
 // POST create campaign
 router.post('/create',
-	upload.single('imageFile'), function (req, res) {
+	upload.single('imageFile'), function (req, res, next) {
 		if (req.session.user) {
 
 			req.checkBody('title', 'O título precisa de ter pelo menos 5 caracteres').isLength({min: 5});
@@ -186,7 +186,7 @@ router.post('/create',
 
 
 /* POST get more campaigns */
-router.post('/more', function (req, res) {
+router.post('/more', function (req, res, next) {
 	mongoose.model('Campaign').find({'_id': {'$nin': req.body.existingCampaigns}}, function (err, campaigns) {
 		if (err) throw err;
 		console.log(campaigns);
@@ -195,7 +195,7 @@ router.post('/more', function (req, res) {
 });
 
 /* POST get more campaigns */
-router.post('/insideCoords', function (req, res) {
+router.post('/insideCoords', function (req, res, next) {
 	campaigns.getInsideCoords(
 		req.body.lat_left,
 		req.body.lat_right,
@@ -213,7 +213,7 @@ router.post('/insideCoords', function (req, res) {
 
 
 /* GET show campaign page */
-router.get('/:campaignId', function (req, res) {
+router.get('/:campaignId', function (req, res, next) {
 	if (req.session.user) {
 		userLogged = true;
 	} else {
@@ -293,7 +293,7 @@ router.get('/:campaignId', function (req, res) {
 });
 
 /* GET edit campaign page */
-router.get('/:campaignId/edit', function (req, res) {
+router.get('/:campaignId/edit', function (req, res, next) {
 	res.render('pages/campaigns/edit', {title: 'Edit Campaign'});
 });
 
