@@ -8,6 +8,7 @@ variables:
 
 stages:
   - build
+  - lint
   - test
 
 cache:
@@ -22,6 +23,12 @@ install_dependencies:
   artifacts:
     paths:
       - node_modules/
+
+eslint:
+  stage: lint
+  script:
+    - ./node_modules/.bin/eslint .
+
 
 backend_tests:
   stage: test

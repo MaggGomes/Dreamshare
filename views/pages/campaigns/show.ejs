@@ -17,49 +17,54 @@
     </header>
 
     <div class="row text-center mb-4">
-        <div  class="col-sm-12 col-lg-8 col-md-8 mb-8">
+        <div class="col-sm-12 col-lg-8 col-md-8 mb-8">
             <img class="card-img-top" src="/<%= campaign.image %>" alt="">
         </div>
-        <div  class="col-sm-12 col-lg-4 col-md-4 mb-4">
+        <div class="col-sm-12 col-lg-4 col-md-4 mb-4">
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
                      aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
-                     style="padding-top: 1em; width:<% if(campaign.progress<campaign.goal) { %>
-                     <%= campaign.progress/campaign.goal*100 %>%
-                     <% } else {%>
+                     style="padding-top: 1em; width:<% if(campaign.progress < campaign.goal) { %>
+                     <%= campaign.progress / campaign.goal * 100 %>%
+                     <% } else { %>
                              100%
                      <% } %>">
                 </div>
             </div>
             <div class="my-4 text-left">
                 <div>
-                    <p class="lead"><%= campaign.progress %>€</p>
-                    <p class="camp-det-aux">doados de  <%= campaign.goal %>€ pretendidos</p>
+                    <p class="lead camp-det"><%= campaign.progress %>€</p>
+                    <p class="camp-det-aux camp-det">doados de <%= campaign.goal %>€ pretendidos</p>
                 </div>
                 <div>
                     <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
-                    <p class="lead" id="time-left-counter"></p>
-                    <p class="camp-det-aux"">restantes</p>
+                    <p class="lead camp-det" id="time-left-counter"></p>
+                    <p class="camp-det-aux camp-det">restantes</p>
                 </div>
                 <div>
-                    <p class="lead"><%= campaign.n_donators %></p>
-                    <p class="camp-det-aux">contribuidores</p>
+                    <p class="lead camp-det"><%= campaign.n_donators %></p>
+                    <p class="camp-det-aux camp-det">contribuidores</p>
                 </div>
             </div>
             <% if (!campaign.closed) { %>
             <% if(userLogged) { %>
             <form action="<%= campaign._id %>/donate" method="post">
-                <div class="input-group">
-                    <input type="number" min="0" step="0.01" class="form-control contribute-value" aria-label="Amount" name="amount">
-                    <span class="input-group-addon">€</span>
+                <div class="row">
+                    <div class="input-group col-md-8 center-block">
+                        <input type="number" min="0" step="0.01" max="<%= campaign.goal - campaign.progress %>" placeholder="Faltam <%= campaign.goal - campaign.progress %>€!" class="form-control contribute-value"
+                               aria-label="Amount" name="amount">
+                        <span class="input-group-addon">€</span>
+                    </div>
+                    <div class="col-md-4 center-block">
+                        <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
             </form>
             <% } else { %>
-            <a class="btn btn-primary find-btn" href="#signin" data-toggle="modal">Contribuir</a>
+            <a class="btn btn-primary find-btn col-md-12" href="#signin" data-toggle="modal">Contribuir</a>
             <% } %>
             <% } %>
-            <img class="col-sm-12 col-lg-12 col-md-12 mb-12" src="http://via.placeholder.com/350x200" style="margin-top: 2em;">
+            <img src="http://via.placeholder.com/350x200" style="margin-top: 2em; width: 100%;">
         </div>
     </div>
 
@@ -70,7 +75,9 @@
                 <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                 <div class="media-body">
                     <h5 class="mt-0">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+                    purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                    vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                     <div class="media mt-3">
                         <a class="d-flex pr-3" href="#">
@@ -78,7 +85,9 @@
                         </a>
                         <div class="media-body">
                             <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+                            ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         </div>
                     </div>
                 </div>
@@ -87,7 +96,9 @@
                 <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                 <div class="media-body">
                     <h5 class="mt-0">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+                    purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                    vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                     <div class="media mt-3">
                         <a class="d-flex pr-3" href="#">
@@ -95,7 +106,9 @@
                         </a>
                         <div class="media-body">
                             <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+                            ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         </div>
                     </div>
                 </div>
@@ -103,7 +116,18 @@
         </div>
         <div class="col-sm-4">
             <ul class="list-unstyled">
-                <% for (var i = 0; i < campaign.donations.length; i++) { %>
+                <% if(campaign.donations.length > 10) { %>
+                    <% for (var i = campaign.donations.length - 1; i >= campaign.donations.length - 10; i--) { %>
+                    <li class="media mb-4">
+                        <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1"><%= campaign.donations[i].userId %></h5>
+                            Contribui com <%= campaign.donations[i].value %>€
+                        </div>
+                    </li>
+                    <% } %>
+                <% } else { %>
+                <% for (var i = campaign.donations.length - 1; i >= 0; i--) { %>
                 <li class="media mb-4">
                     <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                     <div class="media-body">
@@ -111,6 +135,7 @@
                         Contribui com <%= campaign.donations[i].value %>€
                     </div>
                 </li>
+                <% } %>
                 <% } %>
             </ul>
         </div>

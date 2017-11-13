@@ -16,7 +16,8 @@
     <div class="row">
         <div class="text-right dropdown col-sm-12 mb-4">
             <span>Ordenar por:</span>
-            <button class="btn btn-secondary dropdown-toggle more-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class="btn btn-secondary dropdown-toggle more-btn" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Mais contribuidores
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -28,9 +29,9 @@
         </div>
 
         <% campaigns.forEach(function(campaign) { %>
-            <% include ../../partials/campaign_card %>
+        <% include ../../partials/campaign_card %>
         <% }); %>
-        <div  class="col-sm-12 mb-4">
+        <div class="col-sm-12 mb-4">
             <button id="more_campaigns" class="btn btn-secondary float-right">Ver Mais</button>
         </div>
 
@@ -39,10 +40,10 @@
 </div>
 <!-- /.container -->
 <% include ../../partials/footer %>
-<script src="/javascripts/campaigns/index.js"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
 </script>
+<script src="/javascripts/campaigns/index.js"></script>
 </body>
 
 </html>
