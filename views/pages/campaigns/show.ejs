@@ -45,6 +45,9 @@
                     <p class="lead camp-det"><%= campaign.n_donators %></p>
                     <p class="camp-det-aux camp-det">contribuidores</p>
                 </div>
+                <div>
+                    <p class="camp-det-aux camp-det"><%= campaign.address %></p>
+                </div>
             </div>
             <% if (!campaign.closed) { %>
             <% if(userLogged) { %>

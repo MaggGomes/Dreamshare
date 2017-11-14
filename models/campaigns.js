@@ -13,6 +13,8 @@ var campaignSchema = Schema(
 		endDate: {type: Date, required: true,},
 		lat: {type: Number, required: true},
 		lng: {type: Number, required: true},
+		address: {type: String, required: true},
+		location: {type: String, required: true},
 		image: {type: String, required: true},
 	});
 
