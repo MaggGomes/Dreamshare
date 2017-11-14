@@ -129,7 +129,7 @@ $(document).ready(function () {
 	})(window);
 
 	/* Expand search */
-	/*
+
 	(function () {
 		var expandSearch = document.getElementById('expandsearch'),
 			input = expandSearch.querySelector('input.expandsearch-input'),
@@ -172,8 +172,23 @@ $(document).ready(function () {
 			}
 		});
 	})();
-	*/
 });
+
+// TODO - IMPLEMENTAR
+/*  Searchs a campaign by title */
+function searchByTitle(value) {
+    /*if (value.length >= 3) {
+        $.get("../api/searchTitleTag.php", {
+            "name": value,
+            "limit": 4,
+            "offset": 0
+        }, function (results) {
+            $(".expandsearch-content").html(results);
+        });
+    } else {
+        $(".expandsearch-content").html("");
+    }*/
+}
 
 
 
