@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
 	$('#more_campaigns').click(function () {
 
 		existingCampaigns = [];
