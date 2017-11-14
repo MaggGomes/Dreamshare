@@ -1,6 +1,6 @@
 :root {
-    --main-color: #38bd63;
-    --hover-color: #389141;
+    --main-color: #00d66e;
+    --hover-color: #00b35a;
     --text-color: #595959;
 }
 
@@ -351,11 +351,7 @@ footer {
 }
 
 .lead {
-    font-weight: bold;
-}
-
-.camp-det {
-    display: inline-block;
+    font-weight: 600;
 }
 
 .camp-det-aux {
