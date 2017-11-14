@@ -76,11 +76,11 @@
         <div class="form-group row my-4">
             <label for="isFunds" class="col-sm-2 col-form-label">Tipo</label>
             <div class="col-sm-8 btn-group" data-toggle="buttons">
-                <label class="btn btn-primary active">
+                <label class="btn btn-outline-success active">
                     <input type="radio" name="isFunds" id="funds" value="true" onchange="showGoodsTypeSelect(true);"
                            checked> Fundos
                 </label>
-                <label class="btn btn-primary">
+                <label class="btn btn-outline-success">
                     <input type="radio" name="isFunds" id="goods" value="false" onchange="showGoodsTypeSelect(false);">
                     Bens
                 </label>
@@ -153,31 +153,30 @@
         </div>
 
         <div class="form-group row">
-            <label for="location" class="col-sm-2 col-form-label">Localização</label>
+            <label for="searchAddress" class="col-sm-2 col-form-label">Localização</label>
             <div class="col-sm-8">
                 <% if( typeof errors == "object" && errors ) { %>
                 <% var found = false; %>
                 <% for(var i = 0; i < errors.length; i++) { %>
                 <% if(errors[i].param === 'lat') { %>
                 <% found = true %>
-                <input class="form-control is-invalid" id="location" type="text" name="location">
-                <input id="lat" type="hidden" name="lat">
-                <input id="lng" type="hidden" name="lng">
+                <input class="form-control is-invalid" id="searchAddress" type="text">
                 <div class="form-control-feedback">
                     <small><%= errors[i].msg %></small>
                 </div>
                 <% } %>
                 <% } %>
                 <% if( !found ) { %>
-                <input class="form-control" id="location" type="text" name="location">
-                <input id="lat" type="hidden" name="lat">
-                <input id="lng" type="hidden" name="lng">
+                <input class="form-control" id="searchAddress" type="text">
                 <% } %>
                 <% } else { %>
-                <input class="form-control" id="location" type="text" name="location">
+                <input class="form-control" id="searchAddress" type="text">
+                <% } %>
+
                 <input id="lat" type="hidden" name="lat">
                 <input id="lng" type="hidden" name="lng">
-                <% } %>
+                <input id="address" type="hidden" name="address">
+                <input id="location" type="hidden" name="location">
 
             </div>
         </div>
@@ -215,138 +214,20 @@
             </div>
         </div>
 
-        <div id="image-cropper">
-            <div class="cropit-preview"></div>
-
-            <input type="range" class="cropit-image-zoom-input"/>
-
-            <input type="file" class="cropit-image-input"/>
-            <div class="select-image-btn">Select new image</div>
+        <div class="form-group row">
+        <label class="custom-file">
+            <input type="file" id="file" class="custom-file-input">
+            <span class="custom-file-control"></span>
+        </label>
         </div>
-
         <button type="submit" class="btn btn-primary">Criar campanha</button>
     </form>
-
-    <!--<div class="row well" style="border-style:solid; border-width:medium;border-radius:5px; border-color:green;">
-        <div class="col-sm-6">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 mb-4">
-                    <div class="panel panel-default text-center">
-                        <div class="panel-heading">Nome da Campanha</div>
-                        <div class="panel-body"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 mb-4">
-                    <div class="panel panel-default text-center">
-                        <div class="panel-heading">Localização</div>
-                        <div class="panel-body"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 mb-4">
-                    <div class="panel panel-default text-center">
-                        <div class="panel-heading">Contacto</div>
-                        <div class="panel-body"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 mb-4">
-                    <div class="panel panel-default text-center">
-                        <div class="panel-heading">O que quer adquirir</div>
-                        <div class="panel-body"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <div class="panel panel-default text-center">
-                        <div class="panel-heading">Quantidade</div>
-                        <div class="panel-body"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <div class="panel panel-default text-center">
-                        <div class="panel-heading">Data Limite</div>
-                        <div class="panel-body"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Descrição</div>
-                        <div class="panel-body">
-                                <textarea class="form-control" rows="5">
-                                                    Curabitur aliquet felis rutrum ex aliquam laoreet. Pellentesque porttitor, tortor convallis varius sagittis, felis turpis commodo lacus, feugiat auctor est massa at erat.
-                                                    Fusce varius cursus dignissim. Integer sed augue semper, interdum massa ac, tincidunt metus. Morbi cursus ante eget pellentesque gravida.
-                                                    Cras vel feugiat mi. Etiam magna sapien, euismod sit amet mollis in, ornare eget ipsum. Etiam congue eu dolor ut vulputate.
-                                                    Pellentesque tortor lorem, malesuada vitae efficitur vitae, efficitur vel eros.
-                                                    Sed iaculis, ante eget porttitor fermentum, massa nulla dictum augue, vitae euismod magna arcu in orci.
-                                </textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="row">
-                <div class="col-xs-12">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                </div>
-                <div class="col-xs-12">
-                    <button type="button" class="btn btn-default btn-block">Adicionar foto</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-12">
-            <button type="button" class="btn btn-default btn-block">Save changes</button>
-        </div>
-    </div>-->
 </div>
 <!-- /.row -->
 <!-- /.container -->
 
 <% include ../../partials/footer %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropit/0.5.1/jquery.cropit.min.js"></script>
-<script>
-	function showGoodsTypeSelect(isFunds) {
-		if (isFunds) {
-			$('#euroIcon').show();
-			$('#goodsTypeSelect').hide();
-			$('#goodsType').hide();
-			$('#goodsTypeSelect').val('');
-		} else {
-			$('#euroIcon').hide();
-			$('#goodsTypeSelect').show();
-		}
-	}
-
-	function otherGoodsType(val) {
-		var element = $('#goodsType');
-		if (val == 'outro') {
-			element.val('');
-			element.show();
-		} else {
-			element.hide();
-			element.val(val);
-		}
-	}
-
-	var autocomplete;
-
-	function fillInAddress() {
-		// Get the place details from the autocomplete object.
-		var place = autocomplete.getPlace();
-		document.getElementById('lat').value = place.geometry.location.lat();
-		document.getElementById('lng').value = place.geometry.location.lng();
-	}
-
-	$('#image-cropper').cropit({
-		imageBackground: true,
-		allowDragNDrop: false,
-		width: "300px",
-		height: "300px"
-	});
-</script>
-
+<script src="/javascripts/campaigns/create.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4&libraries=places&callback=initAutocomplete"
         async defer></script>
 

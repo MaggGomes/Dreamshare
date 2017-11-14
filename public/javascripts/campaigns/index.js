@@ -40,6 +40,7 @@ $(document).ready(function () {
 					'</div>' +
 					'<div class="campaign-location">' +
 					'<span><i class="fa fa-map-marker" aria-hidden="true"></i></span> <div class="latlng_campaign">' +
+					'<p class="card-text">' + campaign.location + '</p>' +
 					'<input type="hidden" value="' + campaign.lat + '">' +
 					'<input type="hidden" value="' + campaign.lng + '">' +
 					'</div>' +
