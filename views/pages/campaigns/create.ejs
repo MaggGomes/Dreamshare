@@ -4,45 +4,6 @@
 <head>
     <% include ../../partials/head %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.2/cropper.min.css"/>
-    <style>.image-editor {
-            text-align: center;
-        }
-
-        .cropit-preview {
-            background-color: #f8f8f8;
-            background-size: cover;
-            border: 5px solid #ccc;
-            border-radius: 3px;
-            margin-top: 7px;
-            width: 250px;
-            height: 250px;
-            display: inline-block;
-        }
-
-        .cropit-preview-image-container {
-            cursor: move;
-        }
-
-        .cropit-preview-background {
-            opacity: .2;
-            cursor: auto;
-        }
-
-        .image-size-label {
-            margin-top: 10px;
-        }
-
-        input, .export {
-            /* Use relative position to prevent from being covered by image background */
-            position: relative;
-            z-index: 10;
-            display: block;
-        }
-
-        button {
-            margin-top: 10px;
-        }
-    </style>
 </head>
 
 <body>
@@ -206,25 +167,14 @@
         </div>
 
         <div class="form-group row">
-            <div class="col-sm-2">
-                <input type="file" class="form-control-file is-invalid" id="imageFile" name="imageFile"
-                       onchange="readURL(this);">
-                <small id="fileHelp" class="form-text text-muted">Adicione uma imagem adequada para a sua campanha
-                </small>
-            </div>
-        </div>
-
-        <div class="form-group row">
         <label class="custom-file">
-            <input type="file" id="file" class="custom-file-input">
+            <input type="file" id="imageFile" name="imageFile" class="custom-file-input">
             <span class="custom-file-control"></span>
         </label>
         </div>
         <button type="submit" class="btn btn-primary">Criar campanha</button>
     </form>
 </div>
-<!-- /.row -->
-<!-- /.container -->
 
 <% include ../../partials/footer %>
 <script src="/javascripts/campaigns/create.js"></script>
