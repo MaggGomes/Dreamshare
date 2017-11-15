@@ -26,14 +26,14 @@ router.post('/signin', function (req, res, next) {
 });
 
 /* Sign in user */
-router.get('/logout', function (req, res) {
+router.get('/logout', function (req, res, next) {
 	req.session.destroy(function () {
 		res.clearCookie('user').redirect('/');
 	});
 });
 
 /* Creates a new user */
-router.post('/register', function (req, res) {
+router.post('/register', function (req, res, next) {
 
 	/* req.sanitize('name').escape();
 	 req.sanitize('name').trim();

@@ -31,7 +31,7 @@
             <h3>Angariação de fundos</h3>
         </div>
 
-        <% fundsCampaigns.forEach(function() { %>
+        <% fundsCampaigns.forEach(function(campaign) { %>
         <% include ../partials/campaign_card %>
         <% }); %>
         <div class="col-sm-12 mb-4">
@@ -44,7 +44,7 @@
         <div class="col-sm-12 mb-4 campaign-category">
             <h3>Recolha de artigos</h3>
         </div>
-        <% goodsCampaigns.forEach(function() { %>
+        <% goodsCampaigns.forEach(function(campaign) { %>
         <% include ../partials/campaign_card %>
         <% }); %>
 

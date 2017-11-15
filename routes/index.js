@@ -3,7 +3,7 @@ var express = require('express'),
 	router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
 	if (req.session.user) {
 		userLogged = true;
 	} else {
@@ -24,7 +24,7 @@ router.get('/', function (req, res) {
 });
 
 /* GET admin home page. */
-router.get('/admin', function (req, res) {
+router.get('/admin', function (req, res, next) {
 	if (req.session.user) {
 		userLogged = true;
 	} else {
