@@ -17,7 +17,6 @@ $(document).ready(function () {
 
 	/* Sign in */
 	$('#signin-submit').click(function () {
-		console.log('dadsda');
 		var userEmail = $('#signin-email').val();
 		var userPassword = $('#signin-password').val();
 
@@ -129,7 +128,7 @@ $(document).ready(function () {
 	})(window);
 
 	/* Expand search */
-	/*
+
 	(function () {
 		var expandSearch = document.getElementById('expandsearch'),
 			input = expandSearch.querySelector('input.expandsearch-input'),
@@ -142,6 +141,7 @@ $(document).ready(function () {
 				var offsets = expandSearch.getBoundingClientRect();
 				if (isOpen) {
 					classie.remove(expandSearch, 'open');
+					$('.expandsearch-content').html('');
 
 					if (input.value !== '') {
 						setTimeout(function () {
@@ -172,8 +172,53 @@ $(document).ready(function () {
 			}
 		});
 	})();
-	*/
 });
+
+// TODO - IMPLEMENTAR
+/*  Searchs a campaign by title */
+function searchByTitle(value) {
+	if (value.length >= 3) {
+		$.post('/campaigns/searchByTitle', {
+			title: value,
+			limit: 4
+		}, function (data) {
+
+			var $results = $('<div></div>');
+
+			$.each(data, function (i, campaign) {
+				$results.append('<div class="row card-search-results">'+
+					'<div class="col-12">'+
+					'<a href="/campaigns/'+campaign._id+'">'+
+					'<div class="card">'+
+					'<div class="card-block">'+
+					'<div class="row">' +
+					'<div class="col-5 col-sm-5 col-md-4 col-lg-3 col-xl-2">'+
+					'<img class="card-search-image" src="/'+
+					campaign.image +'" alt="">'+
+					'</div>'+
+					'<div class="col-7 col-sm-7 col-md-8 col-lg-9 col-xl-10">' +
+					'<h4 class="card-title">'+
+					campaign.title+
+					'</h4>'+
+					'<p class="card-text">'+
+					campaign.description+
+					'</p>'+
+					'</div>'+
+					'</div>'+
+					'</div>'+
+					'</div>'+
+					'</div>'+
+					'</a>'+
+					'</div>'+
+					'</div>');
+			});
+
+			$('.expandsearch-content').html($results);
+		});
+	} else {
+		$('.expandsearch-content').html('');
+	}
+};
 
 
 

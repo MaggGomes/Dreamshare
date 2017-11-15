@@ -10,10 +10,14 @@ var campaignSchema = Schema(
 		goodsType: {type: String},
 		goal: {type: Number, min: 0, required: true},
 		progress: {type: Number, min: 0, default: 0},
-		endDate: {type: Date, required: true,},
+		endDate: {type: Date, required: true},
 		lat: {type: Number, required: true},
 		lng: {type: Number, required: true},
+		address: {type: String},//, required: true},
+		location: {type: String},//, required: true},
 		image: {type: String, required: true},
+		comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
+		donations: [{type: Schema.Types.ObjectId, ref: 'Donation'}]
 	});
 
 mongoose.model('Campaign', campaignSchema);
