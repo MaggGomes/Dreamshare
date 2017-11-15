@@ -6,12 +6,18 @@
 
 body {
     padding-top: 57px;
-    overflow: scroll;
     color: var(--text-color);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    /*overflow-y: hidden;*/
 }
 
 .main-container {
     margin-top: 35px;
+}
+
+.fa-bars {
+    color: var(--main-color);
 }
 
 .navbar {
@@ -25,7 +31,7 @@ body {
     color: var(--main-color);
 }
 
-.navbar img {
+.brand-logo img {
     width: 40px;
 }
 
@@ -61,7 +67,7 @@ body {
 }
 
 .card-title {
-    color: var(--text-color);
+    color: var(--main-color);
 }
 
 .card-link {
@@ -293,15 +299,34 @@ footer {
     max-width: 60vw;
 }
 
+
 /* Menu search bar */
 
+.card-search-results a:hover {
+    text-decoration: none;
+}
+
+.card-search-results:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.card-search-image {
+    height: 120px;
+    width: 160px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.card-text {
+    color: var(--text-color);
+}
+
 .expandsearch {
-    width: 0;
+    width: 200px;
     min-height: 40px;
     z-index: 500;
-    top: 50px;
-    right: 50px;
-    float: right;
+    top: 10px;
+    position: absolute;
     -webkit-transform-origin: 100% 0;
     transform-origin: 100% 0;
     -webkit-transition-property: min-height, width, top, right;
@@ -313,8 +338,6 @@ footer {
 }
 
 .expandsearch.open {
-    display: block;
-    position: absolute;
     width: 100%;
     min-height: 100%;
     top: 0;
@@ -325,7 +348,6 @@ footer {
     width: 100%;
     height: 40px;
     margin: 0 auto;
-    margin-top: 5px;
     position: relative;
     -webkit-transition-property: width, height, -webkit-transform;
     transition-property: width, height, transform;
@@ -345,12 +367,12 @@ footer {
 .expandsearch-input {
     width: 100%;
     height: 100%;
-    padding: 0 10% 0 10px;
+    padding: 0 10% 0 0;
     font-family: "Calibri Light";
     border: none;
     background: transparent;
     font-size: 1.1em;
-    color: var(--main-color);
+    color: var(--text-color);
     -webkit-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
     transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
 }
@@ -548,7 +570,6 @@ input[type="search"] {
 }
 
 @media screen and (max-width: 850px) {
-
     .expandsearch-input {
         padding: 0 25% 0 10px;
     }
@@ -575,4 +596,9 @@ input[type="search"] {
     .navbar-brand {
         padding-left: 20px;
     }
+}
+
+
+.edit-info{
+    display: none;
 }

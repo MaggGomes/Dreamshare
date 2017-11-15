@@ -23,10 +23,11 @@ var Config = require('./config'), config = new Config();
 console.log(config);
 
 var db = require('./models/db');
-var campaignModel = require('./models/campaigns');
 var userModel = require('./models/users');
+var repliesModel = require('./models/replies');
 var donationModel = require('./models/donations');
-
+var commentModel = require('./models/comments');
+var campaignModel = require('./models/campaigns');
 
 var index = require('./routes/index');
 var users = require('./routes/users');

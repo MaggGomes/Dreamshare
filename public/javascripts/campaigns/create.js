@@ -57,3 +57,39 @@ function fillInAddress() {
 	}
 	document.getElementById('location').value =  locality + ', ' + administrative_area_level_1 ;
 }
+
+var $profilePicPreview = $('#profile-pic-preview').croppie({
+	url: 'https://www.white-baos.com/_bd/_img/investments.svg',
+	viewport: {
+		width: 600,
+		height: 300,
+		type: 'square'
+	},
+	boundary: {
+		width: 700,
+		height: 400
+	},
+	enableExif: true
+});
+
+var $croppedImage = $('#profile-pic-preview').croppie('get');
+
+function readFile(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (event) {
+			$profilePicPreview.croppie('bind', {
+				url: event.target.result
+			});
+		};
+
+		reader.readAsDataURL(input.files[0]);
+	} else {
+		alert('O seu browser não suporta a FileReader API');
+	}
+}
+
+$('#profile-picture-upload').on('change', function () {
+	readFile(this);
+});
