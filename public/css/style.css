@@ -1,7 +1,10 @@
 :root {
-    --main-color: #00d66e;
-    --hover-color: #00b35a;
+    /*--main-color: #00d66e;
+    --hover-color: #00b35a;*/
+    --main-color: #fb5a5f;
+    --hover-color: #e3595e;
     --text-color: #595959;
+    --secondarytext-color: #a9a9a9;
 }
 
 body {
@@ -28,7 +31,7 @@ body {
 }
 
 .navbar a {
-    color: var(--main-color);
+    color: var(--text-color);
 }
 
 .brand-logo img {
@@ -39,14 +42,19 @@ body {
     padding-right: 0;
 }
 
+.navbar .navbar-brand {
+    color: var(--main-color);
+}
+
 .brand-share {
     font-weight: bold;
+    color: var(--main-color);
 }
 
 .jumbotron {
     color: white;
-    background: url('../images/jumbotron/jumbotron1.jpeg');
-    background-size: cover;
+    background: url('../images/jumbotron/jumbotron.jpeg');
+    background-size: 100% 100%;
     border-radius: 0;
 }
 
@@ -80,7 +88,7 @@ body {
 
 .card-footer {
     background-color: white;
-    color: #a9a9a9;
+    color: var(--secondarytext-color);
     font-size: small;
 }
 
@@ -101,6 +109,10 @@ body {
     display: inline-block;
 }
 
+.campaign-location .card-text {
+    color: var(--secondarytext-color);
+}
+
 .campaign_img {
     height: 200px;
 }
@@ -113,6 +125,11 @@ body {
     background-color: var(--main-color);
     height: 0.5rem;
     line-height: 0.5rem;
+}
+
+.btn-map {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 footer {
@@ -142,8 +159,8 @@ footer {
 }
 
 .btn-info {
-    color: #a9a9a9;
-    border: 1px solid #a9a9a9;
+    color: var(--secondarytext-color);
+    border: 1px solid var(--secondarytext-color);
     background-color: white;
 }
 
@@ -299,6 +316,9 @@ footer {
     max-width: 60vw;
 }
 
+.edit-info{
+    display: none;
+}
 
 /* Menu search bar */
 
@@ -596,9 +616,16 @@ input[type="search"] {
     .navbar-brand {
         padding-left: 20px;
     }
-}
 
+    .nav-link {
+        box-sizing: border-box;
+        border: 2px solid transparent;
+    }
 
-.edit-info{
-    display: none;
+    .nav-link:hover{
+        border-bottom: 2px solid var(--main-color);
+        transition: 1s;
+        border-radius: 20px;
+    }
+
 }

@@ -51,7 +51,9 @@ deploy_production:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh-add <(echo "$STAGING_PRIVATE_KEY")
-    - ssh -p22 root@95.85.7.126 "mkdir root/_tmp"
+    - ssh -p22 root@95.85.7.126 "sudo mkdir root/_tmp"
     - scp -P22 -r build/* root@95.85.7.126:root/_tmp
     - ssh -p22 root@95.85.7.126 "mv root/LDSO root/_old && mv root/_tmp root/LDSO"
     - ssh -p22 root@95.85.7.126 "rm -rf root/_old"
+#  only:
+#    - master

@@ -59,7 +59,7 @@ router.post('/searchByTitle', function (req, res, next) {
 		if (err) throw err;
 
 		res.status(200).json(campaigns);
-	}).limit(4);
+	}).limit(2);
 });
 
 /* GET map campaigns page */
@@ -408,6 +408,23 @@ router.put('/:campaignId/edit', function (req, res, next) {
 			} else {
 				//Blob has been created
 				console.log('POST editing campaign: ' + campaign);
+				res.status(200).send(campaign);
+			}
+		});
+	} else {
+		res.status(403);
+	}
+});
+
+/* DEL campaign */
+router.delete('/:campaignId/delete', function (req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Campaign').findOneAndRemove({ '_id': req.params.campaignId, 'owner': req.session.userID}).exec(function (err, campaign) {
+			if (err) {
+				res.status(400).send('There was a problem removing the information to the database.\n' + err);
+			} else {
+				//Blob has been created
+				console.log('DELETE campaign: ' + campaign);
 				res.status(200).send(campaign);
 			}
 		});
