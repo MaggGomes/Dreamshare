@@ -93,7 +93,7 @@ function getCroppedImage() {
 
 		console.log(img);
 		console.log(1231234);
-		$('profile-picture-upload').val(img);
+		console.log($('profile-picture-upload'));
 	});
 }
 

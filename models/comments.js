@@ -8,7 +8,8 @@ var commentSchema = Schema(
 		text: {type: String, required: true},
 		date: {type: Date, default: Date.now},
 		replies: [{type: Schema.Types.ObjectId, ref: 'Reply'}],
-		removed: {type: Boolean, default: false, required: true}
+		removed: {type: Boolean, default: false, required: true},
+		reports: [{type: Schema.Types.ObjectId, ref: 'Report'}]
 	}
 );
 mongoose.model('Comment', commentSchema);

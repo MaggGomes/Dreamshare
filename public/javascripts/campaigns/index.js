@@ -39,6 +39,11 @@ $(document).ready(function () {
 		updateShowCamp();
 	});
 
+	$('#nearest').click(function(){
+		order = 'nearest';
+		updateShowCamp();
+	});
+
 	$('#funds').change(function(){
 		if($(this).is(':checked')) {
 			if(funds == false){
@@ -85,10 +90,10 @@ function updateShowCamp(){
 }
 
 function  checkCBoxes() {
-	if (funds) {
+	if (funds == 'true') {
 		$('#funds').prop('checked', true);
 	}
-	else if (!funds) {
+	else if (funds == 'false') {
 		$('#goods').prop('checked', true);
 	}
 }

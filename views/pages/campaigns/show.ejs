@@ -18,6 +18,7 @@
     </div>
     <!-- Header -->
     <section class="header">
+        <input type="hidden" id="campaignId" value="<%= campaign._id %>">
         <% if(isOwner) { %>
         <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal" id="deleteTmp">
             <i class="fa fa-trash-o"></i>
@@ -43,9 +44,51 @@
         <button class="btn btn-primary pull-right edit-info" id="saveBtn">
             <i class="fa fa-floppy-o"></i>
         </button>
-        <input type="hidden" id="campaignId" value="<%= campaign._id%>">
         <input class="form-control form-group edit-info" type="text" name="title" id="title" value="<%= campaign.title %>">
-        <% } %>
+        <% } else { %>
+        <% if(userLogged) { %>
+        <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#reportCampaignModal">
+            <svg class="icon icon-flag"><use xlink:href="#icon-flag"></use></svg>
+        </button>
+
+        <div class="modal fade" id="reportCampaignModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6><svg class="icon icon-flag"><use xlink:href="#icon-flag"></use></svg> Reportar campanha</h6>
+                    </div>
+                    <div class="modal-body">
+                        <p>Pretende reportar esta campanha porque motivo?</p>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="reportRadio" value="Fraude ou enganosa" checked>
+                                Fraude ou enganosa
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="reportRadio" value="Conteúdo explícito">
+                                Conteúdo explícito
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="reportRadio" value="other">
+                                Outro <input type="text" class="form-control" id="otherDescription" placeholder="Motivo">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-right" id="reportBtn">Reportar</button>
+                        <button type="button" class="btn btn-default pull-right " data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } } %>
+
         <% if(isOwner) { %>
         <textarea class="form-control form-group edit-info" id="description" rows="4"
                   name="description"> <%= campaign.description %> </textarea>
@@ -181,47 +224,47 @@
 
                     <!-- Comment list -->
                     <% for (var c = 0; c < campaign.comments.length; c++) { %>
-                        <% if (!campaign.comments[c].removed) { %>
-                        <div class="media mb-4">
-                            <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
-                            <div class="media-body">
-                                <h5 class="mt-0"><%= campaign.comments[c].user.name %></h5>
-                                @<%= campaign.comments[c].date %><br>
-                                <%= campaign.comments[c].text %>
+                    <% if (!campaign.comments[c].removed) { %>
+                    <div class="media mb-4">
+                        <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0"><%= campaign.comments[c].user.name %></h5>
+                            @<%= campaign.comments[c].date %><br>
+                            <%= campaign.comments[c].text %>
 
-                                <!-- Create new reply -->
-                                <div class="media mt-3">
-                                    <% if(userLogged) { %>
-                                    <a href="#replyArea<%=c%>" class="btn btn-primary find-btn mb-4" data-toggle="collapse">Responder</a>
-                                    <div id="replyArea<%=c%>" class="collapse">
-                                        <form action="<%= campaign._id %>/<%= campaign.comments[c]._id %>/reply" method="post">
-                                            <textarea rows="5" cols="60" name="reply"></textarea>
-                                            <button type="submit" class="btn btn-primary find-btn">Responder</button>
-                                        </form>
-                                    </div>
-                                    <% } else { %>
-                                    <a class="nav-signin btn btn-primary find-btn mb-4" href="#authentication" data-toggle="modal">Responder</a>
-                                    <% } %>
+                            <!-- Create new reply -->
+                            <div class="media mt-3">
+                                <% if(userLogged) { %>
+                                <a href="#replyArea<%=c%>" class="btn btn-primary find-btn mb-4" data-toggle="collapse">Responder</a>
+                                <div id="replyArea<%=c%>" class="collapse">
+                                    <form action="<%= campaign._id %>/<%= campaign.comments[c]._id %>/reply" method="post">
+                                        <textarea rows="5" cols="60" name="reply"></textarea>
+                                        <button type="submit" class="btn btn-primary find-btn">Responder</button>
+                                    </form>
                                 </div>
-
-                                <!-- Reply list -->
-                                <% for (var r = 0; r < campaign.comments[c].replies.length; r++) { %>
-                                    <% if (!campaign.comments[c].replies[r]) { %>
-                                    <div class="media mt-3">
-                                        <a class="d-flex pr-3" href="#">
-                                            <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
-                                        </a>
-                                        <div class="media-body">
-                                            <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %></h5>
-                                            @<%= campaign.comments[c].replies[r].date %><br>
-                                            <%= campaign.comments[c].replies[r].text %>
-                                        </div>
-                                    </div>
-                                    <% } %>
+                                <% } else { %>
+                                <a class="nav-signing btn btn-primary find-btn mb-4" href="#authentication" data-toggle="modal">Responder</a>
                                 <% } %>
                             </div>
+
+                            <!-- Reply list -->
+                            <% for (var r = 0; r < campaign.comments[c].replies.length; r++) { %>
+                            <% if (!campaign.comments[c].replies[r]) { %>
+                            <div class="media mt-3">
+                                <a class="d-flex pr-3" href="#">
+                                    <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %></h5>
+                                    @<%= campaign.comments[c].replies[r].date %><br>
+                                    <%= campaign.comments[c].replies[r].text %>
+                                </div>
+                            </div>
+                            <% } %>
+                            <% } %>
                         </div>
-                        <% } %>
+                    </div>
+                    <% } %>
                     <% } %>
                 </div>
                 <div class="tab-pane" id="community" role="tabpanel">
@@ -252,6 +295,8 @@
             </div>
         </div>
     </section>
+
+
 </div>
 <!-- /.container -->
 

@@ -44,6 +44,31 @@ router.get('/', function (req, res, next) {
 				}).sort({_id: -1}).limit(6);
 			}
 		}
+		else if (req.query.order == 'nearest') {
+			users.getCoords(req.session.userID, function (err, coords) {
+				if (!err) {
+					if (req.query.funds == 'true' || req.query.funds == 'false') {
+						mongoose.model('Campaign').find({
+							'_id': {'$nin': existingCampaigns},
+							loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}},
+							isFunds: req.query.funds
+						}, function (err, campaigns) {
+							if (err) throw err;
+							res.json({campaigns: campaigns});
+						}).sort({loc: -1}).limit(6);
+					}
+					else {
+						mongoose.model('Campaign').find({
+							'_id': {'$nin': existingCampaigns},
+							loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}}
+						}, function (err, campaigns) {
+							if (err) throw err;
+							res.json({campaigns: campaigns});
+						}).sort({loc: -1}).limit(6);
+					}
+				}
+			});
+		}
 		else {
 			if(req.query.funds == 'true' || req.query.funds == 'false') {
 				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns},isFunds: req.query.funds}, function (err, campaigns) {
@@ -194,6 +219,102 @@ router.post('/:campaignId/:commentId/reply', function (req, res, next) {
 	}
 });
 
+// POST delete comment
+router.post('/:campaignId/:commentId/delete', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Comment').findOne({_id: req.params.commentId}, function (err, comment) {
+			if (err || req.session.userID != comment.user) {
+				res.send(400);
+			}
+			else {
+				comment.removed = true;
+				comment.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
+// POST edit comment
+router.post('/:campaignId/:commentId/edit', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Comment').findOne({_id: req.params.commentId}, function (err, comment) {
+			if (err || req.session.userID != comment.user) {
+				res.send(400);
+			}
+			else {
+				comment.text = req.body.text;
+				comment.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
+// POST delete reply
+router.post('/:campaignId/:commentId/:replyId/delete', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Reply').findOne({_id: req.params.replyId}, function (err, reply) {
+			if (err || req.session.userID != reply.user) {
+				res.send(400);
+			}
+			else {
+				reply.removed = true;
+				reply.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
+// POST edit reply
+router.post('/:campaignId/:commentId/:replyId/edit', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Reply').findOne({_id: req.params.replyId}, function (err, reply) {
+			if (err || req.session.userID != reply.user) {
+				res.send(400);
+			}
+			else {
+				reply.text = req.body.text;
+				reply.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
 // POST donate to campaign
 router.post('/:campaignId/donate', function (req, res, next) {
 	if (req.session.user) {
@@ -240,6 +361,34 @@ router.post('/:campaignId/donate', function (req, res, next) {
 		});
 	} else {
 		res.send(400);
+	}
+});
+
+// POST report to campaign
+router.post('/:campaignId/report', function (req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Campaign').findOne({_id: req.params.campaignId}).populate('reports').exec(function (err, campaign) {
+			var Report = mongoose.model('Report');
+			var report = new Report({
+				user: req.session.userID,
+				description: req.body.description
+			});
+
+			report.save(function(err) {
+				if (err) {
+					res.status(400).send('Report failed.\n' + err);
+				}
+				campaign.reports.push(report._id);
+				campaign.save(function(err) {
+					if (err) {
+						res.status(400).send('Report failed.\n' + err);
+					}
+					res.status(200).send(report);
+				});
+			});
+		});
+	} else {
+		res.status(400).send();
 	}
 });
 
@@ -348,10 +497,13 @@ router.post('/insideCoords', function (req, res, next) {
 
 /* GET show campaign page */
 router.get('/:campaignId', function (req, res, next) {
+	var userLogged, userID;
 	if (req.session.user) {
 		userLogged = true;
+		userID = req.session.userID;
 	} else {
 		userLogged = false;
+		userID = null;
 	}
 
 	// Get campaign
@@ -420,7 +572,7 @@ router.get('/:campaignId', function (req, res, next) {
 			isOwner = false;
 		}
 
-		res.render('pages/campaigns/show', {userLogged: userLogged, campaign: campaign, isOwner: isOwner});
+		res.render('pages/campaigns/show', {userLogged: userLogged, campaign: campaign, isOwner: isOwner, userID: userID});
 	});
 });
 
