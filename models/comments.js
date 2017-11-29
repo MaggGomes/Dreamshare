@@ -7,7 +7,8 @@ var commentSchema = Schema(
 		//campaign: {type: Schema.Types.ObjectId, ref: 'Campaign'},
 		text: {type: String, required: true},
 		date: {type: Date, default: Date.now},
-		replies: [{type: Schema.Types.ObjectId, ref: 'Reply'}]
+		replies: [{type: Schema.Types.ObjectId, ref: 'Reply'}],
+		removed: {type: Boolean, default: false, required: true}
 	}
 );
 mongoose.model('Comment', commentSchema);

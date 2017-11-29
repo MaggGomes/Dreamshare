@@ -7,67 +7,114 @@
 <body>
 <% include ../../partials/header %>
 
-<!-- Page Content -->
-<div class="container">
 
+<!-- Page Content -->
+<div class="container main-container">
+
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h1 class="display-4 hidden-info"><%= campaign.title %></h1>
+        </div>
+    </div>
     <!-- Header -->
-    <header class="header">
-        <h1 class="display-4 hidden-info"><%= campaign.title %></h1>
+    <section class="header">
         <% if(isOwner) { %>
-        <input type="hidden" id="campaignId" value="<%= campaign._id%>">
-        <input class="form-control edit-info" type="text" name="title" id="title" value="<%= campaign.title %>">
-        <button class="btn btn-danger pull-right" id="deleteBtn">
+        <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal" id="deleteTmp">
             <i class="fa fa-trash-o"></i>
         </button>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Tem a certeza que quer eliminar isto?</p>
+                        <button type="button" class="btn btn-danger pull-right" id="deleteBtn">Sim</button>
+                        <button type="button" class="btn btn-default pull-right " data-dismiss="modal">Não</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <button class="btn btn-primary pull-right hidden-info" id="editBtn">
             <i class="fa fa-pencil-square-o"></i>
         </button>
         <button class="btn btn-primary pull-right edit-info" id="saveBtn">
             <i class="fa fa-floppy-o"></i>
         </button>
+        <input type="hidden" id="campaignId" value="<%= campaign._id%>">
+        <input class="form-control form-group edit-info" type="text" name="title" id="title" value="<%= campaign.title %>">
         <% } %>
-        <p class="lead hidden-info"><%= campaign.description %></p>
         <% if(isOwner) { %>
-        <textarea class="form-control edit-info" id="description" rows="4"
+        <textarea class="form-control form-group edit-info" id="description" rows="4"
                   name="description"> <%= campaign.description %> </textarea>
         <% } %>
-    </header>
+    </section>
 
     <div class="row text-center mb-4">
         <div class="col-sm-12 col-lg-8 col-md-8 mb-8">
             <img class="card-img-top" src="/<%= campaign.image %>" alt="">
         </div>
-        <div class="col-sm-12 col-lg-4 col-md-4 mb-4">
-            <div class="progress">
+        <div class="col-sm-12 col-lg-4 col-md-4 mb-4 campaign-info">
+            <div class="progress mb-3">
                 <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
                      aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
-                     style="padding-top: 1em; width:<% if(campaign.progress < campaign.goal) { %>
+                     style="width:<% if(campaign.progress < campaign.goal) { %>
                      <%= campaign.progress / campaign.goal * 100 %>%
                      <% } else { %>
                              100%
                      <% } %>">
                 </div>
             </div>
-            <div class="my-4 text-left">
-                <div>
-                    <p class="lead"><%= campaign.progress %>€</p>
-                    <p class="camp-det-aux camp-det">doados de <%= campaign.goal %>€ pretendidos</p>
+            <div class="row text-left">
+                <div class="col-4 col-md-12">
+                    <p class="lead lead-progress"><%= campaign.progress %>€</p>
+                    <p class="camp-det-aux">doados de <%= campaign.goal %>€</p>
                 </div>
-                <div>
+                <div class="col-5 col-md-12">
                     <input type="hidden" id="campaignEndDate" value="<%= campaign.endDate %>">
                     <p class="lead hidden-info" id="time-left-counter"></p>
-                    <p class="camp-det-aux camp-det">restantes</p>
+                    <p class="camp-det-aux">restantes</p>
                     <% if(isOwner) { %>
                     <input class="form-control edit-info" type="date" id="endDate" name="endDate" value="<%= campaign.endDate %>">
                     <% } %>
                 </div>
-                <div>
+                <div class="col-3 col-md-12">
                     <p class="lead"><%= campaign.n_donators %></p>
-                    <p class="camp-det-aux camp-det">contribuidores</p>
+                    <% if (campaign.n_donators == 1){ %>
+                    <p class="camp-det-aux">contribuidor
+                        <% } else { %>
+                    <p class="camp-det-aux">contribuidores</p>
+                    <% } %>
                 </div>
             </div>
+            <div class="row text-left campaign-description-small mb-2">
+                <% include ../../partials/campaignfooter %>
+            </div>
+
             <% if (!campaign.closed) { %>
-            <% if(userLogged) { %>
+
+            <% if (isOwner  && !campaign.isFunds)  { %> <!-- && !campaign.isFunds -->
+
+            <form action="<%= campaign._id %>/donate" method="post">
+                <div class="row">
+                    <div class="input-group col-md-8">
+                        <input type="text" placeholder="Nome do contribuidor" value="Anónimo" class="form-control contribute-name" aria-label="Name" name="name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group col-md-8 center-block">
+                        <input type="number" min="0" step="0.01" max="<%= campaign.goal - campaign.progress %>" placeholder="Faltam <%= campaign.goal - campaign.progress %>!" class="form-control contribute-value"
+                               aria-label="Amount" name="amount">
+                    </div>
+                    <div class="col-md-4 center-block">
+                        <button type="submit" class="btn btn-primary find-btn">Atualizar</button>
+                    </div>
+                </div>
+            </form>
+
+            <% } else if(userLogged) { %>
             <form action="<%= campaign._id %>/donate" method="post">
                 <div class="row">
                     <div class="input-group col-md-8 center-block">
@@ -81,109 +128,138 @@
                 </div>
             </form>
             <% } else { %>
-            <a class="btn btn-primary find-btn col-md-12" href="#signin" data-toggle="modal">Contribuir</a>
+            <a class="nav-signin btn btn-primary find-btn col-md-12" href="#authentication" data-toggle="modal">Contribuir</a>
             <% } %>
             <% } %>
-            <img src="http://via.placeholder.com/350x200" style="margin-top: 2em; width: 100%;">
         </div>
     </div>
 
-    <div class="row">
-        <!----------------------------- Comments ----------------------------->
-        <div class="col-sm-8">
-            <!-- Create new comment -->
-            <div class="media mb-4">
-                <% if(userLogged) { %>
-                <a href="#commentArea" class="btn btn-primary find-btn mb-4" data-toggle="collapse">Deixa aqui a tua dúvida/comentário</a>
-                <div id="commentArea" class="collapse">
-                    <form action="<%= campaign._id %>/comment" method="post">
-                        <textarea rows="5" cols="60" name="comment"></textarea>
-                        <button type="submit" class="btn btn-primary find-btn">Comentar</button>
-                    </form>
+    <div class="row campaign-description-large">
+        <% include ../../partials/campaignfooter %>
+    </div>
+
+    <section class="row">
+        <div class="campaign-tabs col-12 col-md-8">
+            <ul class="campaign-nav-tabs nav" role="tablist">
+                <li class="nav-item">
+                    <div class="tab-nav-link-wrapper tab-hvrcenter">
+                        <a class="nav-link active" data-toggle="tab" href="#campaign" role="tab">Campanha</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="tab-nav-link-wrapper tab-hvrcenter">
+                        <a class="nav-link" data-toggle="tab" href="#comments" role="tab">Comentários <span class="tab-upper-values"><%= campaign.comments.length %></span></a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="tab-nav-link-wrapper tab-hvrcenter">
+                        <a class="nav-link" data-toggle="tab" href="#community" role="tab">Comunidade <span class="tab-upper-values"><%= campaign.donations.length %></span></a>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="campaign" role="tabpanel">
+                    <p class="campaign-description hidden-info"><%= campaign.description %></p>
                 </div>
-                <% } else { %>
-                <a class="btn btn-primary find-btn mb-4" href="#signin" data-toggle="modal">Deixa aqui a tua dúvida/comentário</a>
-                <% } %>
-            </div>
-
-            <!-- Comment list -->
-            <% for (var c = 0; c < campaign.comments.length; c++) { %>
-                <div class="media mb-4">
-                    <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0"><%= campaign.comments[c].user.name %></h5>
-                        @<%= campaign.comments[c].date %><br>
-                        <%= campaign.comments[c].text %>
-
-                        <!-- Create new reply -->
-                        <div class="media mt-3">
-                            <% if(userLogged) { %>
-                                <a href="#replyArea<%=c%>" class="btn btn-primary find-btn mb-4" data-toggle="collapse">Responder</a>
-                                <div id="replyArea<%=c%>" class="collapse">
-                                    <form action="<%= campaign._id %>/<%= campaign.comments[c]._id %>/reply" method="post">
-                                        <textarea rows="5" cols="60" name="reply"></textarea>
-                                        <button type="submit" class="btn btn-primary find-btn">Responder</button>
-                                    </form>
-                                </div>
-                            <% } else { %>
-                                <a class="btn btn-primary find-btn mb-4" href="#signin" data-toggle="modal">Responder</a>
-                            <% } %>
+                <div class="tab-pane" id="comments" role="tabpanel">
+                    <!-- Create new comment -->
+                    <div class="justify-content-center media mb-4">
+                        <% if(userLogged) { %>
+                        <a href="#commentArea" class="btn btn-secondary mb-4" data-toggle="collapse">Deixa aqui a tua dúvida/comentário</a>
+                        <div id="commentArea" class="collapse">
+                            <form action="<%= campaign._id %>/comment" method="post">
+                                <textarea rows="5" cols="60" name="comment"></textarea>
+                                <button type="submit" class="btn btn-primary">Comentar</button>
+                            </form>
                         </div>
-
-                        <!-- Reply list -->
-                        <% for (var r = 0; r < campaign.comments[c].replies.length; r++) { %>
-                            <div class="media mt-3">
-                                <a class="d-flex pr-3" href="#">
-                                    <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %></h5>
-                                    @<%= campaign.comments[c].replies[r].date %><br>
-                                    <%= campaign.comments[c].replies[r].text %>
-                                </div>
-                            </div>
+                        <% } else { %>
+                        <a class="nav-signin btn btn-secondary col-12 col-md-8 col-lg-6 mb-4" href="#authentication" data-toggle="modal">Deixa aqui a tua dúvida/comentário</a>
                         <% } %>
                     </div>
+
+                    <!-- Comment list -->
+                    <% for (var c = 0; c < campaign.comments.length; c++) { %>
+                        <% if (!campaign.comments[c].removed) { %>
+                        <div class="media mb-4">
+                            <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0"><%= campaign.comments[c].user.name %></h5>
+                                @<%= campaign.comments[c].date %><br>
+                                <%= campaign.comments[c].text %>
+
+                                <!-- Create new reply -->
+                                <div class="media mt-3">
+                                    <% if(userLogged) { %>
+                                    <a href="#replyArea<%=c%>" class="btn btn-primary find-btn mb-4" data-toggle="collapse">Responder</a>
+                                    <div id="replyArea<%=c%>" class="collapse">
+                                        <form action="<%= campaign._id %>/<%= campaign.comments[c]._id %>/reply" method="post">
+                                            <textarea rows="5" cols="60" name="reply"></textarea>
+                                            <button type="submit" class="btn btn-primary find-btn">Responder</button>
+                                        </form>
+                                    </div>
+                                    <% } else { %>
+                                    <a class="nav-signin btn btn-primary find-btn mb-4" href="#authentication" data-toggle="modal">Responder</a>
+                                    <% } %>
+                                </div>
+
+                                <!-- Reply list -->
+                                <% for (var r = 0; r < campaign.comments[c].replies.length; r++) { %>
+                                    <% if (!campaign.comments[c].replies[r]) { %>
+                                    <div class="media mt-3">
+                                        <a class="d-flex pr-3" href="#">
+                                            <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                                        </a>
+                                        <div class="media-body">
+                                            <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %></h5>
+                                            @<%= campaign.comments[c].replies[r].date %><br>
+                                            <%= campaign.comments[c].replies[r].text %>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                        </div>
+                        <% } %>
+                    <% } %>
                 </div>
-            <% } %>
-
+                <div class="tab-pane" id="community" role="tabpanel">
+                    <ul class="list-unstyled">
+                        <% if(campaign.donations.length > 10) { %>
+                        <% for (var i = campaign.donations.length - 1; i >= campaign.donations.length - 10; i--) { %>
+                        <li class="media mb-4">
+                            <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1"><%= campaign.donations[i].user.name %></h5>
+                                Contribui com <%= campaign.donations[i].value %>€
+                            </div>
+                        </li>
+                        <% } %>
+                        <% } else { %>
+                        <% for (var i = campaign.donations.length - 1; i >= 0; i--) { %>
+                        <li class="media mb-4">
+                            <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1"><%= campaign.donations[i].user.name %></h5>
+                                Contribui com <%= campaign.donations[i].value %>€
+                            </div>
+                        </li>
+                        <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        <!----------------------------- Donations ----------------------------->
-        <div class="col-sm-4">
-            <ul class="list-unstyled">
-                <% if(campaign.donations.length > 10) { %>
-                    <% for (var i = campaign.donations.length - 1; i >= campaign.donations.length - 10; i--) { %>
-                    <li class="media mb-4">
-                        <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1"><%= campaign.donations[i].user.name %></h5>
-                            Contribui com <%= campaign.donations[i].value %>€
-                        </div>
-                    </li>
-                    <% } %>
-                <% } else { %>
-                    <% for (var i = campaign.donations.length - 1; i >= 0; i--) { %>
-                    <li class="media mb-4">
-                        <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1"><%= campaign.donations[i].user.name %></h5>
-                            Contribui com <%= campaign.donations[i].value %>€
-                        </div>
-                    </li>
-                    <% } %>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-
-
+    </section>
 </div>
 <!-- /.container -->
 
 <% include ../../partials/footer %>
+
 <script src="/javascripts/campaigns/show.js"></script>
 <script src="/javascripts/campaigns/edit.js"></script>
+<script src="/javascripts/campaigns/delete.js"></script>
 </body>
 
 </html>

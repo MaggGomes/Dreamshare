@@ -1,0 +1,35 @@
+<div class="col-12">
+    <div class="row">
+        <div class="col-6 col-md-3 col-lg-2 campaign-description-footer">
+            <% if (!campaign.isFunds) { %>
+            <a href="/campaigns?order=&funds=true">
+                <div class="campaign-description-wrapper">
+                    <svg class="icon icon-bars"><use xlink:href="#icon-bars"></use></svg>
+                    <div class="campaign-description-text">
+                        <p>Angariação de fundos</p>
+                    </div>
+                </div>
+            </a>
+            <% } else { %>
+            <a href="/campaigns?order=&funds=false">
+                <div class="campaign-description-wrapper">
+                    <svg class="icon icon-charity"><use xlink:href="#icon-charity"></use></svg>
+                    <div class="campaign-description-text">
+                        <p>Recolha de bens</p>
+                    </div>
+                </div>
+            </a>
+            <% } %>
+        </div>
+        <div class="col-6 col-md-3 campaign-description-footer">
+            <a href="/campaigns/map?lat=<%= campaign.lat %>&lng=<%= campaign.lng %>">
+                <div class="campaign-description-wrapper">
+                    <svg class="icon icon-location"><use xlink:href="#icon-location"></use></svg>
+                    <div class="campaign-description-text">
+                        <p><%= campaign.location %></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

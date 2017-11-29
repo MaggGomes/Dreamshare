@@ -19,37 +19,55 @@
         <div class="text-center">
             <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
         </div>
-
     </div>
 </div>
 
 <!-- Page Content -->
-<div class="container">
+<div class="container main-container">
     <!-- Page Features -->
-    <div class="row">
-        <div class="col-sm-12 mb-4 campaign-category">
-            <h3>Angariação de fundos</h3>
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3><svg class="icon icon-flame"><use xlink:href="#icon-flame"></use></svg> Tendências</h3>
         </div>
-
-        <% fundsCampaigns.forEach(function(campaign) { %>
+    </div>
+    <div class="row">
+        <% trendingCampaigns.forEach(function(campaign) { %>
         <% include ../partials/campaign_card %>
         <% }); %>
         <div class="col-sm-12 mb-4">
-            <a href="/campaigns/search/true" class="btn btn-primary float-right">Mais ></a>
+            <a href="/campaigns" class="btn btn-primary float-right">Mais ></a>
         </div>
     </div>
     <!-- /.row -->
 
-    <div class="row">
-        <div class="col-sm-12 mb-4 campaign-category">
-            <h3>Recolha de artigos</h3>
+    <!-- Page Features -->
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3><svg class="icon icon-bars"><use xlink:href="#icon-bars"></use></svg> Angariação de fundos</h3>
         </div>
+    </div>
+    <div class="row">
+        <% fundsCampaigns.forEach(function(campaign) { %>
+        <% include ../partials/campaign_card %>
+        <% }); %>
+        <div class="col-sm-12 mb-4">
+            <a href="/campaigns?order=&funds=true" class="btn btn-primary float-right">Mais ></a>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3><svg class="icon icon-charity"><use xlink:href="#icon-charity"></use></svg> Recolha de bens</h3>
+        </div>
+    </div>
+    <div class="row">
         <% goodsCampaigns.forEach(function(campaign) { %>
         <% include ../partials/campaign_card %>
         <% }); %>
 
         <div class="col-sm-12 mb-4">
-            <a href="/campaigns/search/false" class="btn btn-primary float-right">Mais ></a>
+            <a href="/campaigns?order=&funds=false" class="btn btn-primary float-right">Mais ></a>
         </div>
     </div>
 
@@ -57,11 +75,13 @@
 <!-- /.container -->
 
 <% include ../partials/footer %>
+<script src="/javascripts/partials/campaign_card.js"></script>
+<script src="/javascripts/campaigns/index.js"></script>
 
+<!-- Maps -->
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
 </script>
-<script src="/javascripts/campaigns/index.js"></script>
 
 </body>
 

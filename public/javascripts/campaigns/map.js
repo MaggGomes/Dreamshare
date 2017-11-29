@@ -7,8 +7,9 @@ var markers = [];
 
 // Google Maps handling functions
 function initGoogleMaps() {
+	var center = {lat: parseFloat($('#lat').val()), lng: parseFloat($('#lng').val())};
 	map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: 41.157944, lng: -8.629105},
+		center: center,
 		zoom: zoom
 	});
 
@@ -53,8 +54,7 @@ $(document).ready(function () {
 
 	$('#searchBtn').click(function () {
 		var address_input = autocomplete.getPlace();
-		console.log(address_input);
-
+		
 		if (address_input != '') {
 			geocoder.geocode({'address': address_input}, function (results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
@@ -98,16 +98,21 @@ function updateCampaigns() {
 			var m = markers.pop();
 			m.setMap(null);
 		}
+
+		console.log(data);
 		$.each(data, function (i, campaign) {
 			var marker = new google.maps.Marker({
 				position: {lat: campaign.lat, lng: campaign.lng},
 				map: map,
-				id: campaign._id,
+				_id: campaign._id,
 				title: campaign.title,
 				goal: campaign.goal,
 				progress: campaign.progress,
 				location: campaign.location,
-				image: campaign.image
+				image: campaign.image,
+				description: campaign.description,
+				lat: campaign.lat,
+				lng: campaign.lng
 			});
 			marker.addListener('click', popupCampaign);
 			markers.push(marker);

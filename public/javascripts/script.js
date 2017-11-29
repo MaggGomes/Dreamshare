@@ -1,22 +1,96 @@
 $(document).ready(function () {
+	/* Modal components */
+
+	/* Signin */
+	$signin = '<div class="modal-body">'+
+		'<div id="modal-message-signin"></div>'+
+		'<div class="modal-social-icons">'+
+		'<button class="btn btn-default facebook" id="facebook_login">'+
+		'<i class="fa fa-facebook modal-icons"></i> Continuar com Facebook </button>'+
+		'</div>'+
+		'<div class="login-or">'+
+		'<hr class="hr-or">'+
+		'<span class="span-or">ou</span>'+
+		'</div>'+
+		'<h4 class="useemail">Ou use o seu endereço de e-mail</h4>'+
+		'<button type="button" class="btn-bottom btn btn-primary btn-login">Entrar</button>'+
+		'<button type="button" class="btn-bottom btn btn-secondary btn-register">'+
+		'Inscreva-se </button>'+
+		'</div>'+
+		'<div class="modal-footer">'+
+		'<button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>'+
+		'</div>';
+
+	/* Login */
+	$login = '<div class="modal-body">'+
+		'<div id="modal-message-login"></div>'+
+		'<div class="form-group has-feedback">'+
+		'<input id="signin-email" type="email" class="form-control" name="email" placeholder="Endereço de e-mail">'+
+		'</div>'+
+		'<div class="form-group has-feedback">'+
+		'<input id="signin-password" type="password" class="form-control" name="password" placeholder="Palavra-passe">'+
+		'</div>'+
+		'<button id="signin-submit" class="btn btn-primary btn-submit-dialog">Entrar</button>'+
+		'</div>'+
+		'<div class="modal-footer">'+
+		'<button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>'+
+		'<button type="button" class="btn btn-secondary btn-register">Inscreva-se</button>'+
+		'</div>';
+
+	/* Register */
+	$register = '<div class="modal-body">'+
+		'<div id="modal-message-register"></div>'+
+		'<div class="form-group">'+
+		'<div class="form-group has-feedback input-group">'+
+		'<input id="register-name" type="text" class="form-control" placeholder="Nome" name="name">'+
+		'</div>'+
+		'<div class="form-group has-feedback input-group">'+
+		'<input id="register-email" type="email" class="form-control" placeholder="Endereço de e-mail" name="email">'+
+		'</div>'+
+		'<div class="form-group has-feedback input-group">'+
+		'<input id="register-password" type="password" class="form-control" placeholder="Palavra-passe" name="password">'+
+		'</div>'+
+		'<div class="form-group has-feedback input-group">'+
+		'<input id="register-confirmpassword" type="password" class="form-control" placeholder="Confirmar palavra-passe">'+
+		'</div>'+
+		'</div>'+
+		'<button id="register-submit" class="btn btn-primary btn-submit-dialog">Registar</button>'+
+		'</div>'+
+		'<div class="modal-footer">'+
+		'<button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>'+
+		'</div>';
+
+
+	$('.nav-signin').click(function () {
+		$('#authentication .modal-body-footer').html($signin);
+	});
+
+	$('#nav-register').click(function () {
+		$('#authentication .modal-body-footer').html($register);
+	});
 
 	/* Cleans modal inputs */
 	$('.modal').on('hidden.bs.modal', function () {
-		$('#signin-email').val('');
-		$('#signin-password').val('');
-		$('#modal-message-login').html('');
+		$('#authentication .modal-body-footer').html($signin);
 	});
 
-	$('.btn-signin').click(function () {
-		$('#login').modal();
+	$('.btn-login').click(function () {
+		$('#authentication .modal-body-footer').html($login);
+	});
+
+	$('#authentication').on('click', '.btn-login', function() {
+		$('#authentication .modal-body-footer').html($login);
 	});
 
 	$('.btn-register').click(function () {
-		$('#register').modal();
+		$('#authentication .modal-body-footer').html($register);
 	});
 
-	/* Sign in */
-	$('#signin-submit').click(function () {
+	$('#authentication').on('click', '.btn-register', function() {
+		$('#authentication .modal-body-footer').html($register);
+	});
+
+	var signin = function(){
 		var userEmail = $('#signin-email').val();
 		var userPassword = $('#signin-password').val();
 
@@ -27,10 +101,9 @@ $(document).ready(function () {
 			.fail(function () {
 				$('#modal-message-login').html('<div class="modal-message-content">E-mail e/ou palavra-passe incorretos.</div>');
 			});
-	});
+	};
 
-	/* Register */
-	$('#register-submit').click(function () {
+	var register = function () {
 		var userName = $('#register-name').val();
 		var userEmail = $('#register-email').val();
 		var userPassword = $('#register-password').val();
@@ -63,6 +136,24 @@ $(document).ready(function () {
 			.fail(function () {
 				$('#modal-message-register').html('<div class="modal-message-content" style="text-align: left">E-mail já se encontra em uso.</div>');
 			});
+	};
+
+	/* Sign in */
+	$('#signin-submit').click(function () {
+		signin();
+	});
+
+	$('#authentication').on('click', '#signin-submit', function () {
+		signin();
+	});
+
+	/* Register */
+	$('#register-submit').click(function () {
+		register();
+	});
+
+	$('#authentication').on('click', '#register-submit', function () {
+		register();
 	});
 
 	/* Functions to work with menu search */
@@ -141,6 +232,7 @@ $(document).ready(function () {
 				var offsets = expandSearch.getBoundingClientRect();
 				if (isOpen) {
 					classie.remove(expandSearch, 'open');
+					$('.home-search').css({'display': 'none'});
 					$('.expandsearch-content').html('');
 
 					if (input.value !== '') {
@@ -154,6 +246,7 @@ $(document).ready(function () {
 					}
 					input.blur();
 				} else {
+					$('.home-search').css({'display': 'block'});
 					classie.add(expandSearch, 'open');
 				}
 				isOpen = !isOpen;
@@ -172,17 +265,97 @@ $(document).ready(function () {
 			}
 		});
 	})();
+
+	/* Facebook login */
+	window.fbAsyncInit = function () {
+		FB.init({
+			appId: '1449290791833636',
+			xfbml: true,
+			version: 'v2.7'
+		});
+
+		FB.getLoginStatus(function (response) {
+			if (response.status === 'connected') {
+			} else if (response.status === 'not_authorized') {
+			} else {
+			}
+		});
+
+		FB.AppEvents.logPageView();
+	};
+
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id))
+			return;
+
+		js = d.createElement(s);
+		js.id = id;
+		js.src = '//connect.facebook.net/en_US/sdk.js';
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+	$('#authentication').on('click', '#facebook_login', function () {
+		$('#authentication').modal('hide');
+		FB.login(function (response) {
+			if (response.status === 'connected') {
+				FB.api('/me', 'GET', {
+					fields: 'name, email, picture.width(300).height(300)'
+				}, function (data) {
+
+					if(data.email == null)
+						var email = data.id+'@facebook.com';
+					else
+						email = data.email;
+
+					console.log(data);
+
+					updateSession(data.name, email, data.picture.data.url);
+
+					// TODO - REMOVER ESTAR PARTE DAQUI
+					/*FB.logout(function(response) {
+					// user is now logged out
+					});*/
+
+				});
+
+			} else if (response.status === 'not_authorized') {
+			} else {
+			}
+		}, {scope: 'email'});
+	});
+
+	$('#nav-logout').click(function(){
+		/*FB.logout(function(response) {
+		});*/
+		console.log('dada');
+		$.get('/users/logout', {})
+			.done(function(){
+
+			})
+			.fail(function(){
+			});
+
+	});
 });
+
+function updateSession(userName, userEmail, userPhoto) {
+	$.post('/users/signin/3rdparty', {name: userName, email: userEmail, photo: userPhoto})
+		.done(function(){
+			location.reload();
+		})
+		.fail(function(){
+		});
+};
 
 // TODO - IMPLEMENTAR
 /*  Searchs a campaign by title */
 function searchByTitle(value) {
 	if (value.length >= 3) {
-		$.post('/campaigns/searchByTitle', {
+		$.get('/campaigns/searchByTitle', {
 			title: value,
-			limit: 4
+			limit: 2
 		}, function (data) {
-
 			var $results = $('<div></div>');
 
 			$.each(data, function (i, campaign) {

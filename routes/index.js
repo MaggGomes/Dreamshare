@@ -1,5 +1,7 @@
 var express = require('express'),
 	mongoose = require('mongoose'),
+	campaigns = require('../models/campaigns'),
+	users = require('../models/users'),
 	router = express.Router();
 
 /* GET home page. */
@@ -14,13 +16,25 @@ router.get('/', function (req, res, next) {
 		if (err) throw err;
 		mongoose.model('Campaign').find({isFunds: false}, function (err, goodsCampaigns) {
 			if (err) throw err;
-			res.render('pages/index', {
-				fundsCampaigns: fundsCampaigns,
-				goodsCampaigns: goodsCampaigns,
-				userLogged: userLogged
-			});
-		}).limit(3);
-	}).limit(3);
+			var renderIndex = function (err, trendingCampaigns) {
+				if (err) throw err;
+				res.render('pages/index', {
+					fundsCampaigns: fundsCampaigns,
+					goodsCampaigns: goodsCampaigns,
+					trendingCampaigns: trendingCampaigns,
+					userLogged: userLogged
+				});
+			};
+			if (userLogged) {
+				users.getCoords( req.session.userID, function (err, coords) {
+					if (err) campaigns.getTrending(6, renderIndex);
+					campaigns.getTrendingWithCoords(6, coords.lat, coords.lng, renderIndex);
+				});
+			}else{
+				campaigns.getTrending(6, renderIndex);
+			}
+		}).limit(6);
+	}).limit(6);
 });
 
 /* GET admin home page. */
