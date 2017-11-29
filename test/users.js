@@ -57,20 +57,20 @@ describe('Users', () => {
 				});
 		});
 
-        it('it should not POST a user successfully with already used username', (done) => {
-            let user = {
-                name: 'teste2',
-                email: 'newEmail@teste.teste',
-                password: '123456'
-            };
-            chai.request(app.server)
-                .post('/users/register')
-                .send(user)
-                .end((err, res) => {
-                    res.should.have.status(400);
-                    done();
-                });
-        });
+		it('it should not POST a user successfully with already used username', (done) => {
+			let user = {
+				name: 'teste2',
+				email: 'newEmail@teste.teste',
+				password: '123456'
+			};
+			chai.request(app.server)
+				.post('/users/register')
+				.send(user)
+				.end((err, res) => {
+					res.should.have.status(400);
+					done();
+				});
+		});
 	});
 
 	/*
@@ -120,17 +120,17 @@ describe('Users', () => {
 		});
 	});
 
-    /*
+	/*
 * Test the /GET route
 */
-    describe('/POST logout user', () => {
-        it('it should POST signin a user successfully', (done) => {
-            chai.request(app.server)
-                .post('/logout')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    done();
-                });
-        });
-    });
+	describe('/POST logout user', () => {
+		it('it should POST signin a user successfully', (done) => {
+			chai.request(app.server)
+				.post('/logout')
+				.end((err, res) => {
+					res.should.have.status(200);
+					done();
+				});
+		});
+	});
 });
