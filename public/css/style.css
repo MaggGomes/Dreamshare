@@ -56,6 +56,10 @@ header .brand-logo img {
     color: var(--text-color);
 }
 
+.navbar .navbar-brand {
+    color: var(--main-color);
+}
+
 .brand-share {
     font-weight: bold;
     color: var(--main-color);
@@ -306,6 +310,11 @@ header .brand-logo img {
 .tab-hvrcenter:hover:before, .hvrcenter:focus:before, .hvrcenter:active:before {
     left: 0;
     right: 0;
+}
+
+.btn-map {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 footer {
