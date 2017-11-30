@@ -17,39 +17,102 @@
         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt
             possimus non incidunt odit vero aliquid similique quaerat</p>
         <div class="text-center">
-            <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
+            <a class="btn btn-primary btn-lg" href="/campaigns?order=&funds=">Começar</a>
         </div>
-
     </div>
 </div>
 
-<!-- Page Content -->
-<div class="container">
-    <!-- Page Features -->
-    <div class="row">
-        <div class="col-sm-12 mb-4 campaign-category">
-            <h3>Angariação de fundos</h3>
-        </div>
 
-        <% fundsCampaigns.forEach(function(campaign) { %>
+
+
+<!--<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <img class="d-block img-fluid" src="/images/jumbotron/jumbotronbg.jpg" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>ddsad</h3>
+                <p>1221</p>
+                <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block img-fluid" src="/images/jumbotron/jumbotronbg.jpg" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>31231</h3>
+                <p>sddasd</p>
+                <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block img-fluid" src="/images/jumbotron/jumbotronbg.jpg" alt="Third slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>dasda</h3>
+                <p>1212121</p>
+                <a class="btn btn-primary btn-lg" href="campaigns">Começar</a>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>-->
+
+<!-- Page Content -->
+<div class="container main-container">
+    <!-- Page Features -->
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3><svg class="icon icon-flame"><use xlink:href="#icon-flame"></use></svg> Tendências</h3>
+        </div>
+    </div>
+    <div class="row">
+        <% trendingCampaigns.forEach(function(campaign) { %>
         <% include ../partials/campaign_card %>
         <% }); %>
         <div class="col-sm-12 mb-4">
-            <a href="/campaigns/search/true" class="btn btn-primary float-right">Mais ></a>
+            <a href="/campaigns" class="btn btn-primary float-right">Mais ></a>
         </div>
     </div>
     <!-- /.row -->
 
-    <div class="row">
-        <div class="col-sm-12 mb-4 campaign-category">
-            <h3>Recolha de artigos</h3>
+    <!-- Page Features -->
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3><svg class="icon icon-bars"><use xlink:href="#icon-bars"></use></svg> Angariação de fundos</h3>
         </div>
+    </div>
+    <div class="row">
+        <% fundsCampaigns.forEach(function(campaign) { %>
+        <% include ../partials/campaign_card %>
+        <% }); %>
+        <div class="col-sm-12 mb-4">
+            <a href="/campaigns?order=&funds=true" class="btn btn-primary float-right">Mais ></a>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3><svg class="icon icon-charity"><use xlink:href="#icon-charity"></use></svg> Recolha de bens</h3>
+        </div>
+    </div>
+    <div class="row">
         <% goodsCampaigns.forEach(function(campaign) { %>
         <% include ../partials/campaign_card %>
         <% }); %>
 
         <div class="col-sm-12 mb-4">
-            <a href="/campaigns/search/false" class="btn btn-primary float-right">Mais ></a>
+            <a href="/campaigns?order=&funds=false" class="btn btn-primary float-right">Mais ></a>
         </div>
     </div>
 
@@ -57,11 +120,13 @@
 <!-- /.container -->
 
 <% include ../partials/footer %>
+<script src="/javascripts/partials/campaign_card.js"></script>
+<script src="/javascripts/campaigns/index.js"></script>
 
+<!-- Maps -->
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
 </script>
-<script src="/javascripts/campaigns/index.js"></script>
 
 </body>
 

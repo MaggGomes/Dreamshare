@@ -18,7 +18,7 @@ $(document).ready(function () {
 				window.location.replace('/campaigns/' + id);
 			},
 			error: function(errors) {
-				alert(errors);
+				console.log(errors);
 			}
 		});
 	});

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <% include ../../partials/head %>
+	<% include ../../partials/head %>
 </head>
 
 <body>
@@ -10,40 +10,46 @@
 
 <!-- Page Content -->
 <div class="container main-container">
-    <h1>Campanhas</h1>
+	<div class="row page-title mb-4">
+		<div class="page-title-campaign col-12 col-sm-6">
+			<h3>Campanhas</h3>
+		</div>
+		<div class="dropdown col-12 col-sm-6">
+			<button class="btn btn-secondary dropdown-toggle more-btn" type="button" id="dropdownMenuButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				Mais contribuidores
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" id="mostContri" >Mais contribuidores</a>
+				<a class="dropdown-item" id="mostRecent" >Mais recentes</a>
+				<% if(userLogged) { %>
+				<a class="dropdown-item" id="nearest" >Mais Perto de Si</a>
+				<% } %>
+				<input type="checkbox" id="funds" value="false"> Angariação de fundos<br>
+				<input type="checkbox" id="goods" value="false"> Recolha de artigos
+			</div>
+		</div>
+	</div>
 
-    <!-- Page Features -->
-    <div class="row">
-        <div class="text-right dropdown col-sm-12 mb-4">
-            <span>Ordenar por:</span>
-            <button class="btn btn-secondary dropdown-toggle more-btn" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Mais contribuidores
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Mais recentes</a>
-                <a class="dropdown-item" href="#">Mais contribuidores</a>
-                <a class="dropdown-item" href="#">Angariação de fundos</a>
-                <a class="dropdown-item" href="#">Recolha de artigos</a>
-            </div>
-        </div>
+	<!-- Page Features -->
+	<div class="row" id="campaignsCard">
+		<% campaigns.forEach(function(campaign) { %>
+		<% include ../../partials/campaign_card %>
+		<% }); %>
 
-        <% campaigns.forEach(function(campaign) { %>
-        <% include ../../partials/campaign_card %>
-        <% }); %>
-        <div class="col-sm-12 mb-4">
-            <button id="more_campaigns" class="btn btn-secondary float-right">Ver Mais</button>
-        </div>
+		<div class="col-sm-12 mb-4">
+			<button id="more_campaigns" class="btn btn-primary float-right">Mais ></button>
+		</div>
 
-    </div>
-    <!-- /.row -->
+	</div>
+	<!-- /.row -->
 </div>
 <!-- /.container -->
 <% include ../../partials/footer %>
 <script src="/javascripts/partials/campaign_card.js"></script>
 <script src="/javascripts/campaigns/index.js"></script>
 <!-- <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4">
 </script> -->
 </body>
 

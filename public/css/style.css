@@ -1,15 +1,18 @@
 :root {
-    --main-color: #00d66e;
-    --hover-color: #00b35a;
-    --text-color: #595959;
+    --main-color: #fb5a5f;
+    --second-color: #00888c;
+    --hover-color: #e3595e;
+    --text-color: #494949;
+    --textsecond-color: #696d6d;
+    --secondarytext-color: #bfbfbf;
+    --border-color: #eaeaea;
 }
+
+@import url(https://fonts.googleapis.com/css?family=Baloo+Bhaina);
 
 body {
     padding-top: 57px;
     color: var(--text-color);
-    overflow-x: hidden;
-    overflow-y: scroll;
-    /*overflow-y: hidden;*/
 }
 
 .main-container {
@@ -20,108 +23,328 @@ body {
     color: var(--main-color);
 }
 
-.navbar {
+.icon {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    position: relative;
+}
+
+header .navbar {
     background-color: white;
     -webkit-box-shadow: 0 2px 5px 0 rgba(230, 230, 230, 1);
     -moz-box-shadow: 0 2px 5px 0 rgba(230, 230, 230, 1);
     box-shadow: 0 2px 5px 0 rgba(230, 230, 230, 1);
 }
 
-.navbar a {
-    color: var(--main-color);
+header .navbar a, .campaign-nav-tabs a {
+    color: var(--text-color);
 }
 
-.brand-logo img {
+header .brand-logo img {
     width: 40px;
 }
 
 .navbar-brand {
-    padding-right: 0;
+    font-family: 'Ranchers', cursive;
+}
+
+.navbar .navbar-brand {
+    color: var(--text-color);
 }
 
 .brand-share {
     font-weight: bold;
+    color: var(--main-color);
+}
+
+.nav-link-wrapper .icon-search {
+    color: var(--main-color);
 }
 
 .jumbotron {
     color: white;
-    background: url('../images/jumbotron/jumbotron1.jpeg');
-    background-size: cover;
+    background: url('../images/jumbotron/jumbotronbgsmall.jpg');
+    background-size: 100% 100%;
     border-radius: 0;
 }
 
+
+
+/*.carousel-caption {
+    display: block!important;
+}
+
+#carouselExampleIndicators .d-none {
+    display: block!important;
+}
+
+.d-none {
+    display: block!important;
+}*/
+
 .jumbotron h1 {
-    font-size: 50px;
+    font-size: 30px;
 }
 
 .jumbotron p {
-    font-size: 20px;
+    font-size: 16px;
 }
 
-.campaign-category h3 {
-    color: var(--text-color);
+.page-title h3 {
+    color: var(--main-color);
+}
+
+.page-title .icon {
+    color: var(--main-color);
 }
 
 .card {
     height: 100%;
+    border: none;
+    box-shadow: 0 2px 6px -2px rgba(23,23,23,0.45);
+}
+
+.card a {
+    text-decoration: none;
 }
 
 .card-title {
-    color: var(--main-color);
+    color: var(--text-color);
 }
 
-.card-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+.card-body {
+    height: 130px;
+    font-size: 0.95rem;
 }
 
 .card-footer {
     background-color: white;
-    color: #a9a9a9;
-    font-size: small;
+    color: var(--secondarytext-color);
+    font-size: 0.9rem;
+    border-top: none;
+}
+
+.icon-location {
+    height: 0.9rem;
+    margin-left: -3px;
 }
 
 .card-footer span {
     font-weight: bold;
 }
 
+.card-text {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .card-progress {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .card-img-top {
-    margin-bottom: 10px;
-    max-height: 600px;
+    max-height: 450px;
 }
 
-.campaign-location, .latlng_campaign {
+.more-btn:hover {
+    cursor: pointer;
+}
+
+.page-title-campaign {
+    margin-bottom: 10px;
+}
+
+.campaign-description-large {
+    display: none;
+}
+
+.campaign-description-wrapper, .campaign-description-text {
     display: inline-block;
+}
+
+.campaign-description-wrapper .icon-location, .campaign-description-wrapper .card-text {
+    color: var(--secondarytext-color);
 }
 
 .campaign_img {
     height: 200px;
 }
 
-.title-link {
-    color: var(--main-color)
+.progress {
+    border-radius: 0;
 }
 
 .progress-bar {
-    background-color: var(--main-color);
-    height: 0.5rem;
-    line-height: 0.5rem;
+    background-color: var(--second-color);
+    height: 0.3rem;
+    line-height: 0.3rem;
+    box-shadow: none;
+}
+
+.useemail {
+    color: var(--text-color);
+    text-align: center;
+    font-size: large;
+    margin-top: 8px;
+}
+
+.lead-progress {
+    color: var(--second-color);
+}
+
+.lead {
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.timer-description {
+    font-size: 0.6em;
+}
+
+.camp-det-aux {
+    font-size: 0.8em;
+    margin-top: -1.5em;
+    color: var(--textsecond-color);
+}
+
+.campaign-description-footer .campaign-description-wrapper, .campaign-description-footer .icon {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.campaign-description-footer .icon {
+    height: 0.9rem;
+}
+
+.campaign-description {
+    font-size: 1.2em;
+}
+
+.donate-btn {
+    margin: 0.5em;
+}
+
+.edit-info{
+    display: none;
+}
+
+.btn-map {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Campaign tabs */
+.campaign-tabs .tab-content {
+    padding-top: 20px;
+    min-height: 300px;
+}
+
+.campaign-tabs .tab-upper-values {
+    font-size: 12px;
+    position: relative;
+    top: -5px;
+    color: var(--main-color);
+}
+
+.campaign-nav-tabs {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.campaign-nav-tabs .nav-item {
+    padding-left: .5rem;
+    padding-right: .5em;
+}
+
+.campaign-nav-tabs .nav-item:first-child {
+    padding-left: 0;
+    padding-right: .5em;
+}
+
+.campaign-nav-tabs .nav-link-wrapper {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.campaign-nav-tabs .nav-link {
+    padding: 1rem 0;
+}
+
+.campaign-nav-tabs .nav-link {
+    border-bottom: 2px solid transparent;
+    border-top: 2px solid transparent;
+}
+
+.campaign-nav-tabs .active {
+    border-bottom: 2px solid var(--main-color);
+}
+
+.campaign-nav-tabs > .active > a,
+.campaign-nav-tabs > .active > a:hover,
+.campaign-nav-tabs > .active > a:focus {
+    border-bottom: 2px solid white;
+    background-color: transparent;
+}
+
+.tab-hvrcenter {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-hvrcenter:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    background: var(--main-color);
+    height: 2px;
+    -webkit-transition-property: left, right;
+    transition-property: left, right;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+
+.tab-hvrcenter:hover:before, .hvrcenter:focus:before, .hvrcenter:active:before {
+    left: 0;
+    right: 0;
+}
+
+.btn-map {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 footer {
     margin-top: 70px;
 }
 
+.btn.focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .btn-primary {
     background-color: var(--main-color);
     border: 1px solid var(--main-color);
+}
+
+.btn-primary.active {
+    background-color: var(--hover-color);
+    border: 1px solid var(--hover-color);
+
 }
 
 .btn-primary:hover {
@@ -141,9 +364,16 @@ footer {
     border: 1px solid var(--hover-color);
 }
 
+.btn-secondary.active, .btn-secondary:active, .btn-secondary:focus, .show>.btn-secondary.dropdown-toggle {
+    background-color: white;
+    background-image: none;
+    border-color: var(--hover-color);
+    box-shadow: none;
+}
+
 .btn-info {
-    color: #a9a9a9;
-    border: 1px solid #a9a9a9;
+    color: var(--secondarytext-color);
+    border: 1px solid var(--secondarytext-color);
     background-color: white;
 }
 
@@ -210,7 +440,11 @@ footer {
 
 .modal-title .navbar-brand {
     padding-left: 0;
-    color: var(--main-color);
+    color: var(--text-color);
+}
+
+.btn, .btn-login, .btn-register, .modal-close, #register-submit, #signin-submit, .btn-info {
+    cursor: pointer;
 }
 
 .modal-close {
@@ -227,16 +461,16 @@ footer {
     float: left;
 }
 
-#signin .modal-body {
+#authentication .modal-body {
     margin-bottom: 5px;
 }
 
-#signin .btn-bottom {
+#authentication .btn-bottom {
     width: 45%;
     height: 50px;
 }
 
-#signin .btn-register {
+#authentication .btn-register {
     float: right;
 }
 
@@ -273,34 +507,12 @@ footer {
     width: 20px;
 }
 
-.useemail {
-    color: var(--text-color);
-    text-align: center;
-    font-size: large;
-    margin-top: 8px;
-}
-
-.lead {
-    font-weight: 600;
-}
-
-.camp-det-aux {
-    font-size: 0.8em;
-    margin-top: -1.5em;
-}
-
-.donate-btn {
-    margin: 0.5em;
-}
-
-
-.modal-dialog.modal-campaigns {
-    width: 60vw;
-    max-width: 60vw;
-}
-
-
 /* Menu search bar */
+
+.card-search-results .card {
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+}
 
 .card-search-results a:hover {
     text-decoration: none;
@@ -311,8 +523,8 @@ footer {
 }
 
 .card-search-image {
-    height: 120px;
-    width: 160px;
+    height: 75px;
+    width: 100px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
@@ -326,6 +538,7 @@ footer {
     min-height: 40px;
     z-index: 500;
     top: 10px;
+    right: 10%;
     position: absolute;
     -webkit-transform-origin: 100% 0;
     transform-origin: 100% 0;
@@ -335,6 +548,10 @@ footer {
     transition-duration: 0.5s;
     -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
     transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.home-search {
+    display: none;
 }
 
 .expandsearch.open {
@@ -372,7 +589,7 @@ footer {
     border: none;
     background: transparent;
     font-size: 1.1em;
-    color: var(--text-color);
+    color: var(--main-color);
     -webkit-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
     transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
 }
@@ -553,8 +770,43 @@ input[type="search"] {
     opacity: 1;
 }
 
+.campaign-info {
+    margin-top: 20px;
+}
+
 /* Small devices (tablets, 768px and up) @screen-sm-min */
 @media (min-width: 768px) {
+    .camp-det-aux {
+        margin-top: -1.0em;
+    }
+
+    .timer-description {
+        font-size: 0.8em;
+    }
+
+    .more-btn {
+        float: right
+    }
+
+    .page-title-campaign {
+        margin-bottom: 0;
+    }
+
+    .modal-dialog.modal-campaigns {
+        width: 80vw;
+        max-width: 80vw;
+    }
+
+    .campaign-nav-tabs .nav-item {
+         padding-left: .7rem;
+         padding-right: .7em;
+     }
+
+    .campaign-nav-tabs .nav-item:first-child {
+        padding-left: 0;
+        padding-right: .7em;
+    }
+
     .modal-dialog {
         width: 400px;
     }
@@ -566,6 +818,31 @@ input[type="search"] {
     .expandsearch {
         display: block;
         width: 140px;
+    }
+
+    .card-search-image {
+        height: 120px;
+        width: 160px;
+    }
+
+    .campaign-info {
+        margin-top: 0;
+    }
+
+    .lead {
+        font-size: 1.4rem;
+    }
+
+    .camp-det-aux {
+        font-size: 1em;
+    }
+
+    .campaign-description-small {
+        display: none;
+    }
+
+    .campaign-description-large {
+        display: block;
     }
 }
 
@@ -593,12 +870,102 @@ input[type="search"] {
 
 /* Medium devices (desktops, 992px and up) @screen-md-min */
 @media (min-width: 992px) {
+    .modal-dialog.modal-campaigns {
+        width: 900px;
+        max-width: 900px;
+    }
+
+    .header-nav {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .header-nav .nav-item:not(:last-child) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .header-nav .nav-item:last-child {
+        padding-left: 1rem;
+    }
+
+    .header-nav .nav-link-wrapper {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+
+    .header-nav .navbar-right .nav-menu .nav-link {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .jumbotron {
+        height: 480px;
+        margin-bottom: 40px;
+        background: url('../images/jumbotron/jumbotronbg.jpg');
+        background-size: 100% 100%;
+    }
+
+    .jumbotron h1 {
+        font-size: 50px;
+    }
+
+    .jumbotron p {
+        font-size: 20px;
+    }
+
+    .jumbotron .btn {
+        margin-top: 100px;
+    }
+
     .navbar-brand {
         padding-left: 20px;
     }
-}
 
+    header .navbar .navbar-nav > .active > a,
+    header .navbar .navbar-nav > .active > a:hover,
+    header .navbar.navbar-nav > .active > a:focus {
+        border-bottom: 2px solid white;
+        background-color: transparent;
+    }
 
-.edit-info{
-    display: none;
+    .hvrcenter {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px transparent;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hvrcenter:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 50%;
+        right: 50%;
+        bottom: 0;
+        background: var(--main-color);
+        height: 2px;
+        -webkit-transition-property: left, right;
+        transition-property: left, right;
+        -webkit-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+    }
+
+    .hvrcenter:hover:before, .hvrcenter:focus:before, .hvrcenter:active:before {
+        left: 0;
+        right: 0;
+    }
+
+    .campaign-nav-tabs .nav-item {
+        padding-left: 2rem;
+        padding-right: 2em;
+    }
+
+    .campaign-nav-tabs .nav-item:first-child {
+        padding-left: 0;
+        padding-right: 2em;
+    }
 }

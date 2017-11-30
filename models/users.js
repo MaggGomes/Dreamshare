@@ -5,10 +5,18 @@ var userSchema = Schema(
 	{
 		name: {type: String, required: true, max: 100},
 		email: {type: String, required: true, unique: true, max: 100},
-		password: {type: String, required: true},
+		password: {type: String},
 		lat: {type: Number},
 		lng: {type: Number},
-		image: {type: String},
+		photo: {type: String}
 	}
 );
+
 mongoose.model('User', userSchema);
+
+exports.getCoords = function (userID, done) {
+	mongoose.model('User').findById(userID, 'lat lng', function (err, coords) {
+		if (err) return done(err);
+		done(null, coords);
+	});
+};

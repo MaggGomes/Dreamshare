@@ -40,11 +40,11 @@
         <div class="form-group row my-4">
             <label for="isFunds" class="col-sm-2 col-form-label">Tipo</label>
             <div class="col-sm-8 btn-group" data-toggle="buttons">
-                <label class="btn btn-outline-success active">
+                <label class="btn active btn-primary">
                     <input type="radio" name="isFunds" id="funds" value="true" onchange="showGoodsTypeSelect(true);"
                            checked> Fundos
                 </label>
-                <label class="btn btn-outline-success">
+                <label class="btn btn-secondary">
                     <input type="radio" name="isFunds" id="goods" value="false" onchange="showGoodsTypeSelect(false);">
                     Bens
                 </label>
@@ -195,7 +195,7 @@
             </label>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary c  enter-block">Criar campanha</button>
+        <button type="submit" onclick="getCroppedImage()" class="btn btn-primary c  enter-block">Criar campanha</button>
     </form>
 </div>
 

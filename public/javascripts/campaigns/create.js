@@ -59,7 +59,7 @@ function fillInAddress() {
 }
 
 var $profilePicPreview = $('#profile-pic-preview').croppie({
-	url: 'https://www.white-baos.com/_bd/_img/investments.svg',
+	url: 'http://www.publicdomainpictures.net/pictures/30000/velka/plain-white-background.jpg',
 	viewport: {
 		width: 600,
 		height: 300,
@@ -72,7 +72,30 @@ var $profilePicPreview = $('#profile-pic-preview').croppie({
 	enableExif: true
 });
 
-var $croppedImage = $('#profile-pic-preview').croppie('get');
+
+function getCroppedImage() {
+
+	/*
+	 cropWindow.croppie("result", {type: "canvas", format: "jpeg"}).then(function(img){
+	 imgString[imageCounter] = img;
+	 alert(imgString[imageCounter]);
+	 imageCounter++;
+	 cropWindow.croppie("destroy");
+	 if(imageCounter<imageArray.files.length){
+	 Cropped();
+	 }
+
+
+
+
+	*/
+	$('#profile-pic-preview').croppie('result', {type: 'viewport', format: 'jpeg'}).then(function(img){
+
+		console.log(img);
+		console.log(1231234);
+		console.log($('profile-picture-upload'));
+	});
+}
 
 function readFile(input) {
 	if (input.files && input.files[0]) {

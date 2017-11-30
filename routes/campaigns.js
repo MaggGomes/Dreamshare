@@ -2,6 +2,7 @@ var express = require('express'),
 	router = express.Router(),
 	mongoose = require('mongoose'),
 	campaigns = require('../models/campaigns'),
+	users = require('../models/users'),
 	multer = require('multer'),
 	gm = require('gm').subClass({imageMagick: true}),
 	upload = multer({
@@ -14,7 +15,6 @@ var express = require('express'),
 		}
 	});
 
-
 /* GET campaigns page */
 router.get('/', function (req, res, next) {
 	if (req.session.user) {
@@ -23,43 +23,97 @@ router.get('/', function (req, res, next) {
 		userLogged = false;
 	}
 
-	mongoose.model('Campaign').find({}, function (err, campaigns) {
-		if (err) throw err;
+	var existingCampaigns;
+	if(req.query.existingCampaigns){
+		existingCampaigns = req.query.existingCampaigns;
+	} else existingCampaigns = [];
 
-		console.log(campaigns);
-		res.render('pages/campaigns/index', {campaigns: campaigns, userLogged: userLogged});
-	}).limit(6);
+	console.log(existingCampaigns);
+	if(req.query.order){
+		if (req.query.order == 'mostRecent') {
+			if(req.query.funds == 'true' || req.query.funds == 'false') {
+				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns}, isFunds: req.query.funds}, function (err, campaigns) {
+					if (err) throw err;
+					res.json({campaigns: campaigns});
+				}).sort({_id: -1}).limit(6);
+			}
+			else {
+				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns}}, function (err, campaigns) {
+					if (err) throw err;
+					res.json({campaigns: campaigns});
+				}).sort({_id: -1}).limit(6);
+			}
+		}
+		else if (req.query.order == 'nearest') {
+			users.getCoords(req.session.userID, function (err, coords) {
+				if (!err) {
+					if (req.query.funds == 'true' || req.query.funds == 'false') {
+						mongoose.model('Campaign').find({
+							'_id': {'$nin': existingCampaigns},
+							loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}},
+							isFunds: req.query.funds
+						}, function (err, campaigns) {
+							if (err) throw err;
+							res.json({campaigns: campaigns});
+						}).sort({loc: -1}).limit(6);
+					}
+					else {
+						mongoose.model('Campaign').find({
+							'_id': {'$nin': existingCampaigns},
+							loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}}
+						}, function (err, campaigns) {
+							if (err) throw err;
+							res.json({campaigns: campaigns});
+						}).sort({loc: -1}).limit(6);
+					}
+				}
+			});
+		}
+		else {
+			if(req.query.funds == 'true' || req.query.funds == 'false') {
+				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns},isFunds: req.query.funds}, function (err, campaigns) {
+					if (err) throw err;
+					res.json({campaigns: campaigns});
+				}).sort({_id: -1}).limit(6);
+			}
+			else {
+				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns}}, function (err, campaigns) {
+					if (err) throw err;
+					res.json({campaigns: campaigns});
+				}).sort({_id: -1}).limit(6);
+			}
+		}
+		/*else if (req.query.order == 'mostContri') {
+			mongoose.model('Campaign').find({}, function (err, campaigns) {
+				if (err) throw err;
+
+				res.render('pages/campaigns/index', {campaigns: campaigns, userLogged: userLogged});
+			}).sort({n_donators:-1}).limit(6);
+		}*/
+	}
+	else
+	{
+		mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns}}, function (err, campaigns) {
+			if (err) throw err;
+
+			res.render('pages/campaigns/index', {campaigns: campaigns, userLogged: userLogged});
+		}).sort({_id: -1}).limit(6);
+	}
 });
 
 /* GET campaigns page with search options */
-router.get('/search/:isFunds*?/:searchType*?', function (req, res, next) {
+router.get('/searchByTitle', function (req, res, next) {
 	if (req.session.user) {
 		userLogged = true;
 	} else {
 		userLogged = false;
 	}
 
-	mongoose.model('Campaign').find({isFunds: req.params.isFunds}, function (err, campaigns) {
-		if (err) throw err;
-
-		console.log(campaigns);
-		res.render('pages/campaigns/index', {campaigns: campaigns, userLogged: userLogged});
-	}).limit(6);
-});
-
-/* GET campaigns page with search options */
-router.post('/searchByTitle', function (req, res, next) {
-	if (req.session.user) {
-		userLogged = true;
-	} else {
-		userLogged = false;
-	}
-
-	mongoose.model('Campaign').find({title: { '$regex' : req.body.title, '$options' : 'i' }}, function (err, campaigns) {
+	mongoose.model('Campaign').find({title: { '$regex' : req.query.title, '$options' : 'i' }}, function (err, campaigns) {
 		if (err) throw err;
 
 		res.status(200).json(campaigns);
-	}).limit(4);
+	}).limit(parseInt(req.query.limit));
 });
 
 /* GET map campaigns page */
@@ -70,12 +124,23 @@ router.get('/map', function (req, res, next) {
 		userLogged = false;
 	}
 
-	mongoose.model('Campaign').find({}, function (err, campaigns) {
-		if (err) throw err;
-
-		console.log(campaigns);
-		res.render('pages/campaigns/map', {campaigns: campaigns, userLogged: userLogged});
-	});
+	// coordenadas do Porto onde nasceu isto!
+	var center= {lat: 41.157944, lng: -8.629105};
+	if(req.query.lat && req.query.lng){
+		center = {lat: req.query.lat, lng: req.query.lng};
+		res.render('pages/campaigns/map', {userLogged: userLogged, center: center});
+	} else if(!userLogged){
+		res.render('pages/campaigns/map', {userLogged: userLogged, center: center});
+	} else {
+		users.getAddress(
+			req.session.userID,
+			function (err, address) {
+				if (!err) {
+					center = {lat: address.lat, lng: address.lng};
+				}
+				res.render('pages/campaigns/map', {userLogged: userLogged, center: center});
+			});
+	}
 });
 
 // POST comment to campaign
@@ -154,6 +219,102 @@ router.post('/:campaignId/:commentId/reply', function (req, res, next) {
 	}
 });
 
+// POST delete comment
+router.post('/:campaignId/:commentId/delete', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Comment').findOne({_id: req.params.commentId}, function (err, comment) {
+			if (err || req.session.userID != comment.user) {
+				res.send(400);
+			}
+			else {
+				comment.removed = true;
+				comment.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
+// POST edit comment
+router.post('/:campaignId/:commentId/edit', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Comment').findOne({_id: req.params.commentId}, function (err, comment) {
+			if (err || req.session.userID != comment.user) {
+				res.send(400);
+			}
+			else {
+				comment.text = req.body.text;
+				comment.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
+// POST delete reply
+router.post('/:campaignId/:commentId/:replyId/delete', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Reply').findOne({_id: req.params.replyId}, function (err, reply) {
+			if (err || req.session.userID != reply.user) {
+				res.send(400);
+			}
+			else {
+				reply.removed = true;
+				reply.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
+// POST edit reply
+router.post('/:campaignId/:commentId/:replyId/edit', function(req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Reply').findOne({_id: req.params.replyId}, function (err, reply) {
+			if (err || req.session.userID != reply.user) {
+				res.send(400);
+			}
+			else {
+				reply.text = req.body.text;
+				reply.save(function(err) {
+					if (err) {
+						res.send(400);
+					}
+					else {
+						res.send(200);
+					}
+				});
+			}
+		});
+	} else {
+		res.send(400);
+	}
+});
+
 // POST donate to campaign
 router.post('/:campaignId/donate', function (req, res, next) {
 	if (req.session.user) {
@@ -172,11 +333,17 @@ router.post('/:campaignId/donate', function (req, res, next) {
 				campaign.donations.push(donation._id);
 				campaign.progress = donation.value;
 
+				campaign.avgTimeDonations = (donation._id).getTimestamp().getTime();
 				for (var i = 0; i < campaign.donations.length; i++) {
 					if (campaign.donations[i].value) {
 						campaign.progress += campaign.donations[i].value;
+						campaign.avgTimeDonations += (campaign.donations[i]._id).getTimestamp().getTime();
 					}
 				}
+
+				campaign.avgTimeDonations /= campaign.donations.length;
+
+				console.log('average' + campaign.avgTimeDonations);
 
 				campaign.save(function(err) {
 					if (err) {
@@ -194,6 +361,34 @@ router.post('/:campaignId/donate', function (req, res, next) {
 		});
 	} else {
 		res.send(400);
+	}
+});
+
+// POST report to campaign
+router.post('/:campaignId/report', function (req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Campaign').findOne({_id: req.params.campaignId}).populate('reports').exec(function (err, campaign) {
+			var Report = mongoose.model('Report');
+			var report = new Report({
+				user: req.session.userID,
+				description: req.body.description
+			});
+
+			report.save(function(err) {
+				if (err) {
+					res.status(400).send('Report failed.\n' + err);
+				}
+				campaign.reports.push(report._id);
+				campaign.save(function(err) {
+					if (err) {
+						res.status(400).send('Report failed.\n' + err);
+					}
+					res.status(200).send(report);
+				});
+			});
+		});
+	} else {
+		res.status(400).send();
 	}
 });
 
@@ -242,6 +437,7 @@ router.post('/create', upload.single('imageFile'), function (req, res, next) {
 			endDate: req.body.endDate,
 			lat: req.body.lat,
 			lng: req.body.lng,
+			loc: [req.body.lng, req.body.lat],
 			address: req.body.address,
 			location: req.body.location,
 			image: req.file.path
@@ -301,10 +497,13 @@ router.post('/insideCoords', function (req, res, next) {
 
 /* GET show campaign page */
 router.get('/:campaignId', function (req, res, next) {
+	var userLogged, userID;
 	if (req.session.user) {
 		userLogged = true;
+		userID = req.session.userID;
 	} else {
 		userLogged = false;
+		userID = null;
 	}
 
 	// Get campaign
@@ -373,7 +572,7 @@ router.get('/:campaignId', function (req, res, next) {
 			isOwner = false;
 		}
 
-		res.render('pages/campaigns/show', {userLogged: userLogged, campaign: campaign, isOwner: isOwner});
+		res.render('pages/campaigns/show', {userLogged: userLogged, campaign: campaign, isOwner: isOwner, userID: userID});
 	});
 });
 
@@ -408,6 +607,23 @@ router.put('/:campaignId/edit', function (req, res, next) {
 			} else {
 				//Blob has been created
 				console.log('POST editing campaign: ' + campaign);
+				res.status(200).send(campaign);
+			}
+		});
+	} else {
+		res.status(403);
+	}
+});
+
+/* DEL campaign */
+router.delete('/:campaignId/delete', function (req, res, next) {
+	if (req.session.user) {
+		mongoose.model('Campaign').findOneAndRemove({ '_id': req.params.campaignId, 'owner': req.session.userID}).exec(function (err, campaign) {
+			if (err) {
+				res.status(400).send('There was a problem removing the information to the database.\n' + err);
+			} else {
+				//Blob has been created
+				console.log('DELETE campaign: ' + campaign);
 				res.status(200).send(campaign);
 			}
 		});
