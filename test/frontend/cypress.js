@@ -16,7 +16,7 @@ describe('Dream Share', function () {
 
 				cy.get('#register-submit').click();
 				cy.get('#modal-message-register').should('be.empty');
-				cy.get('#register').should('not.be.visible');
+				cy.get('#authentication').should('not.be.visible');
 			});
 
 			it('Invalid name', function () {
@@ -34,10 +34,9 @@ describe('Dream Share', function () {
 
 				for (var i = 0; i < chars.length; i++) {
 					cy.get('#register-name').clear().type(name + chars[i]);
-
 					cy.get('#register-submit').click();
 					cy.get('#modal-message-register').contains('Nome inválido. Carateres especiais como # ; > < ! - = ? * não são permitidos.');
-					cy.get('#register').should('be.visible');
+					cy.get('#authentication').should('be.visible');
 				}
 			});
 
@@ -62,10 +61,9 @@ describe('Dream Share', function () {
 
 				for (var i = 0; i < invalid.length; i++) {
 					cy.get('#register-email').clear().type(invalid[i]);
-
 					cy.get('#register-submit').click();
 					cy.get('#modal-message-register').contains('Endereço de e-mail inválido.');
-					cy.get('#register').should('be.visible');
+					cy.get('#authentication').should('be.visible');
 				}
 			});
 
@@ -83,10 +81,9 @@ describe('Dream Share', function () {
 				for (var i = 1; i < 4; i++) {
 					cy.get('#register-password').type(password.substr(0, i));
 					cy.get('#register-confirmpassword').type(password.substr(0, i));
-
 					cy.get('#register-submit').click();
 					cy.get('#modal-message-register').contains('Palavra-passe deve ter pelo menos 6 carateres.');
-					cy.get('#register').should('be.visible');
+					cy.get('#authentication').should('be.visible');
 				}
 			});
 
@@ -105,14 +102,14 @@ describe('Dream Share', function () {
 
 				cy.get('#register-submit').click();
 				cy.get('#modal-message-register').contains('Palavras-passe não coincidem.');
-				cy.get('#register').should('be.visible');
+				cy.get('#authentication').should('be.visible');
 
 				cy.get('#register-password').clear().type(password);
 				cy.get('#register-confirmpassword').clear().type(password.toUpperCase());
 
 				cy.get('#register-submit').click();
 				cy.get('#modal-message-register').contains('Palavras-passe não coincidem.');
-				cy.get('#register').should('be.visible');
+				cy.get('#authentication').should('be.visible');
 			});
 
 			it('E-mail in use', function () {
@@ -130,7 +127,7 @@ describe('Dream Share', function () {
 
 				cy.get('#register-submit').click();
 				cy.get('#modal-message-register').contains('E-mail já se encontra em uso.');
-				cy.get('#register').should('be.visible');
+				cy.get('#authentication').should('be.visible');
 			});
 		});
 
@@ -142,14 +139,14 @@ describe('Dream Share', function () {
 				cy.visit('/');
 
 				cy.get('#nav-signin').click();
-				cy.get('.btn-signin').click();
+				cy.get('.btn-login').click();
 
 				cy.get('#signin-email').type(email);
 				cy.get('#signin-password').type(password);
 
 				cy.get('#signin-submit').click();
-				cy.get('#modal-message-register').should('be.empty');
-				cy.get('#login').should('not.be.visible');
+				cy.get('#modal-message-login').should('be.empty');
+				cy.get('#authentication').should('not.be.visible');
 
 				cy.getCookie('user').should('exist');
 			});
@@ -161,14 +158,14 @@ describe('Dream Share', function () {
 				cy.visit('/');
 
 				cy.get('#nav-signin').click();
-				cy.get('.btn-signin').click();
+				cy.get('.btn-login').click();
 
 				cy.get('#signin-email').type(email);
 				cy.get('#signin-password').type(password);
 
 				cy.get('#signin-submit').click();
 				cy.get('#modal-message-login').contains('E-mail e/ou palavra-passe incorretos.');
-				cy.get('#login').should('be.visible');
+				cy.get('#authentication').should('be.visible');
 
 				cy.getCookie('user').should('not.exist');
 			});
@@ -180,14 +177,14 @@ describe('Dream Share', function () {
 				cy.visit('/');
 
 				cy.get('#nav-signin').click();
-				cy.get('.btn-signin').click();
+				cy.get('.btn-login').click();
 
 				cy.get('#signin-email').type(email);
 				cy.get('#signin-password').type(password);
 
 				cy.get('#signin-submit').click();
 				cy.get('#modal-message-login').contains('E-mail e/ou palavra-passe incorretos.');
-				cy.get('#login').should('be.visible');
+				cy.get('#authentication').should('be.visible');
 
 				cy.getCookie('user').should('not.exist');
 			});
@@ -201,7 +198,7 @@ describe('Dream Share', function () {
 			});
 		});
 
-		/*
+		
 		context('Other user actions', function() {
 			it('See own profile', function() {
 			})
@@ -210,6 +207,7 @@ describe('Dream Share', function () {
 			})
 			
 			it('Make donation', function() {
+				/*
 				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'})								
 				cy.visit('/campaigns/59e62f37af7a9c1c1d123196')
 				cy.getCookie('user').should('exist')
@@ -220,12 +218,11 @@ describe('Dream Share', function () {
 				cy.get('.contribute-value').type('1')
 				cy.get('button[type="submit"]').contains('Contribuir').click()
 				cy.get('#progress-value').should('contain', initial+1+"€")
+				*/
 			})
 		})
-		*/
 	});
 
-	/*
 	context('Campaign', function() {
 		it('Create campaign', function() {
 			
@@ -263,5 +260,4 @@ describe('Dream Share', function () {
 			
 		})
 	})
-	*/
 });
