@@ -1,15 +1,16 @@
 process.env.NODE_ENV = 'test';
 
 var mongoose = require('mongoose');
-var app = require('../app');
+var app = require('../../app');
 //Require the dev-dependencies
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var bcrypt = require('bcrypt');
 var should = chai.should();
+const utils = require('./utils');
 
 
-var User = require('../models/users');
+var User = require('../../models/users');
 
 chai.use(chaiHttp);
 //Our parent block
@@ -132,5 +133,14 @@ describe('Users', () => {
 					done();
 				});
 		});
+
 	});
+
+
+    after(function (done)
+    {
+        utils.clearAppState();
+        done();
+    });
+
 });
