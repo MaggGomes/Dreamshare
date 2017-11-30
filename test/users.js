@@ -57,7 +57,7 @@ describe('Users', () => {
 				});
 		});
 
-		it('it should not POST a user successfully with already used username', (done) => {
+		/*it('it should not POST a user successfully with already used username', (done) => {
 			let user = {
 				name: 'teste2',
 				email: 'newEmail@teste.teste',
@@ -70,7 +70,7 @@ describe('Users', () => {
 					res.should.have.status(400);
 					done();
 				});
-		});
+		});*/
 	});
 
 	/*
