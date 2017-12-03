@@ -27,8 +27,11 @@ router.get('/', function (req, res, next) {
 			};
 			if (userLogged) {
 				users.getCoords( req.session.userID, function (err, coords) {
-					if (err) campaigns.getTrending(6, renderIndex);
-					campaigns.getTrendingWithCoords(6, coords.lat, coords.lng, renderIndex);
+					if (err) {
+						campaigns.getTrending(6, renderIndex);
+					} else {
+						campaigns.getTrendingWithCoords(6, coords.lat, coords.lng, renderIndex);
+					}
 				});
 			}else{
 				campaigns.getTrending(6, renderIndex);
