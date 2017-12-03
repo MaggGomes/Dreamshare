@@ -17,15 +17,24 @@ $(document).ready(function () {
 			existingCampaigns.push($(this).val());
 		});
 
-		$.get('/campaigns', {
-			order: order,
-			funds: funds,
-			existingCampaigns: existingCampaigns
-		}, function (result) {
-			$.each(result.campaigns, function (i, campaign) {
-				$('#more_campaigns').parent().before(getCampaignCard(campaign)
-				);
-			});
+		$.ajax({
+			url: '/campaigns',
+			type: 'GET',
+			data: {order: order, funds:funds, existingCampaigns: existingCampaigns},
+			success: function (result) {
+				if(result.campaigns.length == 0){
+					popupAlert('Não existem mais campanhas com esses filtros', false);
+				}
+				else {
+					$.each(result.campaigns, function (i, campaign) {
+						$('#more_campaigns').parent().before(getCampaignCard(campaign)
+						);
+					});
+				}
+			},
+			error: function (errors) {
+				console.log(errors);
+			}
 		});
 	});
 
@@ -78,14 +87,21 @@ $(document).ready(function () {
 function updateShowCamp(){
 	console.log('FUNDS: ');
 	console.log(funds);
-	$.get('/campaigns', {
-		order: order,
-		funds: funds
-	}, function (result) {
-		$('#campaignsCard .col-sm-6.col-lg-4.mb-5').remove();
-		$.each(result.campaigns, function (i, campaign) {
-			$('#more_campaigns').parent().before(getCampaignCard(campaign));
-		});
+	$.ajax({
+		url: '/campaigns',
+		type: 'GET',
+		data: {order: order, funds:funds},
+		success: function (result) {
+			console.log(result);
+			$('#campaignsCard .col-sm-6.col-lg-4.mb-5').remove();
+			$.each(result.campaigns, function (i, campaign) {
+				$('#more_campaigns').parent().before(getCampaignCard(campaign));
+			});
+		},
+		error: function (errors) {
+			popupAlert(errors.responseJSON.message, false);
+			console.log(errors.responseJSON.message);
+		}
 	});
 }
 
@@ -97,6 +113,5 @@ function  checkCBoxes() {
 		$('#goods').prop('checked', true);
 	}
 }
-
 
 

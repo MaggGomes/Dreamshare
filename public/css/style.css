@@ -158,6 +158,26 @@ header .brand-logo img {
     margin-bottom: 10px;
 }
 
+.campaign-options {
+    margin-top: 10px;
+}
+
+.campaign-options a {
+    color: var(--text-color);
+}
+
+.campaign-logged-contribute {
+    margin-bottom: 40px;
+}
+
+.campaign-description-footer {
+    display: inline-block;
+}
+
+.campaign-description-footer:not(:last-child){
+    padding-right: 10px;
+}
+
 .campaign-description-large {
     display: none;
 }
@@ -241,6 +261,10 @@ header .brand-logo img {
 .campaign-tabs .tab-content {
     padding-top: 20px;
     min-height: 300px;
+}
+
+.campaign-tabs .tab-content .btn-info {
+    color: var(--secondarytext-color);
 }
 
 .campaign-tabs .tab-upper-values {

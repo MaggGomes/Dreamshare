@@ -4,6 +4,7 @@ var express = require('express'),
 	campaigns = require('../models/campaigns'),
 	users = require('../models/users'),
 	multer = require('multer'),
+	fs = require('fs'),
 	gm = require('gm').subClass({imageMagick: true}),
 	upload = multer({
 		dest: 'images/campaigns/',
@@ -45,33 +46,54 @@ router.get('/', function (req, res, next) {
 			}
 		}
 		else if (req.query.order == 'nearest') {
-			users.getCoords(req.session.userID, function (err, coords) {
-				if (!err) {
-					if (req.query.funds == 'true' || req.query.funds == 'false') {
-						mongoose.model('Campaign').find({
-							'_id': {'$nin': existingCampaigns},
-							loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}},
-							isFunds: req.query.funds
-						}, function (err, campaigns) {
-							if (err) throw err;
-							res.json({campaigns: campaigns});
-						}).sort({loc: -1}).limit(6);
+			if (userLogged){
+				users.getCoords(req.session.userID, function (err, coords) {
+					if (!err) {
+						if (req.query.funds == 'true' || req.query.funds == 'false') {
+							mongoose.model('Campaign').find({
+								'_id': {'$nin': existingCampaigns},
+								loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}},
+								isFunds: req.query.funds
+							}, function (err, campaigns) {
+								if (err) throw err;
+								res.json({campaigns: campaigns});
+							}).sort({loc: -1}).limit(6);
+						}
+						else {
+							mongoose.model('Campaign').find({
+								'_id': {'$nin': existingCampaigns},
+								loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}}
+							}, function (err, campaigns) {
+								if (err) throw err;
+								res.json({campaigns: campaigns});
+							}).sort({loc: -1}).limit(6);
+						}
+						res.status(200);
 					}
-					else {
-						mongoose.model('Campaign').find({
-							'_id': {'$nin': existingCampaigns},
-							loc: {$near: {$geometry: {type: 'Point', coordinates: [coords.lng, coords.lat]}}}
-						}, function (err, campaigns) {
-							if (err) throw err;
-							res.json({campaigns: campaigns});
-						}).sort({loc: -1}).limit(6);
-					}
-				}
-			});
+					else res.status(400).send(err);
+				});
+			}
 		}
-		else {
+		/*else if (req.query.order == 'mostContri') {
 			if(req.query.funds == 'true' || req.query.funds == 'false') {
-				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns},isFunds: req.query.funds}, function (err, campaigns) {
+				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns}, isFunds: req.query.funds}, function (err, campaigns) {
+					if (err) throw err;
+					res.json({campaigns: campaigns});
+				}).sort({donations: -1}).limit(6);
+			}
+			else {
+				mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns}}, function (err, campaigns) {
+					if (err) throw err;
+					res.json({campaigns: campaigns});
+				}).sort({donations: -1}).limit(6);
+			}
+		}*/
+		else {
+			if (req.query.funds == 'true' || req.query.funds == 'false') {
+				mongoose.model('Campaign').find({
+					'_id': {'$nin': existingCampaigns},
+					isFunds: req.query.funds
+				}, function (err, campaigns) {
 					if (err) throw err;
 					res.json({campaigns: campaigns});
 				}).sort({_id: -1}).limit(6);
@@ -83,13 +105,6 @@ router.get('/', function (req, res, next) {
 				}).sort({_id: -1}).limit(6);
 			}
 		}
-		/*else if (req.query.order == 'mostContri') {
-			mongoose.model('Campaign').find({}, function (err, campaigns) {
-				if (err) throw err;
-
-				res.render('pages/campaigns/index', {campaigns: campaigns, userLogged: userLogged});
-			}).sort({n_donators:-1}).limit(6);
-		}*/
 	}
 	else
 	{
@@ -404,7 +419,10 @@ router.get('/create', function (req, res, next) {
 // POST create campaign
 router.post('/create', upload.single('imageFile'), function (req, res, next) {
 	if (req.session.user) {
-
+		var buf = new Buffer(req.body.croppedImage, 'base64');
+		fs.writeFile('images/campaigns/teste.jpeg',buf,function (err) {
+			console.log(err);
+		});
 		req.checkBody('title', 'O título precisa de ter pelo menos 5 caracteres').isLength({min: 5});
 		req.checkBody('title', 'O título não pode ter mais que 100 caracteres').isLength({max: 100});
 		req.checkBody('description', 'A descrição precisa de ter pelo menos 25 caracteres').isLength({min: 25});
