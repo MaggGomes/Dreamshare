@@ -36,10 +36,10 @@ backend_tests:
   script:
     - npm test
 
-frontend_tests:
-  image: cypress/base
-  stage: test
-  script:
+#frontend_tests:
+#  image: cypress/base
+#  stage: test
+#  script:
 #    - npm run cypress
 
 deploy_production:
