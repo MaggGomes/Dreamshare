@@ -19,7 +19,7 @@ cache:
 install_dependencies:
   stage: build
   script:
-#    - rm -rf node_modules
+    - rm -rf node_modules
     - npm install
   artifacts:
     paths:
@@ -52,7 +52,7 @@ deploy_production:
   script:
     - ssh-add <(echo "$STAGING_PRIVATE_KEY")
     - ssh -p22 root@95.85.7.126 "mkdir /root/_tmp"
-    - scp -P22 -r build/* root@95.85.7.126:/root/_tmp
+    - ssh -p22 root@95.85.7.126 "git clone https://gitlab.com/TiagoGrosso/LDSO /root/_tmp"
     - ssh -p22 root@95.85.7.126 "mv /root/LDSO /root/_old && mv /root/_tmp /root/LDSO"
     - ssh -p22 root@95.85.7.126 "rm -rf /root/_old"
 #  only:
