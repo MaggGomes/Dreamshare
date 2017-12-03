@@ -52,6 +52,7 @@ deploy_production:
   script:
     - ssh-add <(echo "$STAGING_PRIVATE_KEY")
     - ssh -p22 root@95.85.7.126 "rm -rf /root/_tmp"
+    - ssh -p22 root@95.85.7.126 "mkdir /root/_tmp"
     - ssh -p22 root@95.85.7.126 "mkdir /root/_tmp/node_modules"
     - ssh -p22 root@95.85.7.126 "git clone git@gitlab.com:TiagoGrosso/LDSO /root/_tmp"
     - scp -P22 -r node_modules/* root@95.85.7.126:/root/_tmp/node_modules
