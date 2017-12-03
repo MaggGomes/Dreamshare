@@ -16,25 +16,25 @@ cache:
   paths:
     - node_modules/
 
-install_dependencies:
-  stage: build
-  script:
-    - rm -rf node_modules
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
+#install_dependencies:
+#  stage: build
+#  script:
+#    - rm -rf node_modules
+#    - npm install
+#  artifacts:
+#    paths:
+#      - node_modules/
 
-eslint:
-  stage: lint
-  script:
-    - ./node_modules/.bin/eslint .
+#eslint:
+#  stage: lint
+#  script:
+#    - ./node_modules/.bin/eslint .
 
 
-backend_tests:
-  stage: test
-  script:
-    - npm test
+#backend_tests:
+#  stage: test
+#  script:
+#    - npm test
 
 #frontend_tests:
 #  image: cypress/base
