@@ -109,7 +109,7 @@ $(document).ready(function () {
 		var userPassword = $('#register-password').val();
 		var userConfirmPassword = $('#register-confirmpassword').val();
 
-		if (!/^([A-Za-z0-9]*)$/.test($('#register-name').val()) && /^\S/.test($('#register-name').val())) {
+		if (!/^([A-Za-z0-9]*)(\s[A-Za-z0-9]*)*$/.test($('#register-name').val()) && /^\S/.test($('#register-name').val())) {
 			$('#modal-message-register').html('<div class="modal-message-content">Nome inválido. Carateres especiais como # ; > < ! - = ? * não são permitidos.</div>');
 			return;
 		}
