@@ -41,6 +41,9 @@ frontend_tests:
   stage: test
   script:
     - npm run cypress
+  artifacts:
+    paths:
+      - test/cypress/
 
 deploy_production:
   stage: deploy
