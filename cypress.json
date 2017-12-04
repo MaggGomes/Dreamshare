@@ -4,5 +4,6 @@
 	"integrationFolder": "test/frontend",
 	"screenshotsFolder": "test/cypress",
 	"supportFile": "cypress",
-	"videosFolder": "test/cypress"
+	"videosFolder": "test/cypress",
+	"pageLoadTimeout": 120000
 }
