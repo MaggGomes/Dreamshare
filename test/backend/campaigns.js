@@ -7,8 +7,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var bcrypt = require('bcrypt');
 
-
-
+var globalID;
 chai.use(chaiHttp);
 //Our parent block
 
@@ -20,13 +19,14 @@ describe('Campaigns',() => {
             password: bcrypt.hashSync('123456', 10)
         }, (err, user) => {
             let ownerID = user._id;
+            globalID = user._id;
 
         mongoose.model('Campaign').create({
             owner: ownerID,
             title: 'Example for testing',
             description: 'testing is fun',
             isFunds: true,
-            goal: 69,
+            goal: 100,
             endDate:new Date('2015-03-25'),
             lat: 41.157944,
             lng: -8.629105,
@@ -38,35 +38,19 @@ describe('Campaigns',() => {
     });
     });
 
-
-
-    describe('/POST search campaign', () => {
-        it('it should POST a campaign search with correct data and return such campaign', (done) => {
-            let searchValue = 'testing';
-            chai.request(app.server)
-                .post('/campaigns/searchByTitle')
-                .send(searchValue)
-                .end((err, res) => {
-                    if (err) {
-                        done(err);
-                    };
-                    res.should.have.status(200);
-                    //add text.should
-                    done();
-                });
-        });
-    });
-/*
     describe('/POST create campaign', () => {
         it('it should POST a campaign with correct data', (done) => {
             let campaign = {
-                title: 'Campaign for Testing',
-                description: '123456',
+                owner: globalID,
+                title: 'Second Example for testing',
+                description: 'testing is fun',
                 isFunds: true,
-                goal: 300,
-                endDate: '2018-01-01',
-                lat: 12345,
-                lng: 1234
+                goal: 100,
+                endDate:new Date('2015-03-25'),
+                lat: 41.157944,
+                lng: -8.629105,
+                loc : [41.157944,-8.629105],
+                image: 'imagefile',
             };
             chai.request(app.server)
                 .post('/campaigns/create')
@@ -75,22 +59,23 @@ describe('Campaigns',() => {
                     if (err) {
                         done(err);
                     }
-                    ;
-                    //res.should.have.status(200);
+                    res.should.have.status(200);
                     done();
                 });
         });
 
         it('it should POST a campaign with correct data', (done) => {
             let badcampaign = {
-                title: "Campaign for Testing",
-                description: "123456",
+                owner: globalID,
+                title: 'Second Example for testing',
+                description: 'testing is fun',
                 isFunds: true,
-                goal: 300,
-                endDate: "2018-01-01",
-                lat: 12345,
-                lng: 1234,
-                image: "test.png"
+                goal: 100,
+                endDate:new Date('2015-03-25'),
+                lat: 41.157944,
+                lng: -8.629105,
+                loc : [41.157944,-8.629105],
+                image: 'imagefile',
             };
             chai.request(app.server)
                 .post('/campaigns/create')
@@ -101,6 +86,40 @@ describe('Campaigns',() => {
                 });
         });
     });
+
+    describe('/POST search campaign', () => {
+        it('it should POST a campaign search with correct data and return such campaign', (done) => {
+            let searchValue = 'testing';
+            chai.request(app.server)
+                .post('/campaigns/searchByTitle')
+                .send(searchValue)
+                .end((err, res) => {
+                    if (err) {
+                        done(err);
+                    }
+                    res.should.have.status(200);
+                    res.text.should.contain('Example for testing');
+                    done();
+                });
+        });
+
+        it('it should POST a campaign search with correct data and return such campaign', (done) => {
+            let invalidValue = 'invalid value';
+            chai.request(app.server)
+                .post('/campaigns/searchByTitle')
+                .send(invalidValue)
+                .end((err, res) => {
+                    if (err) {
+                        done(err);
+                    }
+                    res.should.have.status(200);
+                   // res.text.should.not.contain('Example for testing');
+                    done();
+                });
+        });
+    });
+/*
+
 
     describe('/POST donate to campaign', () => {
 
