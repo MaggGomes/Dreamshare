@@ -6,6 +6,7 @@ var app = require('../../app');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var bcrypt = require('bcrypt');
+const utils = require('./utils');
 
 var globalID;
 chai.use(chaiHttp);
@@ -52,6 +53,7 @@ describe('Campaigns',() => {
                 loc : [41.157944,-8.629105],
                 image: 'imagefile',
             };
+            utils.userLogin('teste2@teste.teste','123456');
             chai.request(app.server)
                 .post('/campaigns/create')
                 .send(campaign)
