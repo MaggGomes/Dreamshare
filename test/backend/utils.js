@@ -1,21 +1,26 @@
 var mongoose = require('mongoose');
 var app = require('../../app');
 var User = require('../../models/users');
+const chai = require('chai');
 
 exports.clearAppState = function ()
 {
-    mongoose.connection.db.dropDatabase();
+	mongoose.connection.db.dropDatabase();
 };
 
-exports.userLogin = function (email, password)
+exports.userLogin = function ()
 {
-    chai.request(app.server)
-    .post('/users/signin')
-    .send({email: email, password: password})
-    .end((err, res) => {
-        if(err != null){
-            console.log(err);
-        }
-        else console.log("Logged");
-    });
+	let user={
+		email: 'teste2@teste.teste',
+		password: '123456'
+	};
+	agent = chai.request(app.server);
+	agent
+		.post('/signin')
+		.send(user)
+		.end((err, res) => {
+			res.should.have.status(200);
+			// done(err);
+		});
+
 };
