@@ -28,6 +28,7 @@ var repliesModel = require('./models/replies');
 var donationModel = require('./models/donations');
 var commentModel = require('./models/comments');
 var campaignModel = require('./models/campaigns');
+var reportModel = require('./models/reports');
 
 var index = require('./routes/index');
 var users = require('./routes/users');

@@ -17,15 +17,24 @@ $(document).ready(function () {
 			existingCampaigns.push($(this).val());
 		});
 
-		$.get('/campaigns', {
-			order: order,
-			funds: funds,
-			existingCampaigns: existingCampaigns
-		}, function (result) {
-			$.each(result.campaigns, function (i, campaign) {
-				$('#more_campaigns').parent().before(getCampaignCard(campaign)
-				);
-			});
+		$.ajax({
+			url: '/campaigns',
+			type: 'GET',
+			data: {order: order, funds:funds, existingCampaigns: existingCampaigns},
+			success: function (result) {
+				if(result.campaigns.length == 0){
+					popupAlert('Não existem mais campanhas com esses filtros', false);
+				}
+				else {
+					$.each(result.campaigns, function (i, campaign) {
+						$('#more_campaigns').parent().before(getCampaignCard(campaign)
+						);
+					});
+				}
+			},
+			error: function (errors) {
+				console.log(errors);
+			}
 		});
 	});
 
@@ -36,6 +45,11 @@ $(document).ready(function () {
 
 	$('#mostRecent').click(function(){
 		order = 'mostRecent';
+		updateShowCamp();
+	});
+
+	$('#nearest').click(function(){
+		order = 'nearest';
 		updateShowCamp();
 	});
 
@@ -73,25 +87,31 @@ $(document).ready(function () {
 function updateShowCamp(){
 	console.log('FUNDS: ');
 	console.log(funds);
-	$.get('/campaigns', {
-		order: order,
-		funds: funds
-	}, function (result) {
-		$('#campaignsCard .col-sm-6.col-lg-4.mb-5').remove();
-		$.each(result.campaigns, function (i, campaign) {
-			$('#more_campaigns').parent().before(getCampaignCard(campaign));
-		});
+	$.ajax({
+		url: '/campaigns',
+		type: 'GET',
+		data: {order: order, funds:funds},
+		success: function (result) {
+			console.log(result);
+			$('#campaignsCard .col-sm-6.col-lg-4.mb-5').remove();
+			$.each(result.campaigns, function (i, campaign) {
+				$('#more_campaigns').parent().before(getCampaignCard(campaign));
+			});
+		},
+		error: function (errors) {
+			popupAlert(errors.responseJSON.message, false);
+			console.log(errors.responseJSON.message);
+		}
 	});
 }
 
 function  checkCBoxes() {
-	if (funds) {
+	if (funds == 'true') {
 		$('#funds').prop('checked', true);
 	}
-	else if (!funds) {
+	else if (funds == 'false') {
 		$('#goods').prop('checked', true);
 	}
 }
-
 
 

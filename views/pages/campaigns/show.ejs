@@ -9,41 +9,20 @@
 
 
 <!-- Page Content -->
-<div class="container main-container">
+<div class="container main-container" data-campaign="<%= campaign._id %>">
 
     <div class="row page-title mb-4">
-        <div class="col-12">
+        <div class="col-12 col-md-8">
             <h1 class="display-4 hidden-info"><%= campaign.title %></h1>
         </div>
     </div>
     <!-- Header -->
     <section class="header">
+        <input type="hidden" id="campaignId" value="<%= campaign._id %>">
         <% if(isOwner) { %>
-        <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal" id="deleteTmp">
-            <i class="fa fa-trash-o"></i>
-        </button>
-
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <p>Tem a certeza que quer eliminar isto?</p>
-                        <button type="button" class="btn btn-danger pull-right" id="deleteBtn">Sim</button>
-                        <button type="button" class="btn btn-default pull-right " data-dismiss="modal">Não</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn btn-primary pull-right hidden-info" id="editBtn">
-            <i class="fa fa-pencil-square-o"></i>
-        </button>
         <button class="btn btn-primary pull-right edit-info" id="saveBtn">
             <i class="fa fa-floppy-o"></i>
         </button>
-        <input type="hidden" id="campaignId" value="<%= campaign._id%>">
         <input class="form-control form-group edit-info" type="text" name="title" id="title" value="<%= campaign.title %>">
         <% } %>
         <% if(isOwner) { %>
@@ -53,10 +32,10 @@
     </section>
 
     <div class="row text-center mb-4">
-        <div class="col-sm-12 col-lg-8 col-md-8 mb-8">
+        <div class="col-sm-12 col-md-8 mb-8">
             <img class="card-img-top" src="/<%= campaign.image %>" alt="">
         </div>
-        <div class="col-sm-12 col-lg-4 col-md-4 mb-4 campaign-info">
+        <div class="col-sm-12 col-md-4 mb-4 campaign-info">
             <div class="progress mb-3">
                 <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
                      aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
@@ -68,7 +47,7 @@
                 </div>
             </div>
             <div class="row text-left">
-                <div class="col-4 col-md-12">
+                <div class="col-3 col-sm-4 col-md-12">
                     <p class="lead lead-progress"><%= campaign.progress %>€</p>
                     <p class="camp-det-aux">doados de <%= campaign.goal %>€</p>
                 </div>
@@ -80,7 +59,7 @@
                     <input class="form-control edit-info" type="date" id="endDate" name="endDate" value="<%= campaign.endDate %>">
                     <% } %>
                 </div>
-                <div class="col-3 col-md-12">
+                <div class="col-4 col-sm-3 col-md-12">
                     <p class="lead"><%= campaign.n_donators %></p>
                     <% if (campaign.n_donators == 1){ %>
                     <p class="camp-det-aux">contribuidor
@@ -117,12 +96,12 @@
             <% } else if(userLogged) { %>
             <form action="<%= campaign._id %>/donate" method="post">
                 <div class="row">
-                    <div class="input-group col-md-8 center-block">
+                    <div class="campaign-logged-contribute input-group col-md-8 center-block">
                         <input type="number" min="0" step="0.01" max="<%= campaign.goal - campaign.progress %>" placeholder="Faltam <%= campaign.goal - campaign.progress %>€!" class="form-control contribute-value"
                                aria-label="Amount" name="amount">
                         <span class="input-group-addon">€</span>
                     </div>
-                    <div class="col-md-4 center-block">
+                    <div class="col-12 col-md-4 center-block">
                         <button type="submit" class="btn btn-primary find-btn">Contribuir</button>
                     </div>
                 </div>
@@ -131,6 +110,20 @@
             <a class="nav-signin btn btn-primary find-btn col-md-12" href="#authentication" data-toggle="modal">Contribuir</a>
             <% } %>
             <% } %>
+            <div class="campaign-options">
+                <% if(isOwner) { %>
+                <a class="col-5 btn btn-info hidden-info" id="editBtn">
+                    <svg class="icon icon-edit"><use xlink:href="#icon-edit"></use></svg> Editar
+                </a>
+                <a class="col-5 btn btn-info" href="" data-toggle="modal" data-target="#myModal" id="deleteTmp">
+                    <svg class="icon icon-trash-o"><use xlink:href="#icon-trash-o"></use></svg> Eliminar
+                </a>
+                <% } else if(userLogged) { %>
+                <a class="col-5 btn btn-info" href="" data-toggle="modal" data-target="#reportCampaignModal">
+                    <svg class="icon icon-flag-o"><use xlink:href="#icon-flag-o"></use></svg> Reportar
+                </a>
+                <% } %>
+            </div>
         </div>
     </div>
 
@@ -182,12 +175,20 @@
                     <!-- Comment list -->
                     <% for (var c = 0; c < campaign.comments.length; c++) { %>
                         <% if (!campaign.comments[c].removed) { %>
-                        <div class="media mb-4">
+                        <div class="media mb-4 comment-container" data-comment="<%= campaign.comments[c]._id %>">
                             <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                             <div class="media-body">
+                                <% if (campaign.comments[c].user._id == userID) { %>
+                                <button type="button" class="btn btn-danger pull-right delete-comment">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                                <button class="btn btn-primary pull-right edit-comment">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                                <% } %>
                                 <h5 class="mt-0"><%= campaign.comments[c].user.name %></h5>
                                 @<%= campaign.comments[c].date %><br>
-                                <%= campaign.comments[c].text %>
+                                <div class="comment-text"><%= campaign.comments[c].text %></div>
 
                                 <!-- Create new reply -->
                                 <div class="media mt-3">
@@ -206,15 +207,24 @@
 
                                 <!-- Reply list -->
                                 <% for (var r = 0; r < campaign.comments[c].replies.length; r++) { %>
-                                    <% if (!campaign.comments[c].replies[r]) { %>
-                                    <div class="media mt-3">
+                                    <% if (!campaign.comments[c].replies[r].removed) { %>
+                                    <div class="media mt-3 reply-container" data-reply="<%= campaign.comments[c].replies[r]._id %>">
                                         <a class="d-flex pr-3" href="#">
                                             <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                                         </a>
                                         <div class="media-body">
+                                            <% if (campaign.comments[c].replies[r].user._id == userID) { %>
+                                            <button type="button" class="btn btn-danger pull-right delete-reply">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                            <button class="btn btn-primary pull-right edit-reply">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </button>
+                                            <% } %>
+
                                             <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %></h5>
                                             @<%= campaign.comments[c].replies[r].date %><br>
-                                            <%= campaign.comments[c].replies[r].text %>
+                                            <div class="reply-text"><%= campaign.comments[c].replies[r].text %></div>
                                         </div>
                                     </div>
                                     <% } %>
@@ -253,6 +263,60 @@
         </div>
     </section>
 </div>
+
+<!-- Delete modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Tem a certeza que quer eliminar esta campanha?</p>
+                <button type="button" class="btn btn-primary pull-right" id="deleteBtn">Sim</button>
+                <button type="button" class="btn btn-info pull-right " data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report modal -->
+<div class="modal fade" id="reportCampaignModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6><svg class="icon icon-flag"><use xlink:href="#icon-flag"></use></svg> Reportar campanha</h6>
+            </div>
+            <div class="modal-body">
+                <p>Pretende reportar esta campanha porque motivo?</p>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="reportRadio" value="Fraude ou enganosa" checked>
+                        Fraude ou enganosa
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="reportRadio" value="Conteúdo explícito">
+                        Conteúdo explícito
+                    </label>
+                </div>
+                <div class="form-check disabled">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="reportRadio" value="other">
+                        Outro <input type="text" class="form-control" id="otherDescription" placeholder="Motivo">
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary pull-right" id="reportBtn">Reportar</button>
+                <button type="button" class="btn btn-info pull-right " data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- /.container -->
 
 <% include ../../partials/footer %>

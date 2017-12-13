@@ -125,7 +125,6 @@
                 <% if(errors[i].param === 'address') { %>
                 <% found = true %>
                 <input class="form-control is-invalid" id="searchAddress" type="text">
-                <input class="form-control" id="searchAddress" type="text">
                 <input id="lat" type="hidden" name="lat">
                 <input id="lng" type="hidden" name="lng">
                 <input id="address" type="hidden" name="address">
@@ -153,7 +152,6 @@
 
             </div>
         </div>
-
         <div class="form-group row">
             <label for="endDate" class="col-sm-2 col-form-label">Data final</label>
             <div class="col-sm-8">
@@ -189,12 +187,14 @@
                 <div id="profile-pic-preview"></div>
             </div>
             <div class="col-lg-6 col-sm-6 col-12">
-            <label class="btn btn-secondary">
-                Escolher ficheiro&hellip;<input type="file" id="profile-picture-upload" name="imageFile"
-                                                class="custom-file-input" style="display: none" required/>
-            </label>
+                <label class="btn btn-secondary">
+                    Escolher ficheiro&hellip;<input type="file" id="profile-picture-upload" name="imageFile"
+                                                    class="custom-file-input" style="display: none" required/>
+                </label>
+                <!--input id="croppedImage" type="hidden" name="croppedImage" value="" hidden-->
             </div>
         </div>
+        <input id="croppedImage" type="hidden" name="croppedImage">
         <button type="submit" onclick="getCroppedImage()" class="btn btn-primary c  enter-block">Criar campanha</button>
     </form>
 </div>

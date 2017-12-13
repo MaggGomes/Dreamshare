@@ -20,7 +20,8 @@ var campaignSchema = Schema(
 		image: {type: String, required: true},
 		comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
 		avgTimeDonations: {type: Number, min: 0, default: 0},
-		donations: [{type: Schema.Types.ObjectId, ref: 'Donation'}]
+		donations: [{type: Schema.Types.ObjectId, ref: 'Donation'}],
+		reports: [{type: Schema.Types.ObjectId, ref: 'Report'}]
 	});
 
 mongoose.model('Campaign', campaignSchema);

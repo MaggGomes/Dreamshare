@@ -74,26 +74,13 @@ var $profilePicPreview = $('#profile-pic-preview').croppie({
 
 
 function getCroppedImage() {
-
-	/*
-	 cropWindow.croppie("result", {type: "canvas", format: "jpeg"}).then(function(img){
-	 imgString[imageCounter] = img;
-	 alert(imgString[imageCounter]);
-	 imageCounter++;
-	 cropWindow.croppie("destroy");
-	 if(imageCounter<imageArray.files.length){
-	 Cropped();
-	 }
-
-
-
-
-	*/
 	$('#profile-pic-preview').croppie('result', {type: 'viewport', format: 'jpeg'}).then(function(img){
-
-		console.log(img);
-		console.log(1231234);
-		$('profile-picture-upload').val(img);
+		var croppedImage = $.parseHTML(img.innerHTML)[0].getAttribute('src');
+		croppedImage = croppedImage.split(',')[1];
+		$('#croppedImage').val(croppedImage);
+		console.log(croppedImage);
+		console.log($('#croppedImage').val());
+		//console.log($('#profile-picture-upload')[0]);
 	});
 }
 

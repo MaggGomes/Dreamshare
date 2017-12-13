@@ -57,8 +57,8 @@ describe('Users', () => {
 					done();
 				});
 		});
-/*
-		it('it should not POST a user successfully with already used username', (done) => {
+
+		/*it('it should not POST a user successfully with already used username', (done) => {
 			let user = {
 				name: 'teste2',
 				email: 'newEmail@teste.teste',
@@ -122,8 +122,8 @@ describe('Users', () => {
 	});
 
 	/*
-* Test the /GET route
-*/
+	* Test the /GET route
+	*/
 	describe('/POST logout user', () => {
 		it('it should POST signin a user successfully', (done) => {
 			chai.request(app.server)
@@ -137,10 +137,9 @@ describe('Users', () => {
 	});
 
 
-    after(function (done)
-    {
-        utils.clearAppState();
-        done();
-    });
+	after(function (done){
+		utils.clearAppState();
+		done();
+	});
 
 });

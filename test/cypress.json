@@ -1,8 +1,0 @@
-{
-	"baseUrl": "http://95.85.7.126:3001",
-	"fixturesFolder": "cypress",
-	"integrationFolder": "frontend",
-	"screenshotsFolder": "cypress",
-	"supportFile": "cypress",
-	"videosFolder": "cypress"
-}

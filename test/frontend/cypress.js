@@ -198,14 +198,14 @@ describe('Dream Share', function () {
 			});
 		});
 
-		
+
 		context('Other user actions', function() {
 			it('See own profile', function() {
-			})
-			
+			});
+
 			it('See other profiles', function() {
-			})
-			
+			});
+
 			it('Make donation', function() {
 				/*
 				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'})								
@@ -219,45 +219,45 @@ describe('Dream Share', function () {
 				cy.get('button[type="submit"]').contains('Contribuir').click()
 				cy.get('#progress-value').should('contain', initial+1+"€")
 				*/
-			})
-		})
+			});
+		});
 	});
 
 	context('Campaign', function() {
 		it('Create campaign', function() {
-			
-		})
-		
+
+		});
+
 		it('Access campaign page', function() {
-			
-		})
-		
+
+		});
+
 		it('Owner can edit campaign', function() {
-			
-		})
-		
+
+		});
+
 		it('Other users can\'t edit campaign', function() {
-			
-		})
-		
+
+		});
+
 		it('Comment on campaign', function() {
-			
-		})
-		
+
+		});
+
 		it('Report campaign', function() {
-			
-		})
-		
+
+		});
+
 		it('See list of campaigns', function() {
-			
-		})
-		
+
+		});
+
 		it('See list of trending campaigns', function() {
-			
-		})
-		
+
+		});
+
 		it('Search for campaign', function() {
-			
-		})
-	})
+
+		});
+	});
 });
