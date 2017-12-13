@@ -45,6 +45,18 @@ router.get('/', function (req, res, next) {
 				}).sort({_id: -1}).limit(6);
 			}
 		}
+		/*else if (req.query.order == 'mostContri') {
+            if(req.query.funds == 'true' || req.query.funds == 'false') {
+				campaigns.getMostContributed(result);
+				res.json({campaigns: result});
+            }
+            else {
+                mongoose.model('Campaign').find({'_id': {'$nin': existingCampaigns}}, function (err, campaigns) {
+                    if (err) throw err;
+                    res.json({campaigns: campaigns});
+                }).sort({_id: -1}).limit(6);
+            }
+        }*/
 		else if (req.query.order == 'nearest') {
 			if (userLogged){
 				users.getCoords(req.session.userID, function (err, coords) {

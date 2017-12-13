@@ -13,3 +13,20 @@ var commentSchema = Schema(
 	}
 );
 mongoose.model('Comment', commentSchema);
+
+
+exports.getAllComments = function (done) {
+	mongoose.model('Comment').find({}, function (err, comments) {
+		if (err) return done(err);
+		done(null, comments);
+	});
+};
+
+
+exports.getReportedComments = function (done) {
+	mongoose.model('Comment').find( { $where : 'this.reports && this.reports.length > 0' }, function (err, comments) {
+		if (err) return done(err);
+		done(null, comments);
+	});
+};
+

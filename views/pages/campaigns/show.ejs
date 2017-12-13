@@ -158,13 +158,14 @@
                 </div>
                 <div class="tab-pane" id="comments" role="tabpanel">
                     <!-- Create new comment -->
-                    <div class="justify-content-center media mb-4">
+                    <div class="mb-4">
                         <% if(userLogged) { %>
-                        <a href="#commentArea" class="btn btn-secondary mb-4" data-toggle="collapse">Deixa aqui a tua dúvida/comentário</a>
+                        <button href="#commentArea" class="mx-auto d-block btn btn-secondary" data-toggle="collapse">Deixa aqui a tua dúvida/comentário</button>
+                        <br>
                         <div id="commentArea" class="collapse">
                             <form action="<%= campaign._id %>/comment" method="post">
-                                <textarea rows="5" cols="60" name="comment"></textarea>
-                                <button type="submit" class="btn btn-primary">Comentar</button>
+                                <textarea rows="5" cols="60" name="comment" class="mx-auto d-block mb-2" required></textarea>
+                                <button type="submit" class="mx-auto d-block btn btn-primary">Comentar</button>
                             </form>
                         </div>
                         <% } else { %>
@@ -186,8 +187,16 @@
                                     <i class="fa fa-pencil-square-o"></i>
                                 </button>
                                 <% } %>
-                                <h5 class="mt-0"><%= campaign.comments[c].user.name %></h5>
-                                @<%= campaign.comments[c].date %><br>
+                                <%
+                                    var day = campaign.comments[c].date.getDate();
+                                    var month = campaign.comments[c].date.getMonth();
+                                    var year = campaign.comments[c].date.getFullYear();
+                                    var hour =  "" + campaign.comments[c].date.getHours();
+                                    while (hour.length < 2) {hour = "0" + hour;}
+                                    var minute =  "" + campaign.comments[c].date.getMinutes();
+                                    while (minute.length < 2) {minute = "0" + minute;}
+                                %>
+                                <h5 class="mt-0"><%= campaign.comments[c].user.name %> <small class="text-muted"><%= day + "/" + (month+1) + "/" + year + " às " + hour + ":" + minute %></small></h5>
                                 <div class="comment-text"><%= campaign.comments[c].text %></div>
 
                                 <!-- Create new reply -->
@@ -196,7 +205,7 @@
                                     <a href="#replyArea<%=c%>" class="btn btn-primary find-btn mb-4" data-toggle="collapse">Responder</a>
                                     <div id="replyArea<%=c%>" class="collapse">
                                         <form action="<%= campaign._id %>/<%= campaign.comments[c]._id %>/reply" method="post">
-                                            <textarea rows="5" cols="60" name="reply"></textarea>
+                                            <textarea rows="5" cols="60" name="reply" required></textarea>
                                             <button type="submit" class="btn btn-primary find-btn">Responder</button>
                                         </form>
                                     </div>
@@ -222,8 +231,16 @@
                                             </button>
                                             <% } %>
 
-                                            <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %></h5>
-                                            @<%= campaign.comments[c].replies[r].date %><br>
+                                            <%
+                                                var day = campaign.comments[c].replies[r].date.getDate();
+                                                var month = campaign.comments[c].replies[r].date.getMonth();
+                                                var year = campaign.comments[c].replies[r].date.getFullYear();
+                                                var hour =  "" + campaign.comments[c].replies[r].date.getHours();
+                                                while (hour.length < 2) {hour = "0" + hour;}
+                                                var minute =  "" + campaign.comments[c].replies[r].date.getMinutes();
+                                                while (minute.length < 2) {minute = "0" + minute;}
+                                            %>
+                                            <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %> <small class="text-muted"><%= day + "/" + (month+1) + "/" + year + " às " + hour + ":" + minute %></small></h5>
                                             <div class="reply-text"><%= campaign.comments[c].replies[r].text %></div>
                                         </div>
                                     </div>

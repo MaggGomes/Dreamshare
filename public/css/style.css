@@ -383,15 +383,15 @@ footer {
 }
 
 .btn-secondary:hover {
-    color: var(--hover-color);
-    background-color: white;
-    border: 1px solid var(--hover-color);
+    color: white;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
 }
 
 .btn-secondary.active, .btn-secondary:active, .btn-secondary:focus, .show>.btn-secondary.dropdown-toggle {
-    background-color: white;
-    background-image: none;
-    border-color: var(--hover-color);
+    color: white;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
     box-shadow: none;
 }
 

@@ -20,7 +20,7 @@
         <div class="col-sm mx-1 card text-white bg-success">
             <div class="card-header"><h4>Utilizadores</h4></div>
             <div class="card-body">
-                <h4 class="card-title">153</h4>
+                <h4 class="card-title"><%= nUsers %></h4>
                 <p class="card-text">+21 hoje</p>
                 <a href="admin/users" class="btn btn-dark">Ver</a>
             </div>
@@ -28,7 +28,7 @@
         <div class="col-sm mx-1 card text-white bg-success">
             <div class="card-header"><h4>Campanhas</h4></div>
             <div class="card-body">
-                <h4 class="card-title">203</h4>
+                <h4 class="card-title"><%= nCampaigns %></h4>
                 <p class="card-text">+35 hoje</p>
                 <a href="admin/users" class="btn btn-dark">Ver</a>
             </div>
@@ -36,7 +36,7 @@
         <div class="col-sm mx-1 card text-white bg-success">
             <div class="card-header"><h4>Comentários</h4></div>
             <div class="card-body">
-                <h4 class="card-title">547</h4>
+                <h4 class="card-title"><%= nComments %>7</h4>
                 <p class="card-text">+35 hoje</p>
                 <a href="admin/users" class="btn btn-dark">Ver</a>
             </div>
@@ -53,7 +53,7 @@
         <div class="col-sm mx-1 card text-white bg-danger">
             <div class="card-header"><h4>Utilizadores</h4></div>
             <div class="card-body">
-                <h4 class="card-title">20</h4>
+                <h4 class="card-title"><%= nUsersReported %></h4>
                 <p class="card-text">+3 hoje</p>
                 <a href="admin/users" class="btn btn-dark">Ver</a>
             </div>
@@ -61,7 +61,7 @@
         <div class="col-sm mx-1 card text-white bg-danger">
             <div class="card-header"><h4>Campanhas</h4></div>
             <div class="card-body">
-                <h4 class="card-title">203</h4>
+                <h4 class="card-title"><%= nCampaignsReported %></h4>
                 <p class="card-text">+35 hoje</p>
                 <a href="admin/users" class="btn btn-dark">Ver</a>
             </div>
@@ -69,10 +69,28 @@
         <div class="col-sm mx-1 card text-white bg-danger">
             <div class="card-header"><h4>Comentários</h4></div>
             <div class="card-body">
-                <h4 class="card-title">547</h4>
+                <h4 class="card-title"><%= nCommentsReported %></h4>
                 <p class="card-text">+35 hoje</p>
                 <a href="admin/users" class="btn btn-dark">Ver</a>
             </div>
+        </div>
+
+    </div>
+
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3>Evolução</h3>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-sm mx-1">
+            <canvas id="usersChart"></canvas>
+        </div>
+        <div class="col-sm mx-1">
+            <canvas id="campaignsChart"></canvas>
+        </div>
+        <div class="col-sm mx-1">
+            <canvas id="commentsChart"></canvas>
         </div>
 
     </div>
@@ -85,7 +103,7 @@
 <% include ../partials/footer %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script>
-	new Chart(document.getElementById("line-chart"), {
+	new Chart(document.getElementById("usersChart"), {
 		type: 'line',
 		data: {
 			labels: ["Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro"],
@@ -93,27 +111,44 @@
 				data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
 				label: "Utilizadores",
 				borderColor: "#3e95cd",
-				fill: false
-			}, {
-				data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-				label: "Camapanhas",
-				borderColor: "#8e5ea2",
-				fill: false
-			}, {
-				data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-				label: "Comentários",
-				borderColor: "#3cba9f",
-				fill: false
+				fill: true
 			}
 			]
 		},
-		options: {
-			title: {
-				display: true,
-				text: 'Evolução'
-			}
-		}
+		options: {}
 	});
+
+	new Chart(document.getElementById("campaignsChart"), {
+		type: 'line',
+		data: {
+			labels: ["Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro"],
+			datasets: [{
+				data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
+				label: "Campanhas",
+				borderColor: "#8e5ea2",
+				fill: true
+			}
+			]
+		},
+		options: {}
+	});
+
+	new Chart(document.getElementById("commentsChart"), {
+		type: 'line',
+		data: {
+			labels: ["Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro"],
+			datasets: [{
+				data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
+				label: "Comentários",
+				borderColor: "#3cba9f",
+				fill: true
+			}
+			]
+		},
+		options: {}
+	});
+
+
 </script>
 
 </body>
