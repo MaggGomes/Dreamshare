@@ -375,7 +375,7 @@ router.post('/:campaignId/donate', function (req, res, next) {
 			});
 		});
 	} else {
-		res.send(400);
+		res.sendStatus(400);
 	}
 });
 

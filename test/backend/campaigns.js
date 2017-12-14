@@ -40,6 +40,13 @@ describe('Campaigns', () => {
 				done();
 			});
 		});
+		mongoose.model('User').create({
+			name: 'teste3',
+			email: 'teste3@teste.teste',
+			password: bcrypt.hashSync('123456', 10)
+		}, (err) => {
+			done();
+		});
 	});
 
 	describe('/POST create campaign', () => {
@@ -190,16 +197,6 @@ describe('Campaigns', () => {
 	});
 
 	describe('/GET  campaigns', () => {
-		before((done) => { //Before tests
-			mongoose.model('User').create({
-				name: 'teste3',
-				email: 'teste3@teste.teste',
-				password: bcrypt.hashSync('123456', 10)
-			}, (err) => {
-				done();
-			});
-		});
-
 		it('it should GET a campaign when parsed correct ID', (done) => {
 			chai.request(app.server)
 				.get('/campaigns/'+ globalCampaignID)
