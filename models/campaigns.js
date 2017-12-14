@@ -109,3 +109,49 @@ exports.getTrendingWithCoords = function (nCampaigns, lat, lng, done) {
 		}
 	);
 };
+
+exports.getMostContributed = function(done){
+	mongoose.model('Campaign').aggregate(
+		{$project: {
+			owner: 1,
+			title: 1,
+			description: 1,
+			isFunds: 1,
+			goodsType: 1,
+			goal: 1,
+			progress: 1,
+			endDate: 1,
+			lat: 1,
+			lng: 1,
+			address: 1,
+			location: 1,
+			image: 1,
+			comments: 1,
+			donations : 1,
+			avgTimeDonations: 1,
+			Ndonations: {$size: '$donations'},
+			dist: 1,
+		}},
+		{ $sort: { Ndonations: -1 }},
+		function (err, campaigns) {
+			if (err) return done(err);
+			done(campaigns);
+		}
+	);
+};
+
+exports.getAllCampaigns = function (done) {
+	mongoose.model('Campaign').find({}, function (err, campaigns) {
+		if (err) return done(err);
+		done(null, campaigns);
+	});
+};
+
+
+exports.getReportedCampaigns = function (done) {
+	mongoose.model('Campaign').find( { $where : 'this.reports && this.reports.length > 0' }, function (err, campaigns) {
+		if (err) return done(err);
+		done(null, campaigns);
+	});
+};
+

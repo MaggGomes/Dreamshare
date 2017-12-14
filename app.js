@@ -33,6 +33,8 @@ var reportModel = require('./models/reports');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var campaigns = require('./routes/campaigns');
+var admin = require('./routes/admin');
+var account = require('./routes/account');
 
 var app = express();
 
@@ -62,6 +64,14 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/campaigns', campaigns);
+app.use('/account', account);
+app.use('/admin',function(req, res, next) {
+	if(req.session.isAdmin){
+		next();
+	} else {
+		res.status(401).redirect('/');
+	}
+}, admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -16,6 +16,7 @@ router.post('/signin', function (req, res, next) {
 					req.session.user = user.name;
 					req.session.email = user.email;
 					req.session.userID = user._id;
+					req.session.isAdmin = user.isAdmin;
 					res.cookie('user', user.email).status('200').send('200');
 				} else {
 					res.status('400').send('400');
@@ -50,6 +51,7 @@ router.post('/signin/3rdparty', function (req, res, next) {
 									req.session.user = user.name;
 									req.session.email = user.email;
 									req.session.userID = user._id;
+									req.session.isAdmin = user.isAdmin;
 									res.cookie('user', user.email).status('200').send('200');
 								}
 							}
@@ -61,6 +63,7 @@ router.post('/signin/3rdparty', function (req, res, next) {
 				req.session.user = user.name;
 				req.session.email = user.email;
 				req.session.userID = user._id;
+				req.session.isAdmin = user.isAdmin;
 				res.cookie('user', user.email).status('200').send('200');
 			}
 		}
@@ -101,6 +104,7 @@ router.post('/register', function (req, res, next) {
 									req.session.user = user.name;
 									req.session.email = user.email;
 									req.session.userID = user._id;
+									req.session.isAdmin = user.isAdmin;
 									res.cookie('user', user.email).status('200').send('200');
 								}
 							}
