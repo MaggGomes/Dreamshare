@@ -130,7 +130,7 @@ describe('Dream Share', function () {
 				cy.get('#authentication').should('be.visible');
 			});
 		});
-
+		
 		context('Login', function () {
 			it('Success', function () {
 				let email = 'bs@mail.com';
@@ -188,7 +188,7 @@ describe('Dream Share', function () {
 
 				cy.getCookie('user').should('not.exist');
 			});
-
+			
 			it('Logout', function () {
 				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
 				cy.visit('/');
@@ -197,29 +197,67 @@ describe('Dream Share', function () {
 				cy.getCookie('user').should('not.exist');
 			});
 		});
-
-
-		context('Other user actions', function() {
-			it('See own profile', function() {
-			});
-
-			it('See other profiles', function() {
-			});
-
+		
+		context('Other user actions', function () {
 			it('Make donation', function() {
-				/*
-				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'})								
-				cy.visit('/campaigns/59e62f37af7a9c1c1d123196')
-				cy.getCookie('user').should('exist')
-				
-				let initial = Cypress.$('#progress-value')//.text().slice(0, -1)
-				console.log(initial.text())
-				
-				cy.get('.contribute-value').type('1')
-				cy.get('button[type="submit"]').contains('Contribuir').click()
-				cy.get('#progress-value').should('contain', initial+1+"€")
-				*/
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.getCookie('user').should('exist');
+				cy.get('.lead-progress').then(($donated) => {
+					const previousValue = $donated.text().replace('€', '');
+					cy.get('.contribute-value').type('3.1');
+					cy.get('.find-btn').contains('Contribuir').click();
+					cy.get('.lead-progress').then(($donated) => {
+						const currentValue = $donated.text().replace('€', '');
+						expect(parseFloat(currentValue)).to.eq(parseFloat(previousValue)+3.1);
+					});
+				});
 			});
+			
+			it('Make comment', function() {
+				const time = Date.now();
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.getCookie('user').should('exist');
+				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+				cy.get('button[href="#commentArea"]').click();
+				cy.get('#commentArea textarea').should('be.visible').type(time);
+				cy.get('#commentArea button').contains('Comentar').click();
+				
+				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+				cy.get('.comment-container .comment-text').contains(time).should('exist');
+			});
+			
+			it('Make reply', function() {
+				const time = Date.now();
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.getCookie('user').should('exist');
+				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+				cy.get('a').contains('Responder').click().then(($reply) => {
+					const id = $reply.attr('href');
+					cy.get(id + ' textarea').should('be.visible').type(time);
+					cy.get(id + ' button').contains('Responder').click();
+					
+					cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+					cy.get('.reply-container .reply-text').contains(time).should('exist');
+				});
+			});
+			
+			it('Make report', function() {
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.getCookie('user').should('exist');
+				cy.get('.campaign-options a[data-target="#reportCampaignModal"]').click();
+				cy.get('#reportCampaignModal').should('be.visible');
+				cy.get('#reportBtn').click();
+			});
+		
+			// Edit/delete comment & reply
+			
+			// Create campaign
+			
+			// Edit campaign
 		});
 	});
 
