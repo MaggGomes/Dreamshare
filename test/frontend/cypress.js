@@ -215,32 +215,32 @@ describe('Dream Share', function () {
 			});
 			
 			it('Make comment', function() {
-				const time = Date.now();
+				const comment = Math.random().toString(36).substr(2, 25);
 				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
 				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
 				cy.getCookie('user').should('exist');
 				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
 				cy.get('button[href="#commentArea"]').click();
-				cy.get('#commentArea textarea').should('be.visible').type(time);
+				cy.get('#commentArea textarea').should('be.visible').type(comment);
 				cy.get('#commentArea button').contains('Comentar').click();
 				
 				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
-				cy.get('.comment-container .comment-text').contains(time).should('exist');
+				cy.get('.comment-container .comment-text').contains(comment).should('exist');
 			});
 			
 			it('Make reply', function() {
-				const time = Date.now();
+				const comment = Math.random().toString(36).substr(2, 25);
 				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
 				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
 				cy.getCookie('user').should('exist');
 				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
 				cy.get('a').contains('Responder').click().then(($reply) => {
 					const id = $reply.attr('href');
-					cy.get(id + ' textarea').should('be.visible').type(time);
+					cy.get(id + ' textarea').should('be.visible').type(comment);
 					cy.get(id + ' button').contains('Responder').click();
 					
 					cy.get('.campaign-nav-tabs a[href="#comments"]').click();
-					cy.get('.reply-container .reply-text').contains(time).should('exist');
+					cy.get('.reply-container .reply-text').contains(comment).should('exist');
 				});
 			});
 			
@@ -253,10 +253,76 @@ describe('Dream Share', function () {
 				cy.get('#reportBtn').click();
 			});
 		
-			// Edit/delete comment & reply
+			it('Edit comment', function() {
+				const comment = Math.random().toString(36).substr(2, 25);
+				const edited = Math.random().toString(36).substr(2, 25);
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.getCookie('user').should('exist');
+				cy.request('POST', '/campaigns/5a1e1b6618d55560b7db27a7/comment', {comment: comment});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+				cy.get('.comment-container .comment-text').contains(comment).should('exist').then(($comment) => {
+					var $editButton = $comment.siblings('.edit-comment');
+					cy.wrap($editButton).should('exist').click();
+					cy.get('.comment-container .comment-text textarea').should('exist').type(edited).then(($input) => {
+						var $saveButton = $input.parent('.comment-text').siblings('.save-comment');
+						cy.wrap($saveButton).should('exist').click();
+						cy.get('.comment-container .comment-text').contains(edited).should('exist');
+					});
+				});
+			});
+
+			it('Delete comment', function() {
+				const comment = Math.random().toString(36).substr(2, 25);
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.getCookie('user').should('exist');
+				cy.request('POST', '/campaigns/5a1e1b6618d55560b7db27a7/comment', {comment: comment});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+				cy.get('.comment-container .comment-text').contains(comment).should('exist').then(($comment) => {
+					var $deleteButton = $comment.siblings('.delete-comment');
+					cy.wrap($deleteButton).should('exist').click();
+					cy.get('.comment-container .comment-text').contains(comment).should('not.exist');
+				});
+			});
+
+			it('Edit reply', function() {
+				const reply = Math.random().toString(36).substr(2, 25);
+				const edited = Math.random().toString(36).substr(2, 25);
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.getCookie('user').should('exist');
+				cy.request('POST', '/campaigns/5a1e1b6618d55560b7db27a7/5a2047d678d7c26a7929e976/reply', {reply: reply});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+				cy.get('.comment-container[data-comment="5a2047d678d7c26a7929e976"] .reply-container .reply-text').contains(reply).should('exist').then(($reply) => {
+					var $editButton = $reply.siblings('.edit-reply');
+					cy.wrap($editButton).should('exist').click();
+					cy.get('.comment-container[data-comment="5a2047d678d7c26a7929e976"] .reply-container .reply-text textarea').should('exist').type(edited).then(($input) => {
+						var $saveButton = $input.parent('.reply-text').siblings('.save-reply');
+						cy.wrap($saveButton).should('exist').click();
+						cy.get('.comment-container[data-comment="5a2047d678d7c26a7929e976"] .reply-container .reply-text').contains(edited).should('exist');
+					});
+				});
+			});
+
+			it('Delete reply', function() {
+				const reply = Math.random().toString(36).substr(2, 25);
+				const edited = Math.random().toString(36).substr(2, 25);
+				cy.request('POST', '/users/signin', {email: 'bs@mail.com', password: 'abc123'});
+				cy.getCookie('user').should('exist');
+				cy.request('POST', '/campaigns/5a1e1b6618d55560b7db27a7/5a2047d678d7c26a7929e976/reply', {reply: reply});
+				cy.visit('/campaigns/5a1e1b6618d55560b7db27a7');
+				cy.get('.campaign-nav-tabs a[href="#comments"]').click();
+				cy.get('.comment-container[data-comment="5a2047d678d7c26a7929e976"] .reply-container .reply-text').contains(reply).should('exist').then(($reply) => {
+					var $deleteButton = $reply.siblings('.delete-reply');
+					cy.wrap($deleteButton).should('exist').click();
+					cy.get('.comment-container[data-comment="5a2047d678d7c26a7929e976"] .reply-container .reply-text').contains(reply).should('not.exist');
+				});
+			});
 			
 			// Create campaign
-			
+						
+
 			// Edit campaign
 		});
 	});
@@ -299,3 +365,4 @@ describe('Dream Share', function () {
 		});
 	});
 });
+
