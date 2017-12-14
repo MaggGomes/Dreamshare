@@ -8,7 +8,7 @@ exports.clearAppState = function ()
 	mongoose.connection.db.dropDatabase();
 };
 
-exports.userLogin = function ()
+exports.userLogin = function (done)
 {
 	let user={
 		email: 'teste2@teste.teste',
@@ -20,7 +20,38 @@ exports.userLogin = function ()
 		.send(user)
 		.end((err, res) => {
 			res.should.have.status(200);
-			// done(err);
+			 done(err);
 		});
 
+};
+
+exports.loginUser = function (email, password, callback)
+{
+
+	agent = chai.request.agent(app.server);
+	agent
+		.post('/users/signin')
+		.send({email: email, password: password})
+		.then(function (response, res)
+		{
+			if (response.ok)
+			{
+				callback(null, agent);
+			}
+			else
+			{
+				callback('Error authenticating user ', agent);
+			}
+		});
+};
+
+exports.userDonate = function (url, donation, agent, callback)
+{
+	agent
+		.post(url)
+		.send(donation)
+		.end(function (err, res)
+		{
+			callback(err, res);
+		});
 };
