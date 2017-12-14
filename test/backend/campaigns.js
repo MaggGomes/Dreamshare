@@ -37,7 +37,6 @@ describe('Campaigns', () => {
 				image: 'imagefile',
 			}, (err,campaign) => {
 				globalCampaignID = campaign._id;
-				done();
 			});
 		});
 		mongoose.model('User').create({
@@ -45,8 +44,9 @@ describe('Campaigns', () => {
 			email: 'teste3@teste.teste',
 			password: bcrypt.hashSync('123456', 10)
 		}, (err) => {
-			done();
+			throw err;
 		});
+		done();
 	});
 
 	describe('/POST create campaign', () => {
@@ -152,7 +152,7 @@ describe('Campaigns', () => {
 				});
 		});
 
-		it('it should POST a donation to a valid campaign', (done) => {
+		it('it should POST a donation to a valid campaign if logged in', (done) => {
 			let url = '/campaigns/'+ globalCampaignID +'/donate';
 			let donation = {
 				user : globalID,
@@ -270,7 +270,6 @@ describe('Campaigns', () => {
 						done();
 					});
 			});
-
 		});
 	});
 
