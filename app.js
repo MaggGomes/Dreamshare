@@ -61,6 +61,12 @@ app.use(session({
 // images folder
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// set isAdmin variable
+app.use(function(req, res, next) {
+	res.locals.isAdmin = req.session.isAdmin;
+	next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/campaigns', campaigns);

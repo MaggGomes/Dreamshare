@@ -2,20 +2,145 @@
 <html lang="en">
 
 <head>
-    <% include ../partials/head %>
+    <% include ../../partials/head %>
 </head>
 
 <body>
-<% include ../partials/header %>
+<% include ../../partials/header %>
 
 <div class="container main-container">
 
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3>Definições</h3>
+        </div>
+    </div>
 
+    <section class="row">
+        <div class="campaign-tabs profile-tabs-wrapper col-12">
+            <ul class="campaign-nav-tabs profile-tabs  nav" role="tablist">
+                <li class="nav-item">
+                    <div class="tab-nav-link-wrapper">
+                        <a class="nav-link active" data-toggle="tab" href="#account" role="tab">Conta</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="tab-nav-link-wrapper">
+                        <a class="nav-link" data-toggle="tab" href="#edit-profile" role="tab">Editar perfil</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="tab-nav-link-wrapper">
+                        <a class="nav-link" data-toggle="tab" href="#contributions" role="tab">Contribuições</a>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active row" id="account" role="tabpanel">
+                    <div class="mb-4 col-12">
+                        <div class="mb-2">E-mail</div>
+                        <input type="password" class="form-control" name="password" placeholder="Nome">
+                    </div>
+                    <div class="mb-4 col-12">
+                        <div class="mb-2">Nova palavra-passe</div>
+                        <input type="password" class="form-control" name="password" placeholder="Nome">
+                    </div>
+                    <div class="mb-4 col-12">
+                        <div class="mb-2">Confirmar nova palavra-passe</div>
+                        <input type="password" class="form-control" name="password" placeholder="Nome">
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-2">Palavra-passe atual</div>
+                        <input type="password" class="form-control" name="password" placeholder="Nome">
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-2">Desativar conta</div>
+                        <input type="password" class="form-control" name="password" placeholder="Nome">
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="edit-profile" role="tabpanel">
+                    <form method="post" action="/users/<%= user._id %>/edit" enctype="multipart/form-data" novalidate>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group row mb-4">
+                                <div class="col-12 col-md-10">
+                                    <label class="label-profile col-form-label mb-2">Nome</label>
+                                    <input id="user-name" type="text" class="form-control" name="name" placeholder="Nome" value="<%= user.name %>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="col-12 col-md-10">
+                                    <label for="user-birthdate" class="label-profile col-form-label mb-2">Data de nascimento</label>
+                                    <input id="user-birthdate" class="form-control" type="date" name="birthdate" value="<%= user.birthdate %>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="col-12 col-md-10">
+                                    <label for="user-genre" class="label-profile col-form-label mb-2">Género</label>
+                                    <select id="user-genre" name="genre" class="form-control">
+                                        <option value="" disabled selected>Selecione o género</option>
+                                        <option value="male">Masculino</option>
+                                        <option value="female">Feminino</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-4">
+                                <div class="col-12 col-md-12">
+                                    <label class="btn btn-secondary btn-photo col-12 col-md-10">
+                                        Escolher imagem de perfil<input type="file" id="user-photo" name="photo" name="imageFile"
+                                                                        class="custom-file-input" style="display: none" required/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-group row mb-4">
+                                <div class="col-12">
+                                    <label for="user-location" class="label-profile col-form-label mb-2">Localidade</label>
+                                    <input id="user-location" name="location" type="text" class="form-control" name="password" placeholder="Exemplo: Porto, Portugal" value="<%= user.address %>">
+                                    <input id="lat" type="hidden" name="lat">
+                                    <input id="lng" type="hidden" name="lng">
+                                    <input id="address" type="hidden" name="address">
+                                    <input id="location" type="hidden" name="location">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <label for="user-biography" class="label-profile col-form-label mb-2">Biografia</label>
+                                    <textarea class="form-control" rows="5" id="user-biography"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Guardar alterações</button>
+                            <a href="/users/<%= user._id %>" class="btn btn-secondary">Ver perfil</a>
+                        </div>
+                    </div>
+                </form>
+                </div>
+                <div class="tab-pane" id="contributions" role="tabpanel">
+                    <% donations.forEach(function(donation){ %>
+                    <%=donation.value%><br>
+                    <% }); %>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 </div>
 <!-- /.container -->
 
-<% include ../partials/footer %>
+<% include ../../partials/footer %>
+<script src="/javascripts/users/edit.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYD9E2TQzUSIST7qw8ns3quQ2Ry-BDuh4&libraries=places&callback=initAutocomplete"
+        async defer></script>
 
 </body>
 </html>

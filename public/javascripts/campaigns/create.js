@@ -1,4 +1,3 @@
-
 function showGoodsTypeSelect(isFunds) {
 	if (isFunds) {
 		$('#euroIcon').show();
@@ -74,14 +73,24 @@ var $profilePicPreview = $('#profile-pic-preview').croppie({
 
 
 function getCroppedImage() {
-	$('#profile-pic-preview').croppie('result', {type: 'viewport', format: 'jpeg'}).then(function(img){
+	/*$('#profile-pic-preview').croppie('result', {type: 'viewport', format: 'jpeg'}).then(function(img){
 		var croppedImage = $.parseHTML(img.innerHTML)[0].getAttribute('src');
 		croppedImage = croppedImage.split(',')[1];
 		$('#croppedImage').val(croppedImage);
+
 		console.log(croppedImage);
 		console.log($('#croppedImage').val());
+
+		$('#createForm').submit();
 		//console.log($('#profile-picture-upload')[0]);
-	});
+	});*/
+	var cropped = $('#profile-pic-preview').croppie('get');
+	var points = cropped.points;
+
+	$('#croppedImage').val(JSON.stringify(points));
+	console.log($('#croppedImage').val());
+
+	$('#createForm').submit();
 }
 
 function readFile(input) {

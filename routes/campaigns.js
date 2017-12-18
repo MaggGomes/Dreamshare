@@ -431,8 +431,11 @@ router.get('/create', function (req, res, next) {
 // POST create campaign
 router.post('/create', upload.single('imageFile'), function (req, res, next) {
 	if (req.session.user) {
+		console.log('teste ' + req.body.title);
+		console.log(req.body.croppedImage);
 		var buf = new Buffer(req.body.croppedImage, 'base64');
-		fs.writeFile('images/campaigns/teste.jpeg',buf,function (err) {
+		console.log(buf);
+		fs.writeFile('images/campaigns/teste.png',buf,function (err) {
 			console.log(err);
 		});
 		req.checkBody('title', 'O título precisa de ter pelo menos 5 caracteres').isLength({min: 5});

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	
 	/* Modal components */
 
 	/* Signin */
@@ -331,9 +332,10 @@ $(document).ready(function () {
 		console.log('dada');
 		$.get('/users/logout', {})
 			.done(function(){
-
+				console.log('logged out');
 			})
 			.fail(function(){
+				console.log('not logged out');
 			});
 
 	});

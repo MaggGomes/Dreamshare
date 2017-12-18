@@ -6,8 +6,13 @@ var userSchema = Schema(
 		name: {type: String, required: true, max: 100},
 		email: {type: String, required: true, unique: true, max: 100},
 		password: {type: String},
+		genre: {type: String},
 		lat: {type: Number},
 		lng: {type: Number},
+		address: {type: String},
+		location: {type: String},
+		birthdate: {type: Date},
+		biography: {type: String},
 		photo: {type: String},
 		isAdmin: {type: Boolean, required: true, default: false},
 		reports: [{type: Schema.Types.ObjectId, ref: 'Report'}]
@@ -48,5 +53,12 @@ exports.getAllUsersToday = function (done){
 	mongoose.model('User').find({'_id' : { '$gt' : ObjectId(Math.floor(new Date().getTime()/1000).toString(16)+'0000000000000000') }}, function (err, users) {
 		if (err) return done(err);
 		done(null, users);
+	});
+};
+
+exports.getUser = function (id, done){
+	mongoose.model('User').findById(id, function (err, user) {
+		if (err) return done(err);
+		done(null, user);
 	});
 };
