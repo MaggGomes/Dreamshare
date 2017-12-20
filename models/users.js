@@ -15,7 +15,8 @@ var userSchema = Schema(
 		biography: {type: String},
 		photo: {type: String},
 		isAdmin: {type: Boolean, required: true, default: false},
-		reports: [{type: Schema.Types.ObjectId, ref: 'Report'}]
+		reports: [{type: Schema.Types.ObjectId, ref: 'Report'}],
+		status: {type: String, enum : ['ACTIVE','DEACTIVATED', 'MODERATED', 'REMOVED'], default: 'ACTIVE'}
 	}
 );
 
@@ -78,6 +79,19 @@ exports.updateUser = function (id, email, password, name, genre, lat, lng, addre
 		if(birthdate){user.birthdate = birthdate;}
 		if(biography){user.biography = biography;}
 		if(photo){user.photo = photo;}
+		user.save(function (err, updatedUser) {
+			if (err) return done(err);
+			done(null, updatedUser);
+		});
+	});
+};
+
+exports.updateUserStatus = function (id, status, done){
+	mongoose.model('User').findById(id, function (err, user) {
+		if (err) return done(err);
+
+		user.status = status;
+
 		user.save(function (err, updatedUser) {
 			if (err) return done(err);
 			done(null, updatedUser);

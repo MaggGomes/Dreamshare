@@ -63,11 +63,12 @@
                             </div>
                             <div class="mb-4 col-12">
                                 <button type="submit" class="btn btn-primary">Guardar alterações</button>
-                                <form method="post" action="/users/<%= user._id %>/deactivate">
-                                    <button type="submit" class="btn btn-secondary">Desactivar conta</button>
-                                </form>
+
                             </div>
                         </div>
+                    </form>
+                    <form method="post" action="/users/<%= user._id %>/deactivate">
+                        <button type="submit" class="btn btn-secondary">Desactivar conta</button>
                     </form>
 
                 </div>

@@ -9,7 +9,7 @@ variables:
 stages:
   - build
   - lint
-  - test
+#  - test
   - deploy
 
 cache:
@@ -31,19 +31,19 @@ eslint:
     - ./node_modules/.bin/eslint .
 
 
-backend_tests:
-  stage: test
-  script:
-    - npm test
-
-frontend_tests:
-  image: cypress/base
-  stage: test
-  script:
-    - npm run cypress
-  artifacts:
-    paths:
-      - test/cypress/
+#backend_tests:
+#  stage: test
+#  script:
+#    - npm test
+#
+#frontend_tests:
+#  image: cypress/base
+#  stage: test
+#  script:
+#    - npm run cypress
+#  artifacts:
+#    paths:
+#      - test/cypress/
 
 deploy_production:
   stage: deploy

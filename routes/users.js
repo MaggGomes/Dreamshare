@@ -23,7 +23,7 @@ router.post('/signin', function (req, res, next) {
 			if (!user) {
 				res.status('401').send('401');
 			} else {
-				if (bcrypt.compareSync(req.body.password, user.password)) {
+				if (bcrypt.compareSync(req.body.password, user.password) && (user.status == 'ACTIVE' || user.status == 'MODERATE')) {
 					req.session.user = user.name;
 					req.session.email = user.email;
 					req.session.userID = user._id;
@@ -58,7 +58,7 @@ router.post('/signin/3rdparty', function (req, res, next) {
 							} else {
 								if (!user) {
 									res.status('401').send('401');
-								} else {
+								} else if (user.status == 'ACTIVE' || user.status == 'MODERATE'){
 									req.session.user = user.name;
 									req.session.email = user.email;
 									req.session.userID = user._id;
@@ -70,7 +70,7 @@ router.post('/signin/3rdparty', function (req, res, next) {
 					}
 				});
 
-			} else {
+			} else if (user.status == 'ACTIVE' || user.status == 'MODERATE'){
 				req.session.user = user.name;
 				req.session.email = user.email;
 				req.session.userID = user._id;
@@ -131,7 +131,7 @@ router.post('/register', function (req, res, next) {
 });
 
 
-/* Creates a new user */
+/* Edits a user */
 router.post('/:userId/edit', upload.array(), function (req, res, next) {
 	if (req.session.user) {
 		if(req.session.userID == req.params.userId || req.session.isAdmin) {
@@ -177,6 +177,67 @@ router.post('/:userId/edit', upload.array(), function (req, res, next) {
 					if (err) { console.log(err); res.sendStatus(400); } else {
 						console.log(user);
 						res.redirect('/account');
+					}
+				});
+		} else {
+			res.sendStatus(401);
+		}
+	} else {
+		res.sendStatus(403);
+	}
+});
+
+/* Deactivate user */
+router.post('/:userId/deactivate', upload.array(), function (req, res, next) {
+	if (req.session.user) {
+		if(req.session.userID == req.params.userId) {
+			Users.updateUserStatus(req.params.userId,
+				'DEACTIVATED',
+				function(err, user){
+					if (err) { console.log(err); res.sendStatus(400); } else {
+						req.session.destroy(function () {
+							res.clearCookie('user').redirect('/');
+						});
+					}
+				});
+		} else {
+			res.sendStatus(401);
+		}
+	} else {
+		res.sendStatus(403);
+	}
+});
+
+/* Removes user */
+router.post('/:userId/remove', upload.array(), function (req, res, next) {
+	if (req.session.user) {
+		if(req.session.isAdmin) {
+			Users.updateUserStatus(req.params.userId,
+				'REMOVED',
+				function(err, user){
+					if (err) { console.log(err); res.sendStatus(400); } else {
+						console.log(user);
+						res.sendStatus(200);
+					}
+				});
+		} else {
+			res.sendStatus(401);
+		}
+	} else {
+		res.sendStatus(403);
+	}
+});
+
+/* Moderates user */
+router.post('/:userId/moderate', upload.array(), function (req, res, next) {
+	if (req.session.user) {
+		if(req.session.isAdmin) {
+			Users.updateUserStatus(req.params.userId,
+				'MODERATED',
+				function(err, user){
+					if (err) { console.log(err); res.sendStatus(400); } else {
+						console.log(user);
+						res.sendStatus(200);
 					}
 				});
 		} else {
