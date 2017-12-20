@@ -299,6 +299,80 @@ describe('Campaigns', () => {
 		});
 	});
 
+
+    describe('/POST report campaign', () => {
+        it('it should not POST a report to a campaign when not logged in', (done) => {
+            let url = '/campaigns/' + globalCampaignID + '/report';
+            agent = chai.request(app.server)
+                .post(url)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('it should POST a report to a campaign when logged in', (done) => {
+            let url = '/campaigns/' + globalCampaignID + '/report';
+            let user = {
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+            let report = {
+                user: globalID,
+                description: "this is meant for test purposes"
+			};
+            agent = chai.request(app.server);
+            utils.loginUser(user.email, user.password, function (err, agent) {
+                agent
+                    .post(url)
+					.send(report)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        done();
+                    });
+            });
+        });
+
+
+        it('it should not POST a report to a campaign with missing or invalid report(missing)', (done) => {
+            let url = '/campaigns/' + globalCampaignID + '/report';
+            let user = {
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+            agent = chai.request(app.server);
+            utils.loginUser(user.email, user.password, function (err, agent) {
+                agent
+                    .post(url)
+                    .end((err, res) => {
+                        res.should.have.status(400);
+                        done();
+                    });
+            });
+        });
+
+        it('it should not POST a report to a campaign with missing or invalid report (invalid)', (done) => {
+            let url = '/campaigns/' + globalCampaignID + '/report';
+            let user = {
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+            let report = {
+                user: "IDONTEXIST",
+                description: "this is meant for test purposes"
+            };
+            agent = chai.request(app.server);
+            utils.loginUser(user.email, user.password, function (err, agent) {
+                agent
+                    .post(url)
+                    .end((err, res) => {
+                        res.should.have.status(400);
+                        done();
+                    });
+            });
+        });
+    });
+
 	after(function (done){
 		utils.clearAppState();
 		done();

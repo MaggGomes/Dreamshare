@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for LDSO/models/campaigns.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">LDSO/models/</a> campaigns.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">21.57% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>11/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25.58% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>11/43</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
+	ObjectID = require('mongodb').ObjectID;
+&nbsp;
+var campaignSchema = Schema(
+	{
+		owner: {type: Schema.Types.ObjectId, ref: 'User'},
+		title: {type: String, required: true, max: 100},
+		description: {type: String, required: true, max: 250},
+		isFunds: {type: Boolean, required: true},
+		goodsType: {type: String},
+		goal: {type: Number, min: 0, required: true},
+		progress: {type: Number, min: 0, default: 0},
+		endDate: {type: Date, required: true},
+		lat: {type: Number, required: true},
+		lng: {type: Number, required: true},
+		loc : { type: [Number], index: '2dsphere' },
+		address: {type: String},//, required: true},
+		location: {type: String},//, required: true},
+		image: {type: String, required: true},
+		comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
+		avgTimeDonations: {type: Number, min: 0, default: 0},
+		donations: [{type: Schema.Types.ObjectId, ref: 'Donation'}],
+		reports: [{type: Schema.Types.ObjectId, ref: 'Report'}]
+	});
+&nbsp;
+mongoose.model('Campaign', campaignSchema);
+&nbsp;
+exports.getInsideCoords = <span class="fstat-no" title="function not covered" >function (lat_left, lat_right, lng_up, lng_down, done) {</span>
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').find({</span>
+		'lat': {'$lte': lat_left, '$gte': lat_right},
+		'lng': {'$lte': lng_up, '$gte': lng_down}
+	}, <span class="fstat-no" title="function not covered" >function (err, campaigns) {</span>
+<span class="cstat-no" title="statement not covered" >		if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >		done(null, campaigns);</span>
+	});
+};
+&nbsp;
+&nbsp;
+exports.getTrending = <span class="fstat-no" title="function not covered" >function (nCampaigns, done) {</span>
+<span class="cstat-no" title="statement not covered" >	var variavel = 2;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').aggregate(</span>
+		{$match: {}},
+		{$project: {
+			owner: 1,
+			title: 1,
+			description: 1,
+			isFunds: 1,
+			goodsType: 1,
+			goal: 1,
+			progress: 1,
+			endDate: 1,
+			lat: 1,
+			lng: 1,
+			address: 1,
+			location: 1,
+			image: 1,
+			comments: 1,
+			avgTimeDonations: 1,
+			donations: 1,
+			trendFactor: {$size: { '$ifNull': [ '$donations', [] ] }}
+		}},
+		{ $sort: { trendFactor: -1 } },
+		{ $limit: nCampaigns },
+&nbsp;
+<span class="fstat-no" title="function not covered" >		function (err, campaigns) {</span>
+<span class="cstat-no" title="statement not covered" >			if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >			done(null, campaigns);</span>
+		}
+	);
+};
+&nbsp;
+exports.getTrendingWithCoords = <span class="fstat-no" title="function not covered" >function (nCampaigns, lat, lng, done) {</span>
+<span class="cstat-no" title="statement not covered" >	var variavel = 2;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').aggregate(</span>
+		{$geoNear: {
+			near: { type: 'Point', coordinates: [lng, lat ] },
+			distanceField: 'dist',
+			spherical: true
+		}},
+		{$project: {
+			owner: 1,
+			title: 1,
+			description: 1,
+			isFunds: 1,
+			goodsType: 1,
+			goal: 1,
+			progress: 1,
+			endDate: 1,
+			lat: 1,
+			lng: 1,
+			address: 1,
+			location: 1,
+			image: 1,
+			comments: 1,
+			avgTimeDonations: 1,
+			donations: 1,
+			dist: 1,
+			trendFactor: {$multiply: [{$size: { '$ifNull': [ '$donations', [] ] }}, { $divide: [1, '$dist']}] }
+		}},
+		{ $sort: { trendFactor: -1 } },
+		{ $limit: nCampaigns },
+&nbsp;
+<span class="fstat-no" title="function not covered" >		function (err, campaigns) {</span>
+<span class="cstat-no" title="statement not covered" >			if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >			done(null, campaigns);</span>
+		}
+	);
+};
+&nbsp;
+exports.getMostContributed = <span class="fstat-no" title="function not covered" >function(done){</span>
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').aggregate(</span>
+		{$project: {
+			owner: 1,
+			title: 1,
+			description: 1,
+			isFunds: 1,
+			goodsType: 1,
+			goal: 1,
+			progress: 1,
+			endDate: 1,
+			lat: 1,
+			lng: 1,
+			address: 1,
+			location: 1,
+			image: 1,
+			comments: 1,
+			donations : 1,
+			avgTimeDonations: 1,
+			Ndonations: {$size: '$donations'},
+			dist: 1,
+		}},
+		{ $sort: { Ndonations: -1 }},
+<span class="fstat-no" title="function not covered" >		function (err, campaigns) {</span>
+<span class="cstat-no" title="statement not covered" >			if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >			done(campaigns);</span>
+		}
+	);
+};
+&nbsp;
+exports.getAllCampaigns = <span class="fstat-no" title="function not covered" >function (done) {</span>
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').find({}, <span class="fstat-no" title="function not covered" >function (err, campaigns) {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >		done(null, campaigns);</span>
+	});
+};
+&nbsp;
+&nbsp;
+exports.getReportedCampaigns = <span class="fstat-no" title="function not covered" >function (done) {</span>
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').find( { $where : 'this.reports &amp;&amp; this.reports.length &gt; 0' }, <span class="fstat-no" title="function not covered" >function (err, campaigns) {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >		done(null, campaigns);</span>
+	});
+};
+&nbsp;
+exports.getCampaignsByUser = <span class="fstat-no" title="function not covered" >function (userID, done){</span>
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').find({owner: userID}, <span class="fstat-no" title="function not covered" >function (err, donations) {</span></span>
+<span class="cstat-no" title="statement not covered" >		if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >		done(null, donations);</span>
+	});
+};
+&nbsp;
+exports.getCampaignsWithDonationsByUser = <span class="fstat-no" title="function not covered" >function (userID, done){</span>
+<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign')</span>
+		.find()
+		.populate({
+			path:'donations',
+			match: {
+				user: userID
+			}
+		})
+		.exec(<span class="fstat-no" title="function not covered" >function (err, contributions) {</span>
+<span class="cstat-no" title="statement not covered" >			if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span></span>
+<span class="cstat-no" title="statement not covered" >			contributions = contributions</span>
+				.filter(<span class="fstat-no" title="function not covered" >function(contribution) {</span>
+<span class="cstat-no" title="statement not covered" >					return contribution.donations.length &gt; 0;</span>
+				})
+				.map(<span class="fstat-no" title="function not covered" >function(contribution) {</span>
+<span class="cstat-no" title="statement not covered" >					var newContri = Object.assign({}, contribution._doc);</span>
+<span class="cstat-no" title="statement not covered" >					newContri.donatedValue = contribution.donations.reduce(<span class="fstat-no" title="function not covered" >function( prevVal, elem ) {</span></span>
+<span class="cstat-no" title="statement not covered" >						return prevVal + elem.value;</span>
+					}, 0 );
+<span class="cstat-no" title="statement not covered" >					return newContri;</span>
+				});
+<span class="cstat-no" title="statement not covered" >			done(null, contributions);</span>
+		});
+};</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 20 2017 05:52:11 GMT+0000 (WET)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
