@@ -271,33 +271,33 @@ describe('Campaigns', () => {
 		});
 	});
 
-    describe('/GET edit campaign', () => {
-        it('it should GET campaign edit page', (done) => {
-            let url = '/campaigns/' + globalCampaignID + '/edit';
-            agent = chai.request(app.server)
-                .get(url)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    done();
-                });
-        });
-        it('it should GET campaign edit page when a user is logged in', (done) => {
-            let url = '/campaigns/' + globalCampaignID + '/edit';
-            let user = {
-                email: 'teste2@teste.teste',
-                password: '123456'
-            };
-            agent = chai.request(app.server);
-            utils.loginUser(user.email, user.password, function (err, agent) {
-                agent
-                    .get(url)
-                    .end((err, res) => {
-                        res.should.have.status(200);
-                        done();
-                    });
-            });
-        });
-    });
+	describe('/GET edit campaign', () => {
+		it('it should GET campaign edit page', (done) => {
+			let url = '/campaigns/' + globalCampaignID + '/edit';
+			agent = chai.request(app.server)
+				.get(url)
+				.end((err, res) => {
+					res.should.have.status(200);
+					done();
+				});
+		});
+		it('it should GET campaign edit page when a user is logged in', (done) => {
+			let url = '/campaigns/' + globalCampaignID + '/edit';
+			let user = {
+				email: 'teste2@teste.teste',
+				password: '123456'
+			};
+			agent = chai.request(app.server);
+			utils.loginUser(user.email, user.password, function (err, agent) {
+				agent
+					.get(url)
+					.end((err, res) => {
+						res.should.have.status(200);
+						done();
+					});
+			});
+		});
+	});
 
 	after(function (done){
 		utils.clearAppState();
