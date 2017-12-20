@@ -10,64 +10,74 @@
 <% include ../partials/header %>
 
 <div class="container main-container">
+
     <div class="row page-title mb-4">
         <div class="col-12">
-            <h3>Utilizadores</h3>
+            <h3>Comentários</h3>
         </div>
     </div>
 
-    <table id="usersTable" class="row-border">
+    <table id="commentsTable" class="row-border">
         <thead>
         <tr>
-            <th class="column-title">Nome</th>
-            <th class="column-title">Email</th>
-            <th class="column-title">Ação</th>
+            <th class="column-title">Conteúdo</th>
+            <th class="column-title">Acção</th>
         </tr>
         </thead>
 
         <tbody>
-        <% users.forEach(function(user){ %>
-        <tr class="<% if(user.reports.length > 0) { %>bg-warning<% } %>">
-            <td><a href="/users/<%= user._id %>" class="table-item"><%= user.name %></a></td>
-            <td><a href="/users/<%= user._id %>" class="table-item"><%= user.email %></a></td>
+        <% comments.forEach(function(comment){ %>
+        <tr class="">
+            <td><%= comment.text %></td>
             <td>
-                <a href="/users/<%= user._id %>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a type="button" data-id="<%= user._id %>" class="btn btn-info open-ModerateModal" data-toggle="modal" href="#moderateModal"><i class="fa fa-exclamation" aria-hidden="true"></i></a>
-                <a type="button" data-id="<%= user._id %>" class="btn btn-info open-RemoveModal" data-toggle="modal" href="#removeModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a href="/campaigns" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#moderateModal"><i
+                            class="fa fa-exclamation" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteModal"><i
+                            class="fa fa-trash" aria-hidden="true" data-toggle="modal"
+                            data-target="#deleteModal"></i></button>
             </td>
         </tr>
         <% }); %>
         </tbody>
     </table>
-    <input type="hidden" id="userId">
 </div>
 
 <% include ../partials/footer %>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="/javascripts/admin/users.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#commentsTable').DataTable( {
+			"language": {
+				"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese.json"
+			}
+		} );
+	} );
+</script>
 
 <!-- Modal -->
-<div class="modal fade" id="moderateModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="moderateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header modal-title">
                 <div class="navbar-brand brand-title">dream<span class="brand-share">Share</span></div>
                 <div class="modal-close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></div>
             </div>
-
             <div class="modal-body">
-                Deseja moderar este utilizador?
+                Quer moderar este utilizador?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary" id="moderateBtn">Moderar</button>
+                <button type="button" class="btn btn-primary">Moderar</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header modal-title">
@@ -75,11 +85,11 @@
                 <div class="modal-close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></div>
             </div>
             <div class="modal-body">
-                Deseja remover este utilizador?
+                Deseja eliminar este utilizador?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="removeBtn">Remover</button>
+                <button type="button" class="btn btn-primary">Deseja</button>
             </div>
         </div>
     </div>

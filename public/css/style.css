@@ -2,6 +2,7 @@
     --main-color: #fb5a5f;
     --second-color: #00888c;
     --hover-color: #e3595e;
+    --lighter-color: #ffe6d2;
     --text-color: #494949;
     --textsecond-color: #696d6d;
     --secondarytext-color: #bfbfbf;
@@ -13,6 +14,10 @@
 body {
     padding-top: 57px;
     color: var(--text-color);
+}
+
+.preformatted {
+    white-space: pre;
 }
 
 .main-container {
@@ -48,6 +53,30 @@ header .brand-logo img {
     width: 40px;
 }
 
+.menu-photo {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navbar-button {
+    cursor: pointer;
+    padding-right: 0;
+    padding-left: 0;
+    border: 0;
+}
+
+.dropdown-menu li a.dropdown-item {
+    color: var(--textsecond-color);
+}
+
+#dropdown-menu-left {
+    left: inherit;
+    right: 0;
+    top: 42px;
+}
+
 .navbar-brand {
     font-family: 'Ranchers', cursive;
 }
@@ -65,26 +94,16 @@ header .brand-logo img {
     color: var(--main-color);
 }
 
+.nav-link-wrapper a:hover {
+    color: var(--main-color);
+}
+
 .jumbotron {
     color: white;
     background: url('../images/jumbotron/jumbotronbgsmall.jpg');
     background-size: 100% 100%;
     border-radius: 0;
 }
-
-
-
-/*.carousel-caption {
-    display: block!important;
-}
-
-#carouselExampleIndicators .d-none {
-    display: block!important;
-}
-
-.d-none {
-    display: block!important;
-}*/
 
 .jumbotron h1 {
     font-size: 30px;
@@ -257,10 +276,32 @@ header .brand-logo img {
     border-bottom-right-radius: 0;
 }
 
+select.form-control:not([size]):not([multiple]) {
+    height: auto;
+}
+
+.label-profile {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.create-campaign-title {
+    border-bottom: 1px solid var(--border-color);
+}
+
 /* Campaign tabs */
 .campaign-tabs .tab-content {
     padding-top: 20px;
     min-height: 300px;
+}
+
+.tab-nav-link-wrapper a {
+    font-weight: 600;
+    color: var(--textsecond-color);
+}
+
+.tab-nav-link-wrapper a:hover:not(.active) {
+    color: var(--text-color);
 }
 
 .campaign-tabs .tab-content .btn-info {
@@ -281,6 +322,16 @@ header .brand-logo img {
     border-bottom: 1px solid var(--border-color);
 }
 
+#commentArea .form-control {
+    margin: 0 auto;
+    width: inherit;
+}
+
+.profile-tabs {
+    border-top: none;
+    overflow-x: hidden;
+}
+
 .campaign-nav-tabs .nav-item {
     padding-left: .5rem;
     padding-right: .5em;
@@ -298,6 +349,7 @@ header .brand-logo img {
 
 .campaign-nav-tabs .nav-link {
     padding: 1rem 0;
+    font-size: 0.9rem;
 }
 
 .campaign-nav-tabs .nav-link {
@@ -307,6 +359,7 @@ header .brand-logo img {
 
 .campaign-nav-tabs .active {
     border-bottom: 2px solid var(--main-color);
+    color: var(--main-color);
 }
 
 .campaign-nav-tabs > .active > a,
@@ -346,9 +399,67 @@ header .brand-logo img {
     right: 0;
 }
 
+.dropdown-item:hover {
+    cursor: pointer;
+}
+
 .btn-map {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+.dataTables_filter input {
+    display: inline-block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    overflow: visible;
+    outline: 0;
+}
+
+.dataTables_filter input::-ms-expand {
+    background-color: transparent;
+    border: 0;
+}
+
+.dataTables_filter input:focus {
+    color: #464a4c;
+    background-color: #fff;
+    border-color: #5cb3fd;
+    outline: none;
+}
+
+.table-item {
+    color: var(--text-color);
+}
+
+.table-item:hover {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.main-admin .card-header {
+    background-color: white;
+    color: var(--text-color);
+}
+
+.main-admin .card-text {
+    color: var(--secondarytext-color);
+}
+
+.main-admin .card-body {
+    height: 80px;
 }
 
 footer {
@@ -395,14 +506,33 @@ footer {
     box-shadow: none;
 }
 
+.btn-photo {
+    border: 0.05em dashed var(--main-color);
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.btn-photo:hover {
+    color: var(--main-color);
+    background-color: var(--lighter-color);
+    border: 0.05em dashed var(--main-color);
+}
+
+.btn-photo.active, .btn-photo:active, .btn-photo:focus, .show>.btn-photo.dropdown-toggle {
+    color: var(--main-color);
+    background-color: var(--lighter-color);
+    border: 0.05em dashed var(--main-color);
+    box-shadow: none;
+}
+
 .btn-info {
-    color: var(--secondarytext-color);
+    color: #929292;
     border: 1px solid var(--secondarytext-color);
     background-color: white;
 }
 
 .btn-info:hover {
-    color: #929292;
+    color: var(--text-color);
     border: 1px solid #929292;
     background-color: white;
 }
@@ -800,6 +930,10 @@ input[type="search"] {
 
 /* Small devices (tablets, 768px and up) @screen-sm-min */
 @media (min-width: 768px) {
+    .menu-hide-lg {
+        display: none;
+    }
+
     .camp-det-aux {
         margin-top: -1.0em;
     }
@@ -829,6 +963,10 @@ input[type="search"] {
     .campaign-nav-tabs .nav-item:first-child {
         padding-left: 0;
         padding-right: .7em;
+    }
+
+    .campaign-nav-tabs .nav-link {
+        font-size: 1rem;
     }
 
     .modal-dialog {

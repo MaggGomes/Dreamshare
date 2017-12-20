@@ -1,4 +1,3 @@
-
 function showGoodsTypeSelect(isFunds) {
 	if (isFunds) {
 		$('#euroIcon').show();
@@ -72,16 +71,13 @@ var $profilePicPreview = $('#profile-pic-preview').croppie({
 	enableExif: true
 });
 
+function getCropPoints() {
+	var cropped = $('#profile-pic-preview').croppie('get');
+	var points = cropped.points;
 
-function getCroppedImage() {
-	$('#profile-pic-preview').croppie('result', {type: 'viewport', format: 'jpeg'}).then(function(img){
-		var croppedImage = $.parseHTML(img.innerHTML)[0].getAttribute('src');
-		croppedImage = croppedImage.split(',')[1];
-		$('#croppedImage').val(croppedImage);
-		console.log(croppedImage);
-		console.log($('#croppedImage').val());
-		//console.log($('#profile-picture-upload')[0]);
-	});
+	$('#cropPoints').val(JSON.stringify(points));
+
+	$('#createForm').submit();
 }
 
 function readFile(input) {
@@ -102,4 +98,32 @@ function readFile(input) {
 
 $('#profile-picture-upload').on('change', function () {
 	readFile(this);
+});
+
+$(document).ready(function() {
+	$('#createForm').on('submit', function(e) {
+		e.preventDefault();
+
+		var title = $(this).find('input[name="title"]').val();
+		var description = $(this).find('textarea[name="description"]').val();
+		var isFunds = $(this).find('input[name="isFunds"]:checked').val();
+		var goodsType = $(this).find('input[name="goodsType"]').val();
+		var goal = $(this).find('input[name="goal"]').val();
+		var endDate = $(this).find('input[name="endDate"]').val();
+		var lat = $(this).find('input[name="lat"]').val();
+		var lng = $(this).find('input[name="lng"]').val();
+		var address = $(this).find('input[name="address"]').val();
+		var location = $(this).find('input[name="location"]').val();
+
+		$('#profile-pic-preview').croppie('result', 'base64').then(function (data) {
+			$.post('create',
+				{title: title, description: description, isFunds: isFunds, goodsType: goodsType, goal: goal, endDate: endDate, lat: lat, lng: lng, address: address, location: location, fileBase64: data},
+				function (data, success, xhr) {
+					if (xhr.status === 200 && data !== null) {
+						window.location.href = data;
+					}
+				}
+			);
+		});
+	});
 });

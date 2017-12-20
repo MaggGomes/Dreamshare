@@ -8,37 +8,48 @@
 <body>
 <% include ../partials/header %>
 
-<div class="container">
-
+<div class="container main-container">
     <div class="row page-title mb-4">
         <div class="col-12">
             <h3>Painel de controlo</h3>
         </div>
     </div>
 
-    <div class="row text-center mb-5">
-        <div class="col-sm mx-1 card text-white bg-success">
-            <div class="card-header"><h4>Utilizadores</h4></div>
-            <div class="card-body">
-                <h4 class="card-title"><%= nUsers %></h4>
-                <p class="card-text">+21 hoje</p>
-                <a href="admin/users" class="btn btn-dark">Ver</a>
+    <div class="row text-center main-admin">
+        <div class="col-sm mb-5">
+            <div class="card">
+                <div class="card-header"><h4>Utilizadores</h4></div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= nUsers %></h4>
+                    <p class="card-text">+21 hoje</p>
+                </div>
+                <div class="card-footer">
+                    <a href="admin/users" class="btn btn-primary">Ver</a>
+                </div>
             </div>
         </div>
-        <div class="col-sm mx-1 card text-white bg-success">
-            <div class="card-header"><h4>Campanhas</h4></div>
-            <div class="card-body">
-                <h4 class="card-title"><%= nCampaigns %></h4>
-                <p class="card-text">+35 hoje</p>
-                <a href="admin/users" class="btn btn-dark">Ver</a>
+        <div class="col-sm mb-5">
+            <div class="card">
+                <div class="card-header"><h4>Campanhas</h4></div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= nCampaigns %></h4>
+                    <p class="card-text">+35 hoje</p>
+                </div>
+                <div class="card-footer">
+                    <a href="admin/campaigns" class="btn btn-primary">Ver</a>
+                </div>
             </div>
         </div>
-        <div class="col-sm mx-1 card text-white bg-success">
-            <div class="card-header"><h4>Comentários</h4></div>
-            <div class="card-body">
-                <h4 class="card-title"><%= nComments %>7</h4>
-                <p class="card-text">+35 hoje</p>
-                <a href="admin/users" class="btn btn-dark">Ver</a>
+        <div class="col-sm mb-5">
+            <div class="card">
+                <div class="card-header"><h4>Comentários</h4></div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= nComments %>7</h4>
+                    <p class="card-text">+35 hoje</p>
+                </div>
+                <div class="card-footer">
+                    <a href="admin/comments" class="btn btn-primary">Ver</a>
+                </div>
             </div>
         </div>
 
@@ -49,29 +60,41 @@
             <h3>Reportados</h3>
         </div>
     </div>
-    <div class="row text-center mb-5">
-        <div class="col-sm mx-1 card text-white bg-danger">
-            <div class="card-header"><h4>Utilizadores</h4></div>
-            <div class="card-body">
-                <h4 class="card-title"><%= nUsersReported %></h4>
-                <p class="card-text">+3 hoje</p>
-                <a href="admin/users" class="btn btn-dark">Ver</a>
+    <div class="row text-center main-admin">
+        <div class="col-sm mb-5">
+            <div class="card">
+                <div class="card-header"><h4>Utilizadores</h4></div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= nUsersReported %></h4>
+                    <p class="card-text">+3 hoje</p>
+                </div>
+                <div class="card-footer">
+                    <a href="admin/users?reported=true" class="btn btn-primary">Ver</a>
+                </div>
             </div>
         </div>
-        <div class="col-sm mx-1 card text-white bg-danger">
-            <div class="card-header"><h4>Campanhas</h4></div>
-            <div class="card-body">
-                <h4 class="card-title"><%= nCampaignsReported %></h4>
-                <p class="card-text">+35 hoje</p>
-                <a href="admin/users" class="btn btn-dark">Ver</a>
+        <div class="col-sm mb-5">
+            <div class="card">
+                <div class="card-header"><h4>Campanhas</h4></div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= nCampaignsReported %></h4>
+                    <p class="card-text">+35 hoje</p>
+                </div>
+                <div class="card-footer">
+                    <a href="admin/campaigns?reported=true" class="btn btn-primary">Ver</a>
+                </div>
             </div>
         </div>
-        <div class="col-sm mx-1 card text-white bg-danger">
-            <div class="card-header"><h4>Comentários</h4></div>
-            <div class="card-body">
-                <h4 class="card-title"><%= nCommentsReported %></h4>
-                <p class="card-text">+35 hoje</p>
-                <a href="admin/users" class="btn btn-dark">Ver</a>
+        <div class="col-sm mb-5">
+            <div class="card">
+                <div class="card-header"><h4>Comentários</h4></div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= nCommentsReported %></h4>
+                    <p class="card-text">+35 hoje</p>
+                </div>
+                <div class="card-footer">
+                    <a href="admin/comments?reported=true" class="btn btn-primary">Ver</a>
+                </div>
             </div>
         </div>
 

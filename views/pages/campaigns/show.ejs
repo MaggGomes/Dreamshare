@@ -31,11 +31,11 @@
         <% } %>
     </section>
 
-    <div class="row text-center mb-4">
+    <div class="row text-center">
         <div class="col-sm-12 col-md-8 mb-8">
             <img class="card-img-top" src="/<%= campaign.image %>" alt="">
         </div>
-        <div class="col-sm-12 col-md-4 mb-4 campaign-info">
+        <div class="col-sm-12 col-md-4 campaign-info">
             <div class="progress mb-3">
                 <div class="progress-bar" role="progressbar" aria-valuenow="<%= campaign.progress %>"
                      aria-valuemin="0" aria-valuemax="<%= campaign.goal %>"
@@ -135,18 +135,18 @@
         <div class="campaign-tabs col-12 col-md-8">
             <ul class="campaign-nav-tabs nav" role="tablist">
                 <li class="nav-item">
-                    <div class="tab-nav-link-wrapper tab-hvrcenter">
+                    <div class="tab-nav-link-wrapper">
                         <a class="nav-link active" data-toggle="tab" href="#campaign" role="tab">Campanha</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <div class="tab-nav-link-wrapper tab-hvrcenter">
-                        <a class="nav-link" data-toggle="tab" href="#comments" role="tab">Comentários <span class="tab-upper-values"><%= campaign.comments.length %></span></a>
+                    <div class="tab-nav-link-wrapper">
+                        <a class="nav-link" data-toggle="tab" href="#comments" role="tab">Comentários <span class="tab-upper-values"><%= campaign.comments.filter(function(elem) { return !elem.removed; }).length %></span></a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <div class="tab-nav-link-wrapper tab-hvrcenter">
-                        <a class="nav-link" data-toggle="tab" href="#community" role="tab">Comunidade <span class="tab-upper-values"><%= campaign.donations.length %></span></a>
+                    <div class="tab-nav-link-wrapper">
+                        <a class="nav-link" data-toggle="tab" href="#community" role="tab">Contribuidores <span class="tab-upper-values"><%= campaign.donations.length %></span></a>
                     </div>
                 </li>
             </ul>
@@ -154,7 +154,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div class="tab-pane active" id="campaign" role="tabpanel">
-                    <p class="campaign-description hidden-info"><%= campaign.description %></p>
+                    <p class="campaign-description hidden-info preformatted"><%= campaign.description %></p>
                 </div>
                 <div class="tab-pane" id="comments" role="tabpanel">
                     <!-- Create new comment -->
@@ -163,13 +163,13 @@
                         <button href="#commentArea" class="mx-auto d-block btn btn-secondary" data-toggle="collapse">Deixa aqui a tua dúvida/comentário</button>
                         <br>
                         <div id="commentArea" class="collapse">
-                            <form action="<%= campaign._id %>/comment" method="post">
-                                <textarea rows="5" cols="60" name="comment" class="mx-auto d-block mb-2" required></textarea>
+                            <form class="comment-form" action="<%= campaign._id %>/comment" method="post">
+                                <textarea class="form-control" rows="5" cols="60" name="comment" class="mx-auto d-block mb-2" required></textarea>
                                 <button type="submit" class="mx-auto d-block btn btn-primary">Comentar</button>
                             </form>
                         </div>
                         <% } else { %>
-                        <a class="nav-signin btn btn-secondary col-12 col-md-8 col-lg-6 mb-4" href="#authentication" data-toggle="modal">Deixa aqui a tua dúvida/comentário</a>
+                        <button class="nav-signin btn btn-secondary mx-auto d-block" href="#authentication" data-toggle="modal">Deixa aqui a tua dúvida/comentário</button>
                         <% } %>
                     </div>
 
@@ -180,10 +180,10 @@
                             <img class="d-flex align-self-start mr-3 media-img" src="http://placehold.it/64x64" alt="">
                             <div class="media-body">
                                 <% if (campaign.comments[c].user._id == userID) { %>
-                                <button type="button" class="btn btn-danger pull-right delete-comment">
+                                <button class="btn btn-primary btn-sm ml-1 pull-right delete-comment">
                                     <i class="fa fa-trash-o"></i>
                                 </button>
-                                <button class="btn btn-primary pull-right edit-comment">
+                                <button class="btn btn-primary btn-sm ml-1 pull-right edit-comment">
                                     <i class="fa fa-pencil-square-o"></i>
                                 </button>
                                 <% } %>
@@ -196,17 +196,17 @@
                                     var minute =  "" + campaign.comments[c].date.getMinutes();
                                     while (minute.length < 2) {minute = "0" + minute;}
                                 %>
-                                <h5 class="mt-0"><%= campaign.comments[c].user.name %> <small class="text-muted"><%= day + "/" + (month+1) + "/" + year + " às " + hour + ":" + minute %></small></h5>
-                                <div class="comment-text"><%= campaign.comments[c].text %></div>
+                                <h5 class="mt-0"><%= campaign.comments[c].user.name %> <small class="small text-muted"><%= day + "/" + (month+1) + "/" + year + " às " + hour + ":" + minute %></small></h5>
+                                <div class="comment-text preformatted"><%= campaign.comments[c].text %></div>
 
                                 <!-- Create new reply -->
-                                <div class="media mt-3">
+                                <div class="mt-3">
                                     <% if(userLogged) { %>
                                     <a href="#replyArea<%=c%>" class="btn btn-primary find-btn mb-4" data-toggle="collapse">Responder</a>
                                     <div id="replyArea<%=c%>" class="collapse">
-                                        <form action="<%= campaign._id %>/<%= campaign.comments[c]._id %>/reply" method="post">
+                                        <form class="reply-form" action="<%= campaign._id %>/<%= campaign.comments[c]._id %>/reply" method="post">
                                             <textarea rows="5" cols="60" name="reply" required></textarea>
-                                            <button type="submit" class="btn btn-primary find-btn">Responder</button>
+                                            <button type="submit" class="btn btn-primary find-btn d-block">Submeter</button>
                                         </form>
                                     </div>
                                     <% } else { %>
@@ -223,10 +223,10 @@
                                         </a>
                                         <div class="media-body">
                                             <% if (campaign.comments[c].replies[r].user._id == userID) { %>
-                                            <button type="button" class="btn btn-danger pull-right delete-reply">
+                                            <button class="btn btn-primary btn-sm ml-1 pull-right delete-reply">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
-                                            <button class="btn btn-primary pull-right edit-reply">
+                                            <button class="btn btn-primary btn-sm ml-1 pull-right edit-reply">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </button>
                                             <% } %>
@@ -241,7 +241,7 @@
                                                 while (minute.length < 2) {minute = "0" + minute;}
                                             %>
                                             <h5 class="mt-0"><%= campaign.comments[c].replies[r].user.name %> <small class="text-muted"><%= day + "/" + (month+1) + "/" + year + " às " + hour + ":" + minute %></small></h5>
-                                            <div class="reply-text"><%= campaign.comments[c].replies[r].text %></div>
+                                            <div class="reply-text preformatted"><%= campaign.comments[c].replies[r].text %></div>
                                         </div>
                                     </div>
                                     <% } %>

@@ -4,7 +4,7 @@
             <img class="card-img-top campaign_img" src="/<%= campaign.image %>" alt="">
             <div class="card-body">
                 <h4 class="card-title"><%= campaign.title %></h4>
-                <p class="card-text"><%= campaign.description %></p>
+                <p class="card-text"><%= campaign.description.substr(0,30) %><% if(campaign.description.length > 30) { %>...<% } %></p>
             </div>
         </a>
         <div class="card-footer">
@@ -20,11 +20,10 @@
             </div>
             <div><span class="card-footer-">
                     <% if(campaign.progress < campaign.goal) { %>
-                    <%= (campaign.progress / campaign.goal * 100).toFixed() %>%
+                    <%= (campaign.progress / campaign.goal * 100).toFixed() %>
                     <% } else { %>
                     100%
                     <% } %>
-                    %>
                 </span> concluído
                 <% if(campaign.isFunds) { %>
                 <svg class="icon icon-bars pull-right"><use xlink:href="#icon-bars"></use></svg>

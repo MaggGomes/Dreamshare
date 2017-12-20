@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div class="container main-container">
+
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3>Campanhas</h3>
+        </div>
+    </div>
+
+    <table id="campaignsTable" class="row-border">
+        <thead>
+        <tr>
+            <th class="column-title">Título</th>
+            <th class="column-title">Localização</th>
+            <th class="column-title">Tipo</th>
+            <th class="column-title">Progresso</th>
+            <th class="column-title">Objetivo</th>
+            <th class="column-title">Acção</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% campaigns.forEach(function(campaign){ %>
+        <tr class="">
+            <td><a href="/campaigns/<%= campaign._id %>" class="table-item"><%= campaign.title %></a></td>
+            <td><a href="/campaigns/map?lat=<%= campaign.lat %>&lng=<%= campaign.lng %>" class="table-item"><%= campaign.location %></a></td>
+            <td><% if(campaign.isFunds){ %><svg class="icon icon-bars"><use xlink:href="#icon-bars"></use></svg> Fundos<% }
+            else { %><svg class="icon icon-charity"><use xlink:href="#icon-charity"></use></svg> Bens<% } %></td>
+            <td class="text-center"><%= campaign.progress %></td>
+            <td class="text-center"><%= campaign.goal %></td>
+            <td>
+                <a href="/campaigns/<%= campaign._id %>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#moderateModal"><i
+                            class="fa fa-exclamation" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteModal"><i
+                            class="fa fa-trash" aria-hidden="true" data-toggle="modal"
+                            data-target="#deleteModal"></i></button>
+            </td>
+        </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<% include ../partials/footer %>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#campaignsTable').DataTable( {
+			"language": {
+				"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese.json"
+			}
+		} );
+	} );
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="moderateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-title">
+                <div class="navbar-brand brand-title">dream<span class="brand-share">Share</span></div>
+                <div class="modal-close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></div>
+            </div>
+            <div class="modal-body">
+                Deseja moderar este utilizador?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Moderar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-title">
+                <div class="navbar-brand brand-title">dream<span class="brand-share">Share</span></div>
+                <div class="modal-close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></div>
+            </div>
+            <div class="modal-body">
+                Deseja eliminar este utilizador?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

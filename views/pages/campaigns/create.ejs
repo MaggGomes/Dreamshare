@@ -14,8 +14,21 @@
 
 <!-- Page Content -->
 <div class="container main-container">
-    <form action="create" method="post" encType="multipart/form-data">
+    <div class="create-campaign-title-wrapper mb-4">
+        <div class="create-campaign-title">
+            <div class="row page-title mb-4">
+                <div class="col-12">
+                    <h3>Criar campanha</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <form id="createForm" action="create" method="post" encType="multipart/form-data">
         <div class="form-group row my-4">
+            <input id="cropPoints" type="hidden" name="cropPoints">
             <label for="title" class="col-sm-2 col-form-label">Título</label>
             <div class="col-sm-8">
                 <% if( typeof errors == "object" && errors ) { %>
@@ -23,16 +36,16 @@
                 <% for(var i = 0; i < errors.length; i++) { %>
                 <% if(errors[i].param === 'title') { %>
                 <% found = true %>
-                <input type="text" class="form-control is-invalid" id="title" name="title">
+                <input type="text" class="form-control is-invalid" id="title" name="title" minlength="5" maxlength="100" required>
                 <div class="form-control-feedback">
                     <small><%= errors[i].msg %></small>
                 </div>
                 <% } %>
                 <% } %>
                 <% if( !found ) { %>
-                <input type="text" class="form-control" id="title" name="title" value="<%= inputs.title %>">
+                <input type="text" class="form-control" id="title" name="title" value="<%= inputs.title %>"  minlength="5" maxlength="100" required>
                 <% } } else { %>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control" id="title" name="title"  minlength="5" maxlength="100" required>
                 <% } %>
             </div>
         </div>
@@ -40,13 +53,13 @@
         <div class="form-group row my-4">
             <label for="isFunds" class="col-sm-2 col-form-label">Tipo</label>
             <div class="col-sm-8 btn-group" data-toggle="buttons">
-                <label class="btn active btn-primary">
+                <label class="btn active btn-secondary">
                     <input type="radio" name="isFunds" id="funds" value="true" onchange="showGoodsTypeSelect(true);"
-                           checked> Fundos
+                           checked><svg class="icon icon-bars"><use xlink:href="#icon-bars"></use></svg> Fundos
                 </label>
                 <label class="btn btn-secondary">
                     <input type="radio" name="isFunds" id="goods" value="false" onchange="showGoodsTypeSelect(false);">
-                    Bens
+                    <svg class="icon icon-charity"><use xlink:href="#icon-charity"></use></svg> Bens
                 </label>
             </div>
         </div>
@@ -59,7 +72,7 @@
                     <% for(var i = 0; i < errors.length; i++) { %>
                     <% if(errors[i].param === 'goal') { %>
                     <% found = true %>
-                    <input class="form-control is-invalid border-right-0" type="number" id="goal" name="goal">
+                    <input class="form-control is-invalid border-right-0" type="number" id="goal" name="goal" min="0" required>
                     <span class="input-group-addon bg-white border-left-0 is-invalid" id="euroIcon"><i class="fa fa-eur"
                                                                                                        aria-hidden="true"></i></span>
                     <div class="form-control-feedback">
@@ -69,12 +82,12 @@
                     <% } %>
                     <% if( !found ) { %>
                     <input class="form-control border-right-0" type="number" id="goal" name="goal"
-                           value="<%= inputs.goal %>">
+                           value="<%= inputs.goal %>"  min="0" required>
                     <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur"
                                                                                             aria-hidden="true"></i></span>
                     <% } %>
                     <% } else { %>
-                    <input class="form-control border-right-0" type="number" id="goal" name="goal">
+                    <input class="form-control border-right-0" type="number" id="goal" name="goal"  min="0" required>
                     <span class="input-group-addon bg-white border-left-0" id="euroIcon"><i class="fa fa-eur"
                                                                                             aria-hidden="true"></i></span>
                     <% } %>
@@ -100,7 +113,7 @@
                 <% for(var i = 0; i < errors.length; i++) { %>
                 <% if(errors[i].param === 'description') { %>
                 <% found = true %>
-                <textarea class="form-control is-invalid" id="description" rows="4" name="description"></textarea>
+                <textarea class="form-control is-invalid" id="description" rows="4" name="description"  minlength="25" maxlength="250" required></textarea>
                 <div class="form-control-feedback">
                     <small><%= errors[i].msg %></small>
                 </div>
@@ -108,16 +121,16 @@
                 <% } %>
                 <% if( !found ) { %>
                 <textarea class="form-control" id="description" rows="4"
-                          name="description"> <%= inputs.description %> </textarea>
+                          name="description"  minlength="25" maxlength="250" required> <%= inputs.description %> </textarea>
                 <% } %>
                 <% } else { %>
-                <textarea class="form-control" id="description" rows="4" name="description"></textarea>
+                <textarea class="form-control" id="description" rows="4" name="description"  minlength="25" maxlength="250" required></textarea>
                 <% } %>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="searchAddress" class="col-sm-2 col-form-label">Localização</label>
+            <label for="searchAddress" class="col-sm-2 col-form-label">Localidade</label>
             <div class="col-sm-8">
                 <% if( typeof errors == "object" && errors ) { %>
                 <% var found = false; %>
@@ -127,7 +140,7 @@
                 <input class="form-control is-invalid" id="searchAddress" type="text">
                 <input id="lat" type="hidden" name="lat">
                 <input id="lng" type="hidden" name="lng">
-                <input id="address" type="hidden" name="address">
+                <input id="address" type="hidden" name="address" required>
                 <input id="location" type="hidden" name="location">
                 <div class="form-control-feedback">
                     <small><%= errors[i].msg %></small>
@@ -138,14 +151,14 @@
                 <input class="form-control" id="searchAddress" type="text" value="<%= inputs.address %>">
                 <input id="lat" type="hidden" name="lat" value="<%= inputs.lat %>">
                 <input id="lng" type="hidden" name="lng" value="<%= inputs.lng %>">
-                <input id="address" type="hidden" name="address" value="<%= inputs.address %>">
+                <input id="address" type="hidden" name="address" value="<%= inputs.address %>" required>
                 <input id="location" type="hidden" name="location">
                 <% } %>
                 <% } else { %>
                 <input class="form-control" id="searchAddress" type="text">
                 <input id="lat" type="hidden" name="lat">
                 <input id="lng" type="hidden" name="lng">
-                <input id="address" type="hidden" name="address">
+                <input id="address" type="hidden" name="address" required>
                 <input id="location" type="hidden" name="location">
                 <% } %>
 
@@ -161,17 +174,17 @@
                 <% if(errors[i].param === 'endDate') { %>
                 <% found = true %>
 
-                <input class="form-control is-invalid" type="date" id="endDate" name="endDate">
+                <input class="form-control is-invalid" type="date" id="endDate" name="endDate" required>
                 <div class="form-control-feedback">
                     <small><%= errors[i].msg %></small>
                 </div>
                 <% } %>
                 <% } %>
                 <% if( !found ) { %>
-                <input class="form-control" type="date" id="endDate" name="endDate" value="<%= inputs.endDate %>">
+                <input class="form-control" type="date" id="endDate" name="endDate" value="<%= inputs.endDate %>" required>
                 <% } %>
                 <% } else { %>
-                <input class="form-control" type="date" id="endDate" name="endDate">
+                <input class="form-control" type="date" id="endDate" name="endDate" required>
                 <% } %>
             </div>
         </div>
@@ -186,16 +199,17 @@
             <div class="col-lg-12">
                 <div id="profile-pic-preview"></div>
             </div>
-            <div class="col-lg-6 col-sm-6 col-12">
-                <label class="btn btn-secondary">
-                    Escolher ficheiro&hellip;<input type="file" id="profile-picture-upload" name="imageFile"
+            <div class="col-12 text-center">
+                <label class="btn btn-secondary btn-photo col-12 col-sm-6 col-md-4">
+                    Escolher ficheiro<input type="file" id="profile-picture-upload" name="imageFile"
                                                     class="custom-file-input" style="display: none" required/>
                 </label>
-                <!--input id="croppedImage" type="hidden" name="croppedImage" value="" hidden-->
             </div>
         </div>
-        <input id="croppedImage" type="hidden" name="croppedImage">
-        <button type="submit" onclick="getCroppedImage()" class="btn btn-primary c  enter-block">Criar campanha</button>
+        <div class="text-center">
+            <button class="btn btn-primary center-block" type="submit">Criar campanha</button>
+        </div>
+
     </form>
 </div>
 
