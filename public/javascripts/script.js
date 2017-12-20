@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	
+
 	/* Modal components */
 
 	/* Signin */

@@ -28,16 +28,16 @@ router.get('/', function (req, res, next) {
 			if (userLogged) {
 				users.getCoords( req.session.userID, function (err, coords) {
 					if (err) {
-						campaigns.getTrending(6, renderIndex);
+						campaigns.getTrending(3, renderIndex);
 					} else {
-						campaigns.getTrendingWithCoords(6, coords.lat, coords.lng, renderIndex);
+						campaigns.getTrendingWithCoords(3, coords.lat, coords.lng, renderIndex);
 					}
 				});
 			}else{
-				campaigns.getTrending(6, renderIndex);
+				campaigns.getTrending(3, renderIndex);
 			}
-		}).limit(6);
-	}).limit(6);
+		}).limit(3);
+	}).limit(3);
 });
 
 module.exports = router;

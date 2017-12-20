@@ -9,11 +9,15 @@
 <body>
 <% include ../partials/header %>
 
-<div class="container">
+<div class="container main-container">
 
-    <h1 class="mb-3">Campanhas</h1>
+    <div class="row page-title mb-4">
+        <div class="col-12">
+            <h3>Campanhas</h3>
+        </div>
+    </div>
 
-    <table id="campaignsTable" class="table table-striped table-bordered bulk_action">
+    <table id="campaignsTable" class="row-border">
         <thead>
         <tr>
             <th class="column-title">Título</th>
@@ -27,17 +31,18 @@
 
         <tbody>
         <% campaigns.forEach(function(campaign){ %>
-        <tr class="<% if(campaign.reports.length > 0) { %>bg-warning<% } %>">
-            <td><a href="/campaigns/<%= campaign._id %>"><%= campaign.title %></a></td>
-            <td><a href="/campaigns/map?lat=<%= campaign.lat %>&lng=<%= campaign.lng %>"><%= campaign.location %></a></td>
-            <td><% if(campaign.isFunds){ %>Fundos<% } else { %>Bens<% } %></td>
+        <tr class="">
+            <td><a href="/campaigns/<%= campaign._id %>" class="table-item"><%= campaign.title %></a></td>
+            <td><a href="/campaigns/map?lat=<%= campaign.lat %>&lng=<%= campaign.lng %>" class="table-item"><%= campaign.location %></a></td>
+            <td><% if(campaign.isFunds){ %><svg class="icon icon-bars"><use xlink:href="#icon-bars"></use></svg> Fundos<% }
+            else { %><svg class="icon icon-charity"><use xlink:href="#icon-charity"></use></svg> Bens<% } %></td>
             <td class="text-center"><%= campaign.progress %></td>
             <td class="text-center"><%= campaign.goal %></td>
             <td>
-                <a href="/campaigns/<%= campaign._id %>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#moderateModal"><i
+                <a href="/campaigns/<%= campaign._id %>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#moderateModal"><i
                             class="fa fa-exclamation" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteModal"><i
                             class="fa fa-trash" aria-hidden="true" data-toggle="modal"
                             data-target="#deleteModal"></i></button>
             </td>
@@ -51,7 +56,11 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script>
 	$(document).ready(function() {
-		$('#campaignsTable').DataTable();
+		$('#campaignsTable').DataTable( {
+			"language": {
+				"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese.json"
+			}
+		} );
 	} );
 </script>
 
@@ -60,18 +69,16 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Moderar utilizador</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header modal-title">
+                <div class="navbar-brand brand-title">dream<span class="brand-share">Share</span></div>
+                <div class="modal-close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></div>
             </div>
             <div class="modal-body">
-                Quer moderar este utilizador?
+                Deseja moderar este utilizador?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-warning">Moderar</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Moderar</button>
             </div>
         </div>
     </div>
@@ -82,18 +89,16 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Apagar utilizador</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header modal-title">
+                <div class="navbar-brand brand-title">dream<span class="brand-share">Share</span></div>
+                <div class="modal-close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></div>
             </div>
             <div class="modal-body">
-                Quer apagar este utilizador?
+                Deseja eliminar este utilizador?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Apagar</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger">Eliminar</button>
             </div>
         </div>
     </div>

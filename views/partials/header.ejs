@@ -53,10 +53,10 @@
         <div class="container">
             <a class="brand-logo" href="/"><img src="/images/logo.png"></a>
             <a class="navbar-brand brand-name" href="/">dream<span class="brand-share">share</span></a>
-            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
+            <button class="navbar-toggler navbar-button" type="button" data-toggle="collapse"
                     data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                     aria-label="Toggle navigation">
-                <i class="fa fa-bars" aria-hidden="true"></i>
+                <img src="/images/users/default.png" class="menu-photo">
             </button>
 
             <div class="home-search">
@@ -70,6 +70,7 @@
                 </div>
                 <div id="normalSearch" class="overlay"></div>
             </div>
+
             <div class="collapse navbar-collapse navbar-right" id="navbarResponsive">
                 <ul class="nav-menu navbar-nav ml-auto">
                     <li class="nav-item">
@@ -78,24 +79,24 @@
                         </div>
                     </li>
                     <% if(userLogged) { %>
-                    <li class="nav-item">
+                    <li class="nav-item menu-hide-lg">
                         <div class="nav-link-wrapper hvrcenter">
                             <a class="nav-link" href="/campaigns/create">Criar Campanha</a>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item menu-hide-lg">
                         <div class="nav-link-wrapper hvrcenter">
                             <a class="nav-link" href="/account">Perfil</a>
                         </div>
                     </li>
                     <% if(isAdmin) { %>
-                    <li class="nav-item">
+                    <li class="nav-item menu-hide-lg">
                         <div class="nav-link-wrapper hvrcenter">
-                            <a class="nav-link" href="/admin">Admin</a>
+                            <a class="nav-link" href="/admin">Painel de administração</a>
                         </div>
                     </li>
                     <% } %>
-                    <li class="nav-item">
+                    <li class="nav-item menu-hide-lg">
                         <div class="nav-link-wrapper hvrcenter">
                             <a id="nav-logout" class="nav-link" href="">Sair</a>
                         </div>
@@ -112,13 +113,27 @@
                         </div>
                     </li>
                     <% } %>
-                    <li class="nav-item">
-                        <div class="nav-link-wrapper hvrcenter">
-                            <a class="nav-link" href="#">Ajuda</a>
-                        </div>
-                    </li>
                 </ul>
             </div>
+
+            <% if(userLogged) { %>
+            <div class="dropdown">
+                <a data-toggle="dropdown">
+                    <img src="/images/users/default.png" class="menu-photo">
+                </a>
+
+                <ul id="dropdown-menu-left" class="dropdown-menu collapse">
+                    <li><a href="/campaigns/create" class="dropdown-item">Criar campanha</a></li>
+                    <li><a href="/account" class="dropdown-item">Editar Perfil</a></li>
+                    <li><a href="/account" class="dropdown-item">Configurações de conta</a></li>
+                    <% if(isAdmin) { %>
+                    <li><a href="/admin" class="dropdown-item">Painel de administração</a></li>
+                    <% } %>
+                    <li class="dropdown-divider"></li>
+                    <li><a id="nav-logout" class="dropdown-item">Sair</a></li>
+                </ul>
+            </div>
+            <% } %>
         </div>
     </nav>
 </header>

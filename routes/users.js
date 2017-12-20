@@ -1,7 +1,18 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+var express = require('express'),
+	router = express.Router(),
+	mongoose = require('mongoose'),
+	Users = require('../models/users'),
+	bcrypt = require('bcrypt'),
+	multer = require('multer'),
+	upload = multer({
+		dest: 'images/users/',
+		fileFilter: function (req, file, cb) {
+			if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+				return cb(new Error('Only image files are allowed!'));
+			}
+			cb(null, true);
+		}
+	});
 
 /* Sign in user */
 router.post('/signin', function (req, res, next) {
@@ -17,7 +28,7 @@ router.post('/signin', function (req, res, next) {
 					req.session.email = user.email;
 					req.session.userID = user._id;
 					req.session.isAdmin = user.isAdmin;
-					res.cookie('user', user.email).status('200').send('200');
+					res.cookie('name', user.name).cookie('user', user.email).status('200').send('200');
 				} else {
 					res.status('400').send('400');
 				}
@@ -52,7 +63,7 @@ router.post('/signin/3rdparty', function (req, res, next) {
 									req.session.email = user.email;
 									req.session.userID = user._id;
 									req.session.isAdmin = user.isAdmin;
-									res.cookie('user', user.email).status('200').send('200');
+									res.cookie('name', user.name).cookie('user', user.email).status('200').send('200');
 								}
 							}
 						});
@@ -64,7 +75,7 @@ router.post('/signin/3rdparty', function (req, res, next) {
 				req.session.email = user.email;
 				req.session.userID = user._id;
 				req.session.isAdmin = user.isAdmin;
-				res.cookie('user', user.email).status('200').send('200');
+				res.cookie('name', user.name).cookie('user', user.email).status('200').send('200');
 			}
 		}
 	});
@@ -105,7 +116,7 @@ router.post('/register', function (req, res, next) {
 									req.session.email = user.email;
 									req.session.userID = user._id;
 									req.session.isAdmin = user.isAdmin;
-									res.cookie('user', user.email).status('200').send('200');
+									res.cookie('name', user.name).cookie('user', user.email).status('200').send('200');
 								}
 							}
 						});
@@ -121,73 +132,53 @@ router.post('/register', function (req, res, next) {
 
 
 /* Creates a new user */
-router.post('/:userId/edit', function (req, res, next) {
+router.post('/:userId/edit', upload.array(), function (req, res, next) {
 	if (req.session.user) {
 		if(req.session.userID == req.params.userId || req.session.isAdmin) {
-			console.log('teste ' + req.body.title);
-			console.log(req.body.croppedImage);
-			var buf = new Buffer(req.body.croppedImage, 'base64');
-			console.log(buf);
-			fs.writeFile('images/campaigns/teste.png', buf, function (err) {
-				console.log(err);
-			});
-			req.checkBody('title', 'O título precisa de ter pelo menos 5 caracteres').isLength({min: 5});
-			req.checkBody('title', 'O título não pode ter mais que 100 caracteres').isLength({max: 100});
-			req.checkBody('description', 'A descrição precisa de ter pelo menos 25 caracteres').isLength({min: 25});
-			req.checkBody('description', 'A descrição não pode ter mais que 250 caracteres').isLength({max: 250});
-			req.checkBody('isFunds', 'Tipo de funds é obrigatório').notEmpty();
-			req.checkBody('goal', 'O objetivo da campanha tem que ser maior que 0').notEmpty();
-			req.checkBody('endDate', 'Campanha tem que ter uma data final').notEmpty();
-			req.checkBody('address', 'Localização não é valida').notEmpty();
+			if((req.body.email && req.body.email != req.session.email) || (req.body.newPassword && req.body.newPassword2)){
+				if(req.body.email){
+					req.checkBody('email', 'Devee ser um e-mail').isEmail();
+				}
+				if(req.body.newPassword){
+					req.checkBody('newPassword', 'Passwords não correspondem').isEqual(req.body.newPassword2);
+					req.body.newPassword = bcrypt.hashSync(req.body.newPassword, 10);
+				}
+				req.checkBody('password', 'Password tem de ser preenchida').notEmpty();
+			}
 
-			//var latlong = req.body.lat + "," + req.body.lng;
+			if(req.body.name) {
+				req.checkBody('name', 'O nome precisa de ter pelo menos 3 caracteres').isLength({min: 3});
+				req.checkBody('name', 'O nome não pode ter mais que 100 caracteres').isLength({max: 100});
+			}
+			if(req.body.biography) {
+				req.checkBody('biography', 'A descrição precisa de ter pelo menos 10 caracteres').isLength({min: 10});
+				req.checkBody('biography', 'A descrição não pode ter mais que 250 caracteres').isLength({max: 250});
+			}
 
-			//req.check(latlong, 'Location is not valid').isLatLong();
-
-			//const errors = validationResult(req);
 			var errors = req.validationErrors();
 			if (errors) {
-				//res.send(errors);
-				//res.send(req.file.path);
-				res.render('pages/campaigns/create', {errors: errors, inputs: req.body});
+				console.log(errors);
+				res.render('pages/account/index', {errors: errors, inputs: req.body});
 				return;
-				//return res.status(422).json({ errors: errors.mapped() });
 			}
-			mongoose.model('Campaign').create({
-				owner: req.session.userID,
-				title: req.body.title,
-				description: req.body.description,
-				isFunds: req.body.isFunds,
-				goodsType: req.body.goodsType.toLowerCase(),
-				goal: req.body.goal,
-				endDate: req.body.endDate,
-				lat: req.body.lat,
-				lng: req.body.lng,
-				loc: [req.body.lng, req.body.lat],
-				address: req.body.address,
-				location: req.body.location,
-				image: req.file.path
-			}, function (err, campaign) {
-				if (err) {
-					res.send('There was a problem adding the information to the database.\n' + err);
-				} else {
-					//Blob has been created
-					console.log('POST creating new campaign: ' + campaign);
-					res.format({
-						//HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
-						html: function () {
-							// If it worked, set the header so the address bar doesn't still say /adduser
-							res.location('campaigns');
-							// And forward to success page
-							res.redirect('/campaigns');
-						},
-						//JSON response will show the newly created blob
-						json: function () {
-							res.json(campaign);
-						}
-					});
-				}
-			});
+			Users.updateUser(req.params.userId,
+				req.body.email,
+				req.body.newPassword,
+				req.body.name,
+				req.body.genre,
+				req.body.lat,
+				req.body.lng,
+				req.body.address,
+				req.body.location,
+				req.body.birthdate,
+				req.body.biography,
+				req.body.photo,
+				function(err, user){
+					if (err) { console.log(err); res.sendStatus(400); } else {
+						console.log(user);
+						res.redirect('/account');
+					}
+				});
 		} else {
 			res.sendStatus(401);
 		}

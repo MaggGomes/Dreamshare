@@ -62,3 +62,25 @@ exports.getUser = function (id, done){
 		done(null, user);
 	});
 };
+
+exports.updateUser = function (id, email, password, name, genre, lat, lng, address, location, birthdate, biography, photo, done){
+	mongoose.model('User').findById(id, function (err, user) {
+		if (err) return done(err);
+
+		if(email){user.email = email;}
+		if(password){user.password = password;}
+		if(name){user.name = name;}
+		if(genre){user.genre = genre;}
+		if(lat){user.lat = lat;}
+		if(lng){user.lng = lng;}
+		if(address){user.address = address;}
+		if(location){user.location = location;}
+		if(birthdate){user.birthdate = birthdate;}
+		if(biography){user.biography = biography;}
+		if(photo){user.photo = photo;}
+		user.save(function (err, updatedUser) {
+			if (err) return done(err);
+			done(null, updatedUser);
+		});
+	});
+};

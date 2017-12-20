@@ -1,7 +1,7 @@
 var express = require('express'),
 	mongoose = require('mongoose'),
 	Users = require('../models/users'),
-	Donations = require('../models/donations'),
+	Campaigns = require('../models/campaigns'),
 	router = express.Router();
 
 
@@ -17,9 +17,13 @@ router.get('/', function (req, res, next) {
 				if (!user) {
 					res.sendStatus(400);
 				} else {
-					Donations.getDonationsByUser(req.session.userID, function (err, donations) {
+					Campaigns.getCampaignsWithDonationsByUser(req.session.userID, function(err, contributions){
 						if (err) { next(err); } else {
-							res.render('pages/account/index', {user: user, donations: donations, userLogged: userLogged});
+							Campaigns.getCampaignsByUser(req.session.userID, function (err, campaigns) {
+								if (err) { next(err); } else {
+									res.render('pages/account/index', {user: user, contributions: contributions, campaigns: campaigns, userLogged: userLogged});
+								}
+							});
 						}
 					});
 				}

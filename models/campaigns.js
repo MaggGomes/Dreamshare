@@ -155,3 +155,35 @@ exports.getReportedCampaigns = function (done) {
 	});
 };
 
+exports.getCampaignsByUser = function (userID, done){
+	mongoose.model('Campaign').find({owner: userID}, function (err, donations) {
+		if (err) return done(err);
+		done(null, donations);
+	});
+};
+
+exports.getCampaignsWithDonationsByUser = function (userID, done){
+	mongoose.model('Campaign')
+		.find()
+		.populate({
+			path:'donations',
+			match: {
+				user: userID
+			}
+		})
+		.exec(function (err, contributions) {
+			if (err) return done(err);
+			contributions = contributions
+				.filter(function(contribution) {
+					return contribution.donations.length > 0;
+				})
+				.map(function(contribution) {
+					var newContri = Object.assign({}, contribution._doc);
+					newContri.donatedValue = contribution.donations.reduce(function( prevVal, elem ) {
+						return prevVal + elem.value;
+					}, 0 );
+					return newContri;
+				});
+			done(null, contributions);
+		});
+};
