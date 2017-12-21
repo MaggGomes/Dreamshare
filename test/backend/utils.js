@@ -55,3 +55,15 @@ exports.userDonate = function (url, donation, agent, callback)
 			callback(err, res);
 		});
 };
+
+
+exports.createCampaign = function (url, campaign, agent, callback)
+{
+	agent
+		.post(url)
+		.send(campaign)
+		.end(function (err, res)
+		{
+			callback(err, res);
+		});
+};

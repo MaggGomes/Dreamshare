@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">13.64% </span>
+        <span class="strong">63.64% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/22</span>
+        <span class='fraction'>14/22</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">41.67% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/12</span>
+        <span class='fraction'>5/12</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">80% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/5</span>
+        <span class='fraction'>4/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">15.79% </span>
+        <span class="strong">73.68% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/19</span>
+        <span class='fraction'>14/19</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -93,35 +93,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,27 +134,27 @@
 	router = express.Router();
 &nbsp;
 /* GET home page. */
-router.get('/', <span class="fstat-no" title="function not covered" >function (req, res, next) {</span>
-<span class="cstat-no" title="statement not covered" >	if (req.session.user) {</span>
+router.get('/', function (req, res, next) {
+	<span class="missing-if-branch" title="if path not taken" >I</span>if (req.session.user) {
 <span class="cstat-no" title="statement not covered" >		userLogged = true;</span>
 	} else {
-<span class="cstat-no" title="statement not covered" >		userLogged = false;</span>
+		userLogged = false;
 	}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	mongoose.model('Campaign').find({isFunds: true}, <span class="fstat-no" title="function not covered" >function (err, fundsCampaigns) {</span></span>
-<span class="cstat-no" title="statement not covered" >		if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
-<span class="cstat-no" title="statement not covered" >		mongoose.model('Campaign').find({isFunds: false}, <span class="fstat-no" title="function not covered" >function (err, goodsCampaigns) {</span></span>
-<span class="cstat-no" title="statement not covered" >			if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
-<span class="cstat-no" title="statement not covered" >			var renderIndex = <span class="fstat-no" title="function not covered" >function (err, trendingCampaigns) {</span></span>
-<span class="cstat-no" title="statement not covered" >				if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
-<span class="cstat-no" title="statement not covered" >				res.render('pages/index', {</span>
+	mongoose.model('Campaign').find({isFunds: true}, function (err, fundsCampaigns) {
+		<span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >throw err;</span>
+		mongoose.model('Campaign').find({isFunds: false}, function (err, goodsCampaigns) {
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >throw err;</span>
+			var renderIndex = function (err, trendingCampaigns) {
+				<span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >throw err;</span>
+				res.render('pages/index', {
 					fundsCampaigns: fundsCampaigns,
 					goodsCampaigns: goodsCampaigns,
 					trendingCampaigns: trendingCampaigns,
 					userLogged: userLogged
 				});
 			};
-<span class="cstat-no" title="statement not covered" >			if (userLogged) {</span>
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (userLogged) {
 <span class="cstat-no" title="statement not covered" >				users.getCoords( req.session.userID, <span class="fstat-no" title="function not covered" >function (err, coords) {</span></span>
 <span class="cstat-no" title="statement not covered" >					if (err) {</span>
 <span class="cstat-no" title="statement not covered" >						campaigns.getTrending(3, renderIndex);</span>
@@ -163,7 +163,7 @@ router.get('/', <span class="fstat-no" title="function not covered" >function (r
 					}
 				});
 			}else{
-<span class="cstat-no" title="statement not covered" >				campaigns.getTrending(3, renderIndex);</span>
+				campaigns.getTrending(3, renderIndex);
 			}
 		}).limit(3);
 	}).limit(3);
@@ -175,7 +175,7 @@ module.exports = router;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 20 2017 05:52:11 GMT+0000 (WET)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Dec 21 2017 04:42:11 GMT+0000 (WET)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -108,7 +108,7 @@ describe('Users', () => {
 
 		it('it should not POST signin a user that doesnt exist', (done) => {
 			let user = {
-				email: 'teste3@teste.teste',
+				email: 'teste5@teste.teste',
 				password: '123456'
 			};
 			chai.request(app.server)
@@ -133,7 +133,6 @@ describe('Users', () => {
 					done();
 				});
 		});
-
 	});
 
 

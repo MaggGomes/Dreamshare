@@ -1,0 +1,1265 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for backend/campaigns.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">backend/</a> campaigns.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>38/168</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.62% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>38/168</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">process.env.NODE_ENV = 'test';
+&nbsp;
+var mongoose = require('mongoose');
+var app = require('../../app');
+//Require the dev-dependencies
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var bcrypt = require('bcrypt');
+const utils = require('./utils');
+&nbsp;
+var globalID;
+let globalCampaignID;
+chai.use(chaiHttp);
+//Our parent block
+&nbsp;
+&nbsp;
+describe('Campaigns', () =&gt; {
+	before((done) =&gt; { //Before tests
+<span class="cstat-no" title="statement not covered" >		mongoose.model('User').create({</span>
+			name: 'teste2',
+			email: 'teste2@teste.teste',
+			password: bcrypt.hashSync('123456', 10)
+		}, (err, user) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let ownerID = user._id;</span>
+<span class="cstat-no" title="statement not covered" >			globalID = user._id;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			mongoose.model('Campaign').create({</span>
+				owner: ownerID,
+				title: 'Example for testing',
+				description: 'testing is fun',
+				isFunds: true,
+				goal: 100,
+				endDate: new Date('2015-03-25'),
+				lat: 41.157944,
+				lng: -8.629105,
+				loc: [41.157944, -8.629105],
+				image: 'imagefile',
+			}, (err,campaign) =&gt; {
+<span class="cstat-no" title="statement not covered" >				globalCampaignID = campaign._id;</span>
+			});
+		});
+<span class="cstat-no" title="statement not covered" >		mongoose.model('User').create({</span>
+			name: 'teste3',
+			email: 'teste3@teste.teste',
+			password: bcrypt.hashSync('123456', 10)
+		});
+<span class="cstat-no" title="statement not covered" >		done();</span>
+	});
+&nbsp;
+	describe('/POST create campaign', () =&gt; {
+        it('it should not POST a campaign with no user logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/create';</span>
+<span class="cstat-no" title="statement not covered" >            let campaign = {</span>
+                owner: globalID,
+                title: 'Second Example for testing',
+                description: 'testing is fun and the description needs to have at least 25 characters',
+                isFunds: true,
+                goal: 100,
+                endDate: new Date('2015-03-25'),
+                lat: 41.157944,
+                lng: -8.629105,
+                loc: [41.157944, -8.629105],
+                address:"example adress",
+                image: 'imagefile',
+            };
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >                agent</span>
+                    .post(url)
+                    .send(campaign)
+                    .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        res.should.have.status(400);</span>
+<span class="cstat-no" title="statement not covered" >                        done();</span>
+                    });
+&nbsp;
+        });
+	});
+&nbsp;
+&nbsp;
+	describe('/POST search campaign', () =&gt; {
+		it('it should POST a campaign search with correct data and return such campaign', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let searchValue = 'testing';</span>
+<span class="cstat-no" title="statement not covered" >			chai.request(app.server)</span>
+				.post('/campaigns/searchByTitle')
+				.send(searchValue)
+				.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >					if (err) {</span>
+<span class="cstat-no" title="statement not covered" >						done(err);</span>
+					}
+<span class="cstat-no" title="statement not covered" >					res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >					res.text.should.contain('Example for testing');</span>
+<span class="cstat-no" title="statement not covered" >					done();</span>
+				});
+		});
+&nbsp;
+		it('it should POST a campaign search with correct data and return such campaign', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let invalidValue = 'xxx';</span>
+<span class="cstat-no" title="statement not covered" >			chai.request(app.server)</span>
+				.post('/campaigns/searchByTitle')
+				.send(invalidValue)
+				.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >					if (err) {</span>
+<span class="cstat-no" title="statement not covered" >						done(err);</span>
+					}
+<span class="cstat-no" title="statement not covered" >					res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >					res.text.should.contain('Example for testing');</span>
+<span class="cstat-no" title="statement not covered" >					done();</span>
+				});
+		});
+	});
+&nbsp;
+	describe('/POST donate to campaign', () =&gt; {
+		it('it should not POST a donation to campaign if user is not logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let url = '/campaigns/' + globalCampaignID + '/donate';</span>
+<span class="cstat-no" title="statement not covered" >			let donation = {</span>
+				user: globalID,
+				value: 200
+			};
+<span class="cstat-no" title="statement not covered" >			agent = chai.request(app.server)</span>
+				.post(url)
+				.send(donation)
+				.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >					res.should.have.status(400);</span>
+<span class="cstat-no" title="statement not covered" >					done();</span>
+				});
+		});
+&nbsp;
+		it('it should POST a donation to a valid campaign if logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let url = '/campaigns/'+ globalCampaignID +'/donate';</span>
+<span class="cstat-no" title="statement not covered" >			let donation = {</span>
+				user : globalID,
+				value: 200
+			};
+<span class="cstat-no" title="statement not covered" >			let user = {</span>
+				email: 'teste2@teste.teste',
+				password: '123456'
+			};
+<span class="cstat-no" title="statement not covered" >			utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent)</span></span>
+			{
+<span class="cstat-no" title="statement not covered" >				utils.userDonate(url, donation, agent, <span class="fstat-no" title="function not covered" >function (err, res)</span></span>
+				{
+<span class="cstat-no" title="statement not covered" >					res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >					done();</span>
+				});
+			});
+&nbsp;
+		});
+&nbsp;
+		/*        it('it should POST a donation to campaign', (done) =&gt; {
+&nbsp;
+            let fakeUrl = '/campaigns/5a3211f8c0c1917966dc9224/donate';
+            let donation = {
+                user : globalID,
+                value : 200
+            };
+            let user = {
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+            utils.loginUser(user.email, user.password, function (err, agent)
+            {
+                utils.userDonate(fakeUrl, donation, agent, function (err, res)
+                {
+                    res.should.have.status(400);
+                    done();
+                });
+            });
+&nbsp;
+        });*/
+	});
+&nbsp;
+	describe('/GET  campaigns', () =&gt; {
+		it('it should GET a campaign when parsed correct ID', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			chai.request(app.server)</span>
+				.get('/campaigns/'+ globalCampaignID)
+				.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >					if (err) {</span>
+<span class="cstat-no" title="statement not covered" >						done(err);</span>
+					}
+<span class="cstat-no" title="statement not covered" >					res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >					res.text.should.contain('Example for testing');</span>
+<span class="cstat-no" title="statement not covered" >					done();</span>
+				});
+		});
+&nbsp;
+		it('it should GET a campaign when parsed correct ID and signed in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let user = {</span>
+				email: 'teste3@teste.teste',
+				password: '123456'
+			};
+<span class="cstat-no" title="statement not covered" >			agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >			utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >				agent</span>
+					.get('/campaigns/' + globalCampaignID)
+					.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >						if (err) {</span>
+<span class="cstat-no" title="statement not covered" >							done(err);</span>
+						}
+<span class="cstat-no" title="statement not covered" >						res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >						res.text.should.contain('Example for testing');</span>
+<span class="cstat-no" title="statement not covered" >						done();</span>
+					});
+			});
+&nbsp;
+		});
+&nbsp;
+		it('it should GET a campaign when parsed correct ID and signed in as owner', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let user = {</span>
+				email: 'teste2@teste.teste',
+				password: '123456'
+			};
+<span class="cstat-no" title="statement not covered" >			agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >			utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >				agent</span>
+					.get('/campaigns/' + globalCampaignID)
+					.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >						if (err) {</span>
+<span class="cstat-no" title="statement not covered" >							done(err);</span>
+						}
+<span class="cstat-no" title="statement not covered" >						res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >						res.text.should.contain('id="saveBtn"');</span>
+<span class="cstat-no" title="statement not covered" >						done();</span>
+					});
+			});
+&nbsp;
+		});
+&nbsp;
+		it('it should GET a campaign when parsed correct ID and signed in as user without priveledges', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let user = {</span>
+				email: 'teste3@teste.teste',
+				password: '123456'
+			};
+<span class="cstat-no" title="statement not covered" >			agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >			utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >				agent</span>
+					.get('/campaigns/' + globalCampaignID)
+					.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >						if (err) {</span>
+<span class="cstat-no" title="statement not covered" >							done(err);</span>
+						}
+<span class="cstat-no" title="statement not covered" >						res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >						res.text.should.not.contain(' id="saveBtn" ');</span>
+<span class="cstat-no" title="statement not covered" >						done();</span>
+					});
+			});
+		});
+	});
+&nbsp;
+	describe('/GET edit campaign', () =&gt; {
+		it('it should GET campaign edit page', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let url = '/campaigns/' + globalCampaignID + '/edit';</span>
+<span class="cstat-no" title="statement not covered" >			agent = chai.request(app.server)</span>
+				.get(url)
+				.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >					res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >					done();</span>
+				});
+		});
+		it('it should GET campaign edit page when a user is logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >			let url = '/campaigns/' + globalCampaignID + '/edit';</span>
+<span class="cstat-no" title="statement not covered" >			let user = {</span>
+				email: 'teste2@teste.teste',
+				password: '123456'
+			};
+<span class="cstat-no" title="statement not covered" >			agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >			utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >				agent</span>
+					.get(url)
+					.end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >						res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >						done();</span>
+					});
+			});
+		});
+	});
+&nbsp;
+&nbsp;
+    describe('/POST report campaign', () =&gt; {
+        it('it should not POST a report to a campaign when not logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/' + globalCampaignID + '/report';</span>
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server)</span>
+                .post(url)
+                .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                    res.should.have.status(400);</span>
+<span class="cstat-no" title="statement not covered" >                    done();</span>
+                });
+        });
+&nbsp;
+        it('it should POST a report to a campaign when logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/' + globalCampaignID + '/report';</span>
+<span class="cstat-no" title="statement not covered" >            let user = {</span>
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+<span class="cstat-no" title="statement not covered" >            let report = {</span>
+                user: globalID,
+                description: "this is meant for test purposes"
+			};
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >            utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >                agent</span>
+                    .post(url)
+					.send(report)
+                    .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >                        done();</span>
+                    });
+            });
+        });
+&nbsp;
+&nbsp;
+        it('it should not POST a report to a campaign with missing or invalid report(missing)', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/' + globalCampaignID + '/report';</span>
+<span class="cstat-no" title="statement not covered" >            let user = {</span>
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >            utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >                agent</span>
+                    .post(url)
+                    .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        res.should.have.status(400);</span>
+<span class="cstat-no" title="statement not covered" >                        done();</span>
+                    });
+            });
+        });
+&nbsp;
+        it('it should not POST a report to a campaign with missing or invalid report (invalid)', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/' + globalCampaignID + '/report';</span>
+<span class="cstat-no" title="statement not covered" >            let user = {</span>
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+<span class="cstat-no" title="statement not covered" >            let report = {</span>
+                user: 'IDONTEXIST',
+                description: 'this is meant for test purposes'
+            };
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >            utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >                agent</span>
+                    .post(url)
+                    .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        res.should.have.status(400);</span>
+<span class="cstat-no" title="statement not covered" >                        done();</span>
+                    });
+            });
+        });
+    });
+&nbsp;
+&nbsp;
+    describe('/DELETE a campaign', () =&gt; {
+        it('it should not DELETE a campaign when not logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/' + globalCampaignID + '/delete';</span>
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server)</span>
+                .delete(url)
+                .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                    res.should.have.status(403);</span>
+<span class="cstat-no" title="statement not covered" >                    done();</span>
+                });
+        });
+&nbsp;
+        it('it should DELETE a campaign when logged in', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/' + globalCampaignID + '/delete';</span>
+<span class="cstat-no" title="statement not covered" >            let user = {</span>
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >            utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >                agent</span>
+                    .delete(url)
+                    .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >                        done();</span>
+                    });
+            });
+        });
+&nbsp;
+        it('it should NOT DELETE a campaign that doesnt exist', (done) =&gt; {
+<span class="cstat-no" title="statement not covered" >            let url = '/campaigns/' + 'fakeid' + '/delete';</span>
+<span class="cstat-no" title="statement not covered" >            let user = {</span>
+                email: 'teste2@teste.teste',
+                password: '123456'
+            };
+<span class="cstat-no" title="statement not covered" >            agent = chai.request(app.server);</span>
+<span class="cstat-no" title="statement not covered" >            utils.loginUser(user.email, user.password, <span class="fstat-no" title="function not covered" >function (err, agent) {</span></span>
+<span class="cstat-no" title="statement not covered" >                agent</span>
+                    .delete(url)
+                    .end((err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        res.should.have.status(400);</span>
+<span class="cstat-no" title="statement not covered" >                        done();</span>
+                    });
+            });
+        });
+    });
+&nbsp;
+	after(<span class="fstat-no" title="function not covered" >function(done){</span>
+<span class="cstat-no" title="statement not covered" >		utils.clearAppState();</span>
+<span class="cstat-no" title="statement not covered" >		done();</span>
+	});
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Dec 21 2017 04:15:37 GMT+0000 (WET)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

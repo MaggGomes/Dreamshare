@@ -651,7 +651,7 @@ router.delete('/:campaignId/delete', function (req, res, next) {
 			}
 		});
 	} else {
-		res.status(403);
+		res.sendStatus(403);
 	}
 });
 
